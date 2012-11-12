@@ -1,38 +1,46 @@
-var data; // loaded asynchronously
+$(document).ready(init);
 
-var path = d3.geo.path();
+function init() {
+	load_map();
+}
 
-var svg = d3.select("#chart")
-.append("svg");
+function load_map() {
+	var data; // loaded asynchronously
 
-var counties = svg.append("g")
-.attr("id", "counties")
-.attr("class", "RdYlGn");
+	var path = d3.geo.path();
 
-var states = svg.append("g")
-.attr("id", "states");
+	var svg = d3.select("#chart")
+	.append("svg");
 
-d3.json("data/us-counties.json", function(json) {
-		counties.selectAll("path")
-		.data(json.features)
-		.enter().append("path")
-		.attr("class", data ? quantize : null)
-		.attr("d", path);
-		});
+	var counties = svg.append("g")
+	.attr("id", "counties")
+	.attr("class", "RdYlGn");
 
-d3.json("data/us-states.json", function(json) {
-		states.selectAll("path")
-		.data(json.features)
-		.enter().append("path")
-		.attr("d", path);
-		});
+	var states = svg.append("g")
+	.attr("id", "states");
 
-d3.json("data/unemployment.json", function(json) {
-		data = json;
-		counties.selectAll("path")
-		.attr("class", quantize);
-		});
+	d3.json("data/us-counties.json", function(json) {
+			counties.selectAll("path")
+			.data(json.features)
+			.enter().append("path")
+			.attr("class", data ? quantize : null)
+			.attr("d", path);
+			});
 
-function quantize(d) {
-	return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
+	d3.json("data/us-states.json", function(json) {
+			states.selectAll("path")
+			.data(json.features)
+			.enter().append("path")
+			.attr("d", path);
+			});
+
+	d3.json("data/unemployment.json", function(json) {
+			data = json;
+			counties.selectAll("path")
+			.attr("class", quantize);
+			});
+
+	function quantize(d) {
+		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
+	}
 }
