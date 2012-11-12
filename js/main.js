@@ -7,7 +7,7 @@ var svg = d3.select("#chart")
 
 var counties = svg.append("g")
 .attr("id", "counties")
-.attr("class", "RdYlGn");
+.attr("class", "Reds");
 
 var states = svg.append("g")
 .attr("id", "states");
