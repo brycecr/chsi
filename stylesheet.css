@@ -8,7 +8,9 @@ svg {
     background: none repeat scroll 0 0 #FFFFFF;
     height: 500px;
     width: 960px;
+    float: left;
 }
+
 #counties path {
     stroke: #FFFFFF;
     stroke-width: 0.25px;
@@ -17,4 +19,8 @@ svg {
     fill: none;
     stroke: #FFFFFF;
     stroke-width: 1.5px;
+}
+
+#attributes {
+    float: left;
 }

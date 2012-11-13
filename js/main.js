@@ -2,6 +2,7 @@ $(document).ready(init);
 
 function init() {
 	load_map();
+	load_attributes();
 }
 
 function load_map() {
@@ -43,4 +44,8 @@ function load_map() {
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
 	}
+}
+
+function load_attributes() {
+	$("#attributes").html('test');
 }
