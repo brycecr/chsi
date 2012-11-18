@@ -15,6 +15,7 @@ function load_map() {
 	
 	var g = d3.select("svg").append("g");
 
+	//Define Legend
 	var defs = g.append("defs");
 
 	var legendGradient = defs.append("linearGradient")
@@ -22,21 +23,22 @@ function load_map() {
 	legendGradient.append('stop').attr('stop-color',"#F60").attr('offset',"0");
 	legendGradient.append('stop').attr('stop-color',"#FF6").attr('offset',"1");
 
+	var rect = g.append("rect")
+	.attr("fill","url(#linenGrad)")
+	.attr("x","10")
+	.attr("y","10")
+	.attr("width","60")
+	.attr("height","20");
+	//End Define Legend
+
+	//define country and states svg groups
 	var counties = g.append("g")
 	.attr("id", "counties")
 	.attr("class", "GnBu");
 
 	var states = g.append("g")
 	.attr("id", "states");
-
-	var rect = g.append("rect")
-	.attr("fill","url(#linenGrad)")
-	.attr("stroke","black")
-	.attr("stroke-width","5")
-	.attr("x","100")
-	.attr("y","100")
-	.attr("width","600")
-	.attr("height","200");
+	//end define country and states svg groups
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
