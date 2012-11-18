@@ -12,13 +12,31 @@ function load_map() {
 
 	var svg = d3.select("#chart")
 	.append("svg");
+	
+	var g = d3.select("svg").append("g");
 
-	var counties = svg.append("g")
+	var defs = g.append("defs");
+
+	var legendGradient = defs.append("linearGradient")
+	.attr("id", "linenGrad");
+	legendGradient.append('stop').attr('stop-color',"#F60").attr('offset',"0");
+	legendGradient.append('stop').attr('stop-color',"#FF6").attr('offset',"1");
+
+	var counties = g.append("g")
 	.attr("id", "counties")
-	.attr("class", "RdYlGn");
+	.attr("class", "GnBu");
 
-	var states = svg.append("g")
+	var states = g.append("g")
 	.attr("id", "states");
+
+	var rect = g.append("rect")
+	.attr("fill","url(#linenGrad)")
+	.attr("stroke","black")
+	.attr("stroke-width","5")
+	.attr("x","100")
+	.attr("y","100")
+	.attr("width","600")
+	.attr("height","200");
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
@@ -47,5 +65,5 @@ function load_map() {
 }
 
 function load_attributes() {
-	$("#attributes").html('test');
+	$("#attributes").html('Hella Mortality and Stuff');
 }
