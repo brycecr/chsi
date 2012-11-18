@@ -41,17 +41,13 @@ function load_map() {
 	//Define Legend
 	var defs = g.append("defs");
 
-	var legendGradient = defs.append("linearGradient")
-	.attr("id", "linenGrad");
-	legendGradient.append('stop').attr('stop-color',"#F60").attr('offset',"0");
-	legendGradient.append('stop').attr('stop-color',"#FF6").attr('offset',"1");
-
 	var rect = g.append("rect")
 	.attr("fill","url(#linenGrad)")
-	.attr("x","10")
-	.attr("y","10")
-	.attr("width","60")
-	.attr("height","20");
+	.attr("x","20")
+	.attr("y","-40")
+	.attr("width","160")
+	.attr("height","20")
+	.attr("transform","rotate(90)");
 	//End Define Legend
 
 	//define country and states svg groups
@@ -64,9 +60,17 @@ function load_map() {
  
 	d3.json("data/unemployment.json", function(json) {
 			data = json;
-			var colorScale = d3.scale.quantize()
-			.domain([datmin(data), datmax(data)])
-			.range(colorbrewer.Reds[9]);
+			var colorScale = d3.scale.quantile()
+			.domain([datmin(data), datmax(data)-10])
+			.range(colorbrewer.Blues[9])
+
+	rg = colorScale.range();
+
+	var legendGradient = defs.append("linearGradient")
+	.attr("id", "linenGrad");
+	for (var i = 8; i >= 0; i -= 1) {
+		legendGradient.append('stop').attr('stop-color',rg[i].toString()).attr('offset',1-i/8);
+	}
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
