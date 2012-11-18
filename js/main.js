@@ -5,6 +5,29 @@ function init() {
 	load_attributes();
 }
 
+
+function datmax(arr) {
+	var res = 0;
+	for (key in arr) {
+		if (arr[key] > res) {
+			res = arr[key];
+		}
+	}
+	console.log("max" + res);
+	return res;
+}
+
+function datmin(arr) {
+	var res = 0;
+	for (key in arr) {
+		if (arr[key] < res) {
+			res = arr[key];
+		}
+	}
+	console.log("min" + res);
+	return res;
+}
+
 function load_map() {
 	var data; // loaded asynchronously
 
@@ -33,18 +56,23 @@ function load_map() {
 
 	//define country and states svg groups
 	var counties = g.append("g")
-	.attr("id", "counties")
-	.attr("class", "GnBu");
+	.attr("id", "counties");
 
 	var states = g.append("g")
 	.attr("id", "states");
 	//end define country and states svg groups
+ 
+	d3.json("data/unemployment.json", function(json) {
+			data = json;
+			var colorScale = d3.scale.quantize()
+			.domain([datmin(data), datmax(data)])
+			.range(colorbrewer.Reds[9]);
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
-			.attr("class", data ? quantize : null)
+			.attr("fill", function(d) {return colorScale(data[d.id]);})
 			.attr("d", path);
 			});
 
@@ -54,16 +82,7 @@ function load_map() {
 			.enter().append("path")
 			.attr("d", path);
 			});
-
-	d3.json("data/unemployment.json", function(json) {
-			data = json;
-			counties.selectAll("path")
-			.attr("class", quantize);
-			});
-
-	function quantize(d) {
-		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
-	}
+	});
 }
 
 function load_attributes() {
