@@ -1,8 +1,12 @@
 $(document).ready(init);
 
 function init() {
-	load_map();
-	load_attributes();
+	load_nav();
+
+	var load_map_wrapper = function() {
+		load_map();
+	}
+	setTimeout(load_map_wrapper, 1000);
 }
 
 function load_map() {
@@ -10,7 +14,7 @@ function load_map() {
 
 	var path = d3.geo.path();
 
-	var svg = d3.select("#chart")
+	var svg = d3.select("#map")
 	.append("svg");
 
 	var counties = svg.append("g")
@@ -46,6 +50,78 @@ function load_map() {
 	}
 }
 
-function load_attributes() {
-	$("#attributes").html('test');
+function load_nav() {
+	$.ajax({
+		url: 'php/load_categories.php',
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			nav_html = '';
+			for (i = 0; i < data.length; i++) {
+				nav_html += '<div class="nav_category" id="' + data[i]['name'] + '" style="display: none">' + data[i]['display_name'] + '</div>';
+			}
+			$("#nav").html(nav_html);
+			$(".nav_category").each(function(i) {
+				$(this).delay(50*i).toggle("slide", {"direction": "left"});
+			});
+		}
+	});
+
+	$(".nav_category").hover(
+		function () {
+   			$(this).css('background', '#666');
+   			$(this).animate({'marginLeft': "+=20px"}, 100);
+  		}, 
+  		function () {
+    		$(this).css('background', '#CCC');
+    		$(this).animate({'marginLeft': "-=20px"}, 100);
+		}
+	);
+
+	$(".nav_category").click(function() {
+		load_category($(this).attr('id'));
+	});
+}
+
+function load_category(category) {
+	$.ajax({
+		url: 'php/load_category.php',
+		dataType: 'json',
+		data: 'category=' + category,
+		async: false,
+		success: function(data) {
+			nav_html = '<div id="nav_back">Back</div>';
+			for (i = 0; i < data.length; i++) {
+				nav_html += '<div class="nav_category" id="' + data[i]['COLUMN_NAME'] + '" style="display: none">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
+			}
+			$("#nav").html(nav_html);
+			$(".nav_category").each(function(i) {
+				$(this).delay(50*i).toggle("slide", {"direction": "left"});
+			});
+		}
+	});
+
+	$("#nav_back").hover(
+		function () {
+   			$(this).css('background', '#666');
+  		}, 
+  		function () {
+    		$(this).css('background', '#CCC');
+		}
+	);
+
+	$("#nav_back").click(function() {
+		load_nav();
+	});
+
+	$(".nav_category").hover(
+		function () {
+   			$(this).css('background', '#666');
+   			$(this).animate({'marginLeft': "+=20px"}, 100);
+  		}, 
+  		function () {
+    		$(this).css('background', '#CCC');
+    		$(this).animate({'marginLeft': "-=20px"}, 100);
+		}
+	);
 }

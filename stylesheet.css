@@ -4,10 +4,35 @@ body {
 	margin-bottom: 30px;
 }
 
+#container {
+    width: 1250px;
+}
+
+#nav {
+    float: left;
+    margin-top: 20px;
+    width: 260px;
+}
+
+.nav_category {
+    background: #CCC;
+    width: 220px;
+    margin: 3px;
+    padding: 5px 10px;
+}
+
+#nav_back {
+    background: #CCC;
+    width: 220px;
+    margin: 3px;
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
 svg {
     background: none repeat scroll 0 0 #FFFFFF;
     height: 500px;
-    width: 960px;
+    width: 950px;
     float: left;
 }
 
@@ -19,8 +44,4 @@ svg {
     fill: none;
     stroke: #FFFFFF;
     stroke-width: 1.5px;
-}
-
-#attributes {
-    float: left;
 }
