@@ -29,7 +29,10 @@ function datmin(arr) {
 }
 
 function load_map() {
-	var data; // loaded asynchronously
+	//This choropleth map code was seeded off an example by Mike Bostock
+	//using SVG data for backing map from Mike Bostock, Tom Carden, and
+	//the United States Census Bureau.
+	var data; 
 
 	var path = d3.geo.path();
 
