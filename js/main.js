@@ -56,6 +56,7 @@ function load_map() {
 	.attr("height","20")
 	.attr("transform","rotate(90)");
 	//End Define Legend
+	
 
 	//define country and states svg groups
 	var counties = g.append("g")
@@ -65,10 +66,11 @@ function load_map() {
 	.attr("id", "states");
 	//end define country and states svg groups
  
+	//deal with data synchronously
 	d3.json("data/unemployment.json", function(json) {
 			data = json;
 			var colorScale = d3.scale.quantile()
-			.domain([datmin(data), datmax(data)-10])
+			.domain([datmin(data), datmax(data)])
 			.range(colorbrewer.Blues[9])
 
 	rg = colorScale.range();
@@ -78,6 +80,25 @@ function load_map() {
 	for (var i = 8; i >= 0; i -= 1) {
 		legendGradient.append('stop').attr('stop-color',rg[i].toString()).attr('offset',1-i/8);
 	}
+
+	g.append("text")
+	.attr("text-anchor", "start")
+	.attr("x", "43")
+	.attr("y", "30")
+	.attr("fill", "#AAAAAA")
+	.attr("style", "font-family: 'PT Sans'; color: #666")
+	.style("font", "12px \'PT Sans\'")
+	.text(datmax(data))
+
+	g.append("text")
+	.attr("text-anchor", "start")
+	.attr("x", "43")
+	.attr("y", "190")
+	.attr("fill", "#AAAAAA")
+	.attr("style", "font-family: 'PT Sans'; color: #666")
+	.style("font", "12px \'PT Sans\'")
+	.text(datmin(data))
+	
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
