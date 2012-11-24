@@ -16,7 +16,6 @@ function datmax(arr) {
 			res = arr[key];
 		}
 	}
-	console.log("max" + res);
 	return res;
 }
 
@@ -27,11 +26,10 @@ function datmin(arr) {
 			res = arr[key];
 		}
 	}
-	console.log("min" + res);
 	return res;
 }
 
-function load_map() {
+function load_map(data) {
 	//This choropleth map code was seeded off an example by Mike Bostock
 	//using SVG data for backing map from Mike Bostock, Tom Carden, and
 	//the United States Census Bureau.
@@ -46,7 +44,7 @@ function load_map() {
 	
 	var g = d3.select("svg").append("g");
 
-	//Define Legend
+	// define legend
 	var defs = g.append("defs");
 
 	var rect = g.append("rect")
@@ -56,23 +54,19 @@ function load_map() {
 	.attr("width","160")
 	.attr("height","20")
 	.attr("transform","rotate(90)");
-	//End Define Legend
-	
+	// end define legend
 
-	//define country and states svg groups
+	// define country and states svg groups
 	var counties = g.append("g")
 	.attr("id", "counties");
 
 	var states = g.append("g")
 	.attr("id", "states");
-	//end define country and states svg groups
- 
-	//deal with data synchronously
-	d3.json("data/unemployment.json", function(json) {
-			data = json;
-			var colorScale = d3.scale.quantile()
-			.domain([datmin(data), datmax(data)])
-			.range(colorbrewer.Blues[9])
+	// end define country and states svg groups
+
+	var colorScale = d3.scale.quantile()
+	.domain([datmin(data), datmax(data)])
+	.range(colorbrewer.Blues[9])
 
 	rg = colorScale.range();
 
@@ -120,7 +114,7 @@ function load_map() {
 
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
-	}
+	};
 }
 
 function load_nav() {
