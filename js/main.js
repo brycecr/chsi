@@ -9,29 +9,103 @@ function init() {
 	setTimeout(load_map_wrapper, 1000);
 }
 
-function load_map(data) {
+function datmax(arr) {
+	var res = 0;
+	for (key in arr) {
+		if (arr[key] > res) {
+			res = arr[key];
+		}
+	}
+	console.log("max" + res);
+	return res;
+}
+
+function datmin(arr) {
+	var res = 0;
+	for (key in arr) {
+		if (arr[key] < res) {
+			res = arr[key];
+		}
+	}
+	console.log("min" + res);
+	return res;
+}
+
+function load_map() {
+	//This choropleth map code was seeded off an example by Mike Bostock
+	//using SVG data for backing map from Mike Bostock, Tom Carden, and
+	//the United States Census Bureau.
+
 	$("#map").html('');
 	console.log(data);
-
-	var data; // loaded asynchronously
 
 	var path = d3.geo.path();
 
 	var svg = d3.select("#map")
 	.append("svg");
+	
+	var g = d3.select("svg").append("g");
 
-	var counties = svg.append("g")
-	.attr("id", "counties")
-	.attr("class", "RdYlGn");
+	//Define Legend
+	var defs = g.append("defs");
 
-	var states = svg.append("g")
+	var rect = g.append("rect")
+	.attr("fill","url(#linenGrad)")
+	.attr("x","20")
+	.attr("y","-40")
+	.attr("width","160")
+	.attr("height","20")
+	.attr("transform","rotate(90)");
+	//End Define Legend
+	
+
+	//define country and states svg groups
+	var counties = g.append("g")
+	.attr("id", "counties");
+
+	var states = g.append("g")
 	.attr("id", "states");
+	//end define country and states svg groups
+ 
+	//deal with data synchronously
+	d3.json("data/unemployment.json", function(json) {
+			data = json;
+			var colorScale = d3.scale.quantile()
+			.domain([datmin(data), datmax(data)])
+			.range(colorbrewer.Blues[9])
+
+	rg = colorScale.range();
+
+	var legendGradient = defs.append("linearGradient")
+	.attr("id", "linenGrad");
+	for (var i = 8; i >= 0; i -= 1) {
+		legendGradient.append('stop').attr('stop-color',rg[i].toString()).attr('offset',1-i/8);
+	}
+
+	g.append("text")
+	.attr("text-anchor", "start")
+	.attr("x", "43")
+	.attr("y", "30")
+	.attr("fill", "#AAAAAA")
+	.attr("style", "font-family: 'PT Sans'; color: #666")
+	.style("font", "12px \'PT Sans\'")
+	.text(datmax(data))
+
+	g.append("text")
+	.attr("text-anchor", "start")
+	.attr("x", "43")
+	.attr("y", "190")
+	.attr("fill", "#AAAAAA")
+	.attr("style", "font-family: 'PT Sans'; color: #666")
+	.style("font", "12px \'PT Sans\'")
+	.text(datmin(data))
+	
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
-			.attr("class", data ? quantize : null)
+			.attr("fill", function(d) {return colorScale(data[d.id]);})
 			.attr("d", path);
 			});
 
