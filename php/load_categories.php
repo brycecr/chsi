@@ -3,9 +3,9 @@
 
 	include 'configuration.php';
  	$query = "SELECT * FROM Categories";
- 	$result = mysql_query($query);
+ 	$result = $db -> query($query);
   	$array = array();
-  	while($r = mysql_fetch_assoc($result)) {
+  	while($r = $result -> fetch()) {
     	$array[] = $r;
     }
 
