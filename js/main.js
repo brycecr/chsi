@@ -41,18 +41,6 @@ function load_map(data) {
 	
 	var g = d3.select("svg").append("g");
 
-	// define legend
-	var defs = g.append("defs");
-
-	var rect = g.append("rect")
-	.attr("fill","url(#linenGrad)")
-	.attr("x","20")
-	.attr("y","-40")
-	.attr("width","160")
-	.attr("height","20")
-	.attr("transform","rotate(90)");
-	// end define legend
-
 	// define country and states svg groups
 	var counties = g.append("g")
 	.attr("id", "counties");
@@ -63,15 +51,21 @@ function load_map(data) {
 
 	var colorScale = d3.scale.quantile()
 	.domain([datmin(data), datmax(data)])
-	.range(colorbrewer.Blues[9])
+	.range(colorbrewer.RdYlGn[9])
 
 	rg = colorScale.range();
 
-	var legendGradient = defs.append("linearGradient")
-	.attr("id", "linenGrad");
+	var legend = g.append("g")
+		.attr("id", "legend")
 	for (var i = 8; i >= 0; i -= 1) {
-		legendGradient.append('stop').attr('stop-color',rg[i].toString()).attr('offset',1-i/8);
+		g.append("rect")
+			.attr("x", "30")
+			.attr("y", 20 + 15*i)
+			.attr("height", "10")
+			.attr("width", "10")
+			.attr("fill",rg[i].toString());
 	}
+	
 
 	g.append("text")
 	.attr("text-anchor", "start")
@@ -85,7 +79,7 @@ function load_map(data) {
 	g.append("text")
 	.attr("text-anchor", "start")
 	.attr("x", "43")
-	.attr("y", "190")
+	.attr("y", "150")
 	.attr("fill", "#AAAAAA")
 	.attr("style", "font-family: 'PT Sans'; color: #666")
 	.style("font", "12px \'PT Sans\'")
