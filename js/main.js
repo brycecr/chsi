@@ -32,6 +32,7 @@ function datmin(arr) {
 	return res;
 }
 
+//D3 code goes here.
 function load_map() {
 	//This choropleth map code was seeded off an example by Mike Bostock
 	//using SVG data for backing map from Mike Bostock, Tom Carden, and
@@ -106,8 +107,9 @@ function load_map() {
 			.enter().append("path")
 			.attr("fill", function(d) {return colorScale(data[d.id]);})
 			.attr("d", path);
-			});
 
+			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+			});
 	d3.json("data/us-states.json", function(json) {
 			states.selectAll("path")
 			.data(json.features)
