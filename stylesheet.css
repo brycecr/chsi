@@ -2,6 +2,7 @@ body {
 	font-family: 'PT Sans';
 	overflow-y: scroll;
 	margin-bottom: 30px;
+	background: #222222;
 }
 
 #container {
@@ -34,7 +35,7 @@ body {
 }
 
 svg {
-    background: none repeat scroll 0 0 #FFFFFF;
+    background: none repeat scroll 0 0 #222222;
     height: 500px;
     width: 950px;
     float: left;
