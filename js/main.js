@@ -80,14 +80,11 @@ function load_map(data) {
 				.text(dm[i]);
 	}
 	
-
-	
-
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
-			.attr("fill", function(d) {return (!isNaN(data[d.id])) ? colorScale(data[d.id]) : "#222222";})
+			.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] > 0) ? colorScale(data[d.id]) : "#222222";})
 			.attr("d", path);
 
 			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
