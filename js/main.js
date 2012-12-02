@@ -54,43 +54,38 @@ function load_map(data) {
 	.range(colorbrewer.RdYlGn[9])
 
 	rg = colorScale.range();
+	dm = colorScale.domain();
 
 	var legend = g.append("g")
 		.attr("id", "legend")
-	for (var i = 8; i >= 0; i -= 1) {
-		g.append("rect")
-			.attr("x", "30")
-			.attr("y", 20 + 15*i)
-			.attr("height", "10")
-			.attr("width", "10")
-			.attr("fill",rg[i].toString());
+		for (var i = 8; i >= 0; i -= 1) {
+			var ypos = 20 + 15*i;
+
+			g.append("rect")
+				.attr("x", "30")
+				.attr("y", ypos)
+				.attr("height", "10")
+				.attr("width", "10")
+				.attr("fill",rg[i].toString());
+
+			g.append("text")
+				.attr("text-anchor", "start")
+				.attr("x", "43")
+				.attr("y", ypos + 10)
+				.attr("fill", "#AAAAAA")
+				.attr("style", "font-family: 'PT Sans'; color: #666")
+				.style("font", "12px \'PT Sans\'")
+				.text(ypos);
 	}
 	
 
-	g.append("text")
-	.attr("text-anchor", "start")
-	.attr("x", "43")
-	.attr("y", "30")
-	.attr("fill", "#AAAAAA")
-	.attr("style", "font-family: 'PT Sans'; color: #666")
-	.style("font", "12px \'PT Sans\'")
-	.text(datmax(data))
-
-	g.append("text")
-	.attr("text-anchor", "start")
-	.attr("x", "43")
-	.attr("y", "150")
-	.attr("fill", "#AAAAAA")
-	.attr("style", "font-family: 'PT Sans'; color: #666")
-	.style("font", "12px \'PT Sans\'")
-	.text(datmin(data))
 	
 
 	d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
-			.attr("fill", function(d) {return (!isNaN(data[d.id])) ? colorScale(data[d.id]) : "#EEEEEE";})
+			.attr("fill", function(d) {return (!isNaN(data[d.id])) ? colorScale(data[d.id]) : "#222222";})
 			.attr("d", path);
 
 			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
