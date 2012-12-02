@@ -18,10 +18,8 @@ function datmax(arr) {
 function datmin(arr) {
 	var res = 0;
 	for (key in arr) {
-		if (arr[key] < res) {
+		if (arr[key] > 0 && arr[key] < res) {
 			res = arr[key];
-		} else if (arr[key] < 0) {
-			res = 0;
 		}
 	}
 	return res;
