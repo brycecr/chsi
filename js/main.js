@@ -20,6 +20,8 @@ function datmin(arr) {
 	for (key in arr) {
 		if (arr[key] < res) {
 			res = arr[key];
+		} else if (arr[key] < 0) {
+			res = 0;
 		}
 	}
 	return res;
