@@ -53,10 +53,10 @@ function load_map(data) {
 
 	var colorScale = d3.scale.quantile()
 	.domain([datmin(data), datmax(data)])
-	.range(colorbrewer.RdYlGn[9])
+	.range(colorbrewer.Reds[9]);
 
 	rg = colorScale.range();
-	dm = colorScale.domain();
+	dm = colorScale.quantiles();
 
 	var legend = g.append("g")
 		.attr("id", "legend")
@@ -68,7 +68,7 @@ function load_map(data) {
 				.attr("y", ypos)
 				.attr("height", "10")
 				.attr("width", "10")
-				.attr("fill",rg[8-i].toString());
+				.attr("fill",rg[i].toString());
 
 			g.append("text")
 				.attr("text-anchor", "start")
