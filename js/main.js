@@ -66,7 +66,7 @@ function load_map(data) {
 				.attr("y", ypos)
 				.attr("height", "10")
 				.attr("width", "10")
-				.attr("fill",rg[i].toString());
+				.attr("fill",rg[8-i].toString());
 
 			g.append("text")
 				.attr("text-anchor", "start")
@@ -75,7 +75,7 @@ function load_map(data) {
 				.attr("fill", "#AAAAAA")
 				.attr("style", "font-family: 'PT Sans'; color: #666")
 				.style("font", "12px \'PT Sans\'")
-				.text(ypos);
+				.text(dm[i]);
 	}
 	
 
