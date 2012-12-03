@@ -18,10 +18,8 @@ function datmax(arr) {
 function datmin(arr) {
 	var res = 0;
 	for (key in arr) {
-		if (arr[key] < res) {
+		if (arr[key] > 0 && arr[key] < res) {
 			res = arr[key];
-		} else if (arr[key] < 0) {
-			res = 0;
 		}
 	}
 	return res;
@@ -76,7 +74,7 @@ function load_map(data) {
 				.attr("fill", "#AAAAAA")
 				.attr("style", "font-family: 'PT Sans'; color: #666")
 				.style("font", "12px \'PT Sans\'")
-				.text(dm[i]);
+				.text(dm[i].toFixed(2);
 	}
 	
 	d3.json("data/us-counties.json", function(json) {
