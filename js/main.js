@@ -34,6 +34,10 @@ function load_map(data) {
 	$("#map").html('');
 	console.log(data);
 
+
+	d3.json("data/unemployment.json", function(json) {
+			data = json;
+
 	var path = d3.geo.path();
 
 	var svg = d3.select("#map")
@@ -55,11 +59,13 @@ function load_map(data) {
 
 	rg = colorScale.range();
 	dm = colorScale.quantiles();
+	dm.unshift(0);
+	dm = dm.map(function(d) { return d.toFixed(2); });
 
 	var legend = g.append("g")
 		.attr("id", "legend")
 		for (var i = 8; i >= 0; i -= 1) {
-			var ypos = 20 + 15*i;
+			var ypos = 20 + 15*(8-i);
 
 			g.append("rect")
 				.attr("x", "30")
@@ -75,7 +81,7 @@ function load_map(data) {
 				.attr("fill", "#AAAAAA")
 				.attr("style", "font-family: 'PT Sans'; color: #666")
 				.style("font", "12px \'PT Sans\'")
-				.text(dm[i].toFixed(2);
+				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 	}
 	
 	d3.json("data/us-counties.json", function(json) {
@@ -95,6 +101,7 @@ function load_map(data) {
 			});
 
 	counties.selectAll("path").attr("class", quantize);
+});
 
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
