@@ -16,12 +16,19 @@ function datmax(arr) {
 }
 
 function datmin(arr) {
-	var res = 0;
+	//From a quick glance, San Diego County does a good job reporting.
+	//So we initialize to that to avoid initing to a negative value
+	var res = arr["06073"]; //this line assumes arr is county fips deyed data
+	if (res < 0) {
+		console.log("San Diego N/A Data Error");
+		res = 0;
+	}
 	for (key in arr) {
 		if (arr[key] > 0 && arr[key] < res) {
 			res = arr[key];
 		}
 	}
+	console.log("RES"+res);
 	return res;
 }
 
