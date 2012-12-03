@@ -254,7 +254,7 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 			load_map(map_data);
-			load_scatterplot(map_data);
+			//load_scatterplot(map_data);
 		}
 	});
 }
