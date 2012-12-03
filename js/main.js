@@ -33,10 +33,6 @@ function load_map(data) {
 	$("#map").html('');
 	console.log(data);
 
-
-	d3.json("data/unemployment.json", function(json) {
-			data = json;
-
 	var path = d3.geo.path();
 
 	var svg = d3.select("#map")
@@ -100,7 +96,6 @@ function load_map(data) {
 			});
 
 	counties.selectAll("path").attr("class", quantize);
-});
 
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
