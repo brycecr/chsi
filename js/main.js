@@ -102,45 +102,45 @@ function load_map(data) {
 	};
 }
 
-function load_scatterplot(data) {
-	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
+// function load_scatterplot(data) {
+// 	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
 
-	var xdata = [5, 10, 15, 20];
-    var ydata = [3, 17, 4, 6];
-    var width = 500;
-    var height = 400;
+// 	var xdata = [5, 10, 15, 20];
+//     var ydata = [3, 17, 4, 6];
+//     var width = 500;
+//     var height = 400;
 
-    var x = d3.scale.linear()
-          .domain([0, d3.max(xdata)])
-          .range([ 0, width ]);
+//     var x = d3.scale.linear()
+//           .domain([0, d3.max(xdata)])
+//           .range([ 0, width ]);
 
-    var y = d3.scale.linear()
-          .domain([0, d3.max(ydata)])
-          .range([ height, 0 ]);
+//     var y = d3.scale.linear()
+//           .domain([0, d3.max(ydata)])
+//           .range([ height, 0 ]);
 
-    var chart = d3.select("scatterplot")
-		.append('svg:svg')
-		.attr('width', 400)
-		.attr('height', 400)
-	};
+//     var chart = d3.select("scatterplot")
+// 		.append('svg:svg')
+// 		.attr('width', 400)
+// 		.attr('height', 400);
 
-	var xaxis = d3.svg.axis()
-		.scale(x)
-		.orient('bottom');
+// 	var xaxis = d3.svg.axis()
+// 		.scale(x)
+// 		.orient('bottom');
 
-	var yaxis = d3.svg.axis()
-		.scale(y)
-		.orient('left');
+// 	var yaxis = d3.svg.axis()
+// 		.scale(y)
+// 		.orient('left');
 
-	var g = main.append("svg:g");
+// 	var g = main.append("svg:g");
 
-	g.selectAll("scatter-dots")
-		.data(ydata)  // using the values in the ydata array
-		.enter().append("svg:circle")  // create a new circle for each value
-	    	.attr("cy", function (d) { return y(d); } ) // translate y value to a pixel
-	    	.attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
-	    	.attr("r", 10) // radius of circle
-	    	.style("opacity", 0.6); // opacity of circle
+// 	g.selectAll("scatter-dots")
+// 		.data(ydata)  // using the values in the ydata array
+// 		.enter().append("svg:circle")  // create a new circle for each value
+// 	    	.attr("cy", function (d) { return y(d); } ) // translate y value to a pixel
+// 	    	.attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
+// 	    	.attr("r", 10) // radius of circle
+// 	    	.style("opacity", 0.6); // opacity of circle
+// }
 
 function load_nav() {
 	$.ajax({
