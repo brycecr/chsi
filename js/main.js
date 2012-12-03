@@ -25,11 +25,10 @@ function datmin(arr) {
 	return res;
 }
 
-//D3 code goes here.
 function load_map(data) {
-	//This choropleth map code was seeded off an example by Mike Bostock
-	//using SVG data for backing map from Mike Bostock, Tom Carden, and
-	//the United States Census Bureau.
+	// This choropleth map code was seeded off an example by Mike Bostock
+	// using SVG data for backing map from Mike Bostock, Tom Carden, and
+	// the United States Census Bureau.
 
 	$("#map").html('');
 	console.log(data);
@@ -107,6 +106,44 @@ function load_map(data) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
 	};
 }
+
+function load_scatterplot(data) {
+	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
+
+	var xdata = [5, 10, 15, 20];
+    var ydata = [3, 17, 4, 6];
+
+    var x = d3.scale.linear()
+          .domain([0, d3.max(xdata)])
+          .range([ 0, width ]);
+
+    var y = d3.scale.linear()
+          .domain([0, d3.max(ydata)])
+          .range([ height, 0 ]);
+
+    var chart = d3.select("scatterplot")
+		.append('svg:svg')
+		.attr('width', 400)
+		.attr('height', 400)
+	};
+
+	var xaxis = d3.svg.axis()
+		.scale(x)
+		.orient('bottom');
+
+	var yaxis = d3.svg.axis()
+		.scale(y)
+		.orient('left');
+
+	var g = main.append("svg:g");
+
+	g.selectAll("scatter-dots")
+		.data(ydata)  // using the values in the ydata array
+		.enter().append("svg:circle")  // create a new circle for each value
+	    	.attr("cy", function (d) { return y(d); } ) // translate y value to a pixel
+	    	.attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
+	    	.attr("r", 10) // radius of circle
+	    	.style("opacity", 0.6); // opacity of circle
 
 function load_nav() {
 	$.ajax({
@@ -220,6 +257,7 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 			load_map(map_data);
+			load_scatterplot(map_data);
 		}
 	});
 }

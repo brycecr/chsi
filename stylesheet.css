@@ -49,3 +49,7 @@ svg {
     stroke: #FFFFFF;
     stroke-width: 1.5px;
 }
+
+#clear {
+    clear: both;
+}
