@@ -53,7 +53,7 @@ function load_map(data) {
 	.range(colorbrewer.Reds[9]);
 
 	rg = colorScale.range();
-	dm = colorScale.quantiles();
+	dm = colorScale.quantiles().slice();
 	dm.unshift(0);
 	dm = dm.map(function(d) { return d.toFixed(2); });
 
