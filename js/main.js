@@ -28,7 +28,6 @@ function datmin(arr) {
 			res = arr[key];
 		}
 	}
-	console.log("RES"+res);
 	return res;
 }
 
