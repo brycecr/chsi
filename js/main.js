@@ -83,7 +83,7 @@ function load_map(data) {
 			counties.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
-			.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] > 0) ? colorScale(data[d.id]) : "#222222";})
+			.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] > 0) ? colorScale(data[d.id]) : "#CCCCCC";})
 			.attr("d", path);
 
 			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
