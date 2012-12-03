@@ -107,6 +107,8 @@ function load_scatterplot(data) {
 
 	var xdata = [5, 10, 15, 20];
     var ydata = [3, 17, 4, 6];
+    var width = 500;
+    var height = 400;
 
     var x = d3.scale.linear()
           .domain([0, d3.max(xdata)])
