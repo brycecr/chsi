@@ -107,6 +107,8 @@ function load_scatterplot(data) {
 
 	var xdata = [5, 10, 15, 20];
     var ydata = [3, 17, 4, 6];
+    var width = 500;
+    var height = 400;
 
     var x = d3.scale.linear()
           .domain([0, d3.max(xdata)])
@@ -119,8 +121,7 @@ function load_scatterplot(data) {
     var chart = d3.select("scatterplot")
 		.append('svg:svg')
 		.attr('width', 400)
-		.attr('height', 400)
-	};
+		.attr('height', 400);
 
 	var xaxis = d3.svg.axis()
 		.scale(x)
@@ -139,6 +140,7 @@ function load_scatterplot(data) {
 	    	.attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
 	    	.attr("r", 10) // radius of circle
 	    	.style("opacity", 0.6); // opacity of circle
+}
 
 function load_nav() {
 	$.ajax({
@@ -252,7 +254,7 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 			load_map(map_data);
-			load_scatterplot(map_data);
+			//load_scatterplot(map_data);
 		}
 	});
 }
