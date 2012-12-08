@@ -3,6 +3,7 @@ $(document).ready(init);
 function init() {
 	load_map('')
 	load_scatterplot({});
+	load_parcoords({});
 	load_nav();
 }
 
@@ -48,6 +49,8 @@ function load_map(data) {
 
 	var svg = d3.select("#map")
 	.append("svg");
+
+	svg.attr("id","map");
 	
 	var g = d3.select("svg").append("g");
 
@@ -136,33 +139,49 @@ function update_scatterplot(data) {
     var width = 800;
     var height = 200;
     var plotbuf = 20;
-    var x = d3.scale.linear()
-          .domain([datmin(data), datmax(data)])
-          .range([ plotbuf, width -plotbuf ]);
+
+    //X axis represents state, so we take 1st to digits of the FIPS code
+    var x = d3.scale.ordinal()
+		.domain(Object.keys(data).map(function(s) {return s.slice(0,2);}))
+          .rangePoints([ plotbuf, width-plotbuf ]);
 
     var y = d3.scale.linear()
           .domain([0, datmax(data)])
-          .range([ height - plotbuf, plotbuf ])
+          .range([ height-plotbuf, plotbuf ])
 		.clamp(true);
 
-
-	var xaxis = d3.svg.axis()
+    var xaxis = d3.svg.axis()
 		.scale(x)
 		.orient('bottom');
 
-	var yaxis = d3.svg.axis()
+    var yaxis = d3.svg.axis()
 		.scale(y)
 		.orient('left');
 
 	var dots = chart.select('g').selectAll("scatter-dots").data(Object.keys(data));  // using the values in the ydata array
 		dots.enter().append("circle")  // create a new circle for each value
-		.attr("cy", function (d,i) { return y(data[d]); } ) // translate y value to a pixel
-		.attr("cx", function (d,i) { return x(data[d]); } ) // translate x value
+		.attr("cy", function (d,i) { return (data[d]>0) ? y(data[d]) : -50; } ) // translate y value to a pixel
+		.attr("cx", function (d,i) { return x(d.slice(0,2)); } ) // translate x value
 		.attr("r", 2) // radius of circle
 		.attr("fill", "#000000")
 		.style("opacity", 0.6); // opacity of circle
 
 	dots.exit().remove();
+}
+
+function load_parcoords(data) {
+
+	var stupid = [
+		[0,-0,0,0,0,3 ],
+		[1,-1,1,2,1,6 ],
+		[2,-2,4,4,0.5,2],
+		[3,-3,9,6,0.33,4],
+		[4,-4,16,8,0.25,9]];
+
+	var pc = d3.parcoords()("#coordspar")
+		.data(stupid)
+		.render()
+		.createAxes();
 
 }
 
