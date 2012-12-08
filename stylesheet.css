@@ -33,11 +33,10 @@ body {
     font-weight: bold;
 }
 
-svg {
-    background: none repeat scroll 0 0 #FFF;
-    height: 500px;
-    width: 950px;
-    float: left;
+#map {
+	width: 950px;
+	height: 500px;
+	float:left;
 }
 
 #counties path {
