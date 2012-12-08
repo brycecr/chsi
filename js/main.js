@@ -173,15 +173,17 @@ function load_parcoords(data) {
 	var transdata = [];
 	var i = 0;
 	for (key in data) {
+		if (data[key]<=0) continue;
 		var o = {fips: key, val: data[key]};
-		transdata[i] = o;
+		transdata[i++] = o;
 	}
 
 	var pc = d3.parcoords()("#coordspar")
 		.data(transdata)
+		.alpha(0.4)
 		.render()
-		.createAxes();
-
+		.brushable()
+		.reorderable();
 }
 
 function load_nav() {
