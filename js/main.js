@@ -17,15 +17,13 @@ function datmax(arr) {
 }
 
 function datmin(arr) {
-	
-	//From a quick glance, San Diego County does a good job reporting.
-	//So we initialize to that to avoid initing to a negative value
+	// From a quick glance, San Diego County does a good job reporting.
+	// So we initialize to that to avoid initing to a negative value
 	var res = 0;
 	if (arr.hasOwnProperty('06073')) {
-		res = arr["06073"]; //this line assumes arr is county fips deyed data
-	} 
+		res = arr["06073"]; // this line assumes arr is county fips data
+	}
 	if (res < 0) {
-		console.log("San Diego N/A Data Error");
 		res = 0;
 	}
 	for (key in arr) {
@@ -169,7 +167,7 @@ function update_scatterplot(data) {
 }
 
 function load_parcoords(data) {
-
+	console.log('loading paracoords');
 	var transdata = [];
 	var i = 0;
 	for (key in data) {
