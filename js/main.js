@@ -2,6 +2,7 @@ $(document).ready(init);
 
 function init() {
 	load_map('')
+	load_scatterplot({});
 	load_nav();
 }
 
@@ -16,9 +17,13 @@ function datmax(arr) {
 }
 
 function datmin(arr) {
+	
 	//From a quick glance, San Diego County does a good job reporting.
 	//So we initialize to that to avoid initing to a negative value
-	var res = arr["06073"]; //this line assumes arr is county fips deyed data
+	var res = 0;
+	if (arr.hasOwnProperty('06073')) {
+		res = arr["06073"]; //this line assumes arr is county fips deyed data
+	} 
 	if (res < 0) {
 		console.log("San Diego N/A Data Error");
 		res = 0;
@@ -111,23 +116,35 @@ function load_map(data) {
 function load_scatterplot(data) {
 	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
 
-	var xdata = [5, 10, 15, 20];
-    var ydata = [3, 17, 4, 6];
-    var width = 500;
-    var height = 400;
+    var width = 800;
+    var height = 200;
 
+    var chart = d3.select("#scatterplot")
+		.append('svg')
+		.attr('width', width)
+		.attr('height', height);
+
+	var g = chart.append("g");
+	var points = g.append("g").attr("id", "scatter-dots");
+
+	update_scatterplot(data);
+}
+
+function update_scatterplot(data) {
+    var chart = d3.select("#scatterplot");
+
+    var width = 800;
+    var height = 200;
+    var plotbuf = 20;
     var x = d3.scale.linear()
-          .domain([0, d3.max(xdata)])
-          .range([ 0, width ]);
+          .domain([datmin(data), datmax(data)])
+          .range([ plotbuf, width -plotbuf ]);
 
     var y = d3.scale.linear()
-          .domain([0, d3.max(ydata)])
-          .range([ height, 0 ]);
+          .domain([0, datmax(data)])
+          .range([ height - plotbuf, plotbuf ])
+		.clamp(true);
 
-    var chart = d3.select("scatterplot")
-		.append('svg:svg')
-		.attr('width', 400)
-		.attr('height', 400);
 
 	var xaxis = d3.svg.axis()
 		.scale(x)
@@ -137,15 +154,16 @@ function load_scatterplot(data) {
 		.scale(y)
 		.orient('left');
 
-	var g = main.append("svg:g");
+	var dots = chart.select('g').selectAll("scatter-dots").data(Object.keys(data));  // using the values in the ydata array
+		dots.enter().append("circle")  // create a new circle for each value
+		.attr("cy", function (d,i) { return y(data[d]); } ) // translate y value to a pixel
+		.attr("cx", function (d,i) { return x(data[d]); } ) // translate x value
+		.attr("r", 2) // radius of circle
+		.attr("fill", "#000000")
+		.style("opacity", 0.6); // opacity of circle
 
-	g.selectAll("scatter-dots")
-		.data(ydata)  // using the values in the ydata array
-		.enter().append("svg:circle")  // create a new circle for each value
-	    	.attr("cy", function (d) { return y(d); } ) // translate y value to a pixel
-	    	.attr("cx", function (d,i) { return x(xdata[i]); } ) // translate x value
-	    	.attr("r", 10) // radius of circle
-	    	.style("opacity", 0.6); // opacity of circle
+	dots.exit().remove();
+
 }
 
 function load_nav() {
@@ -260,7 +278,7 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 			load_map(map_data);
-			load_scatterplot(map_data);
+			update_scatterplot(map_data);
 		}
 	});
 }
