@@ -3,7 +3,6 @@ $(document).ready(init);
 function init() {
 	load_map('')
 	load_scatterplot({});
-	load_parcoords({});
 	load_nav();
 }
 
@@ -171,15 +170,15 @@ function update_scatterplot(data) {
 
 function load_parcoords(data) {
 
-	var stupid = [
-		[0,-0,0,0,0,3 ],
-		[1,-1,1,2,1,6 ],
-		[2,-2,4,4,0.5,2],
-		[3,-3,9,6,0.33,4],
-		[4,-4,16,8,0.25,9]];
+	var transdata = [];
+	var i = 0;
+	for (key in data) {
+		var o = {fips: key, val: data[key]};
+		transdata[i] = o;
+	}
 
 	var pc = d3.parcoords()("#coordspar")
-		.data(stupid)
+		.data(transdata)
 		.render()
 		.createAxes();
 
@@ -298,6 +297,7 @@ function load_attribute(attribute_div, category) {
 			}
 			load_map(map_data);
 			update_scatterplot(map_data);
+			load_parcoords(map_data);
 		}
 	});
 }
