@@ -9,6 +9,12 @@ body {
     margin: -5px auto;
 }
 
+#nav_change {
+    width: 1260px;  
+    background: #EFEFEF;
+    margin: 0px;
+}
+
 #nav {
     position: relative;
     width: 1260px;
