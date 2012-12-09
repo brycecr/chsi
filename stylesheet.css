@@ -9,6 +9,11 @@ body {
     margin: auto;
 }
 
+#nav {
+    width: 1250px;
+    border-bottom: 2px solid #333;
+}
+
 #nav1 {
     float: left;
     margin-left: 110px;

@@ -206,7 +206,7 @@ function load_nav() {
    			$(this).animate({'marginLeft': "+=20px"}, 100);
   		}, 
   		function () {
-    		$(this).css('background', '#CCC');
+    		$(this).css('background', '#444');
     		$(this).animate({'marginLeft': "-=20px"}, 100);
 		}
 	);
@@ -228,6 +228,7 @@ function load_category(category) {
 				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '" style="display: none">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
 			}
 			$("#nav2").html(nav_html);
+			console.log(nav_html);
 		}
 	});
 
