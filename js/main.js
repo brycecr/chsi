@@ -10,7 +10,7 @@ function init() {
 					$("body").data('map_id', i);
 					$(".map").css('background', '#FFF');
 					$(this).css('background', '#EFEFEF');
-					$("#nav").show('blinds');
+					$("#nav_show").trigger('click');
 				}
 			}(i));
 		}
