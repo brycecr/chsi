@@ -226,6 +226,8 @@ function load_nav() {
 
 	$("#nav_show").click(function() {
 		$("#nav").show('blind');
+		$("#nav_show").hide();
+		$("#nav_hide").show();
 	});
 }
 
@@ -272,8 +274,8 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 			load_map(map_data);
-			update_scatterplot(map_data);
-			load_parcoords(map_data);
+			//update_scatterplot(map_data);
+			//load_parcoords(map_data);
 		}
 	});
 }
