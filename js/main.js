@@ -40,13 +40,15 @@ function load_map(data) {
 	// the United States Census Bureau.
 
 	$("#map").html('');
-	console.log(data);
-
+	var width = 400;
+	var height = 200;
 	var path = d3.geo.path();
 
 	var svg = d3.select("#map")
 	.append("svg")
-	.attr("id","map");
+	.attr("id","map")
+	.attr("width", width)
+	.attr("height", height);
 	
 	var g = d3.select("svg").append("g");
 
@@ -56,7 +58,6 @@ function load_map(data) {
 
 	var states = g.append("g")
 	.attr("id", "states");
-	// end define country and states svg groups
 
 	var colorScale = d3.scale.quantile()
 	.domain([datmin(data), datmax(data)])
@@ -87,9 +88,9 @@ function load_map(data) {
 				.attr("style", "font-family: 'PT Sans'; color: #666")
 				.style("font", "12px \'PT Sans\'")
 				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
-	}
+		}
 	
-	d3.json("data/us-counties.json", function(json) {
+		d3.json("data/us-counties.json", function(json) {
 			counties.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
@@ -97,13 +98,14 @@ function load_map(data) {
 			.attr("d", path);
 
 			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
-			});
-	d3.json("data/us-states.json", function(json) {
+		});
+
+		d3.json("data/us-states.json", function(json) {
 			states.selectAll("path")
 			.data(json.features)
 			.enter().append("path")
 			.attr("d", path);
-			});
+		});
 
 	counties.selectAll("path").attr("class", quantize);
 
