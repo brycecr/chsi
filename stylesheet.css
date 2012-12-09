@@ -12,6 +12,8 @@ body {
 #nav {
     width: 1250px;
     background: #EFEFEF;
+    margin: -5px;
+    padding: 5px 0px;
 }
 
 #nav1 {
@@ -48,6 +50,11 @@ body {
     height: 60px;
     margin: 3px;
     padding: 5px 10px;
+}
+
+.nav_attribute_description {
+    font-size: 60%;
+    line-height: 80%;
 }
 
 #map {
