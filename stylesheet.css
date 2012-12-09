@@ -8,15 +8,6 @@ body {
     width: 1250px;
 }
 
-#nav {
-    float: left;
-    width: 1000px;
-    height: 100px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-bottom: 10px;
-}
-
 #nav1 {
     float: left;
     margin-left: 300px;
