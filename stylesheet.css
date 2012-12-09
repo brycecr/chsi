@@ -15,7 +15,7 @@ body {
     background: #EDDA74;
     z-index: 10;
     text-align: right;
-    padding: 3px;
+    padding: 3px 0px;
 }
 
 .nav_toggle {
@@ -36,7 +36,6 @@ body {
 #nav {
     width: 1260px;
     background: #EFEFEF;
-    margin-top: -10px;
     margin-bottom: 20px;
     padding: 15px 0px;
 }
