@@ -13,7 +13,6 @@ body {
     width: 1250px;
     background: #EFEFEF;
     margin: -5px -5px 0px -5px;
-    padding: 5px 0px;
 }
 
 #nav1 {
@@ -29,7 +28,7 @@ body {
     float: left;
     margin: 0px 20px 5px 0px;
     width: 760px;
-    height: 330px;
+    height: 325px;
     text-align: center;
     overflow-x: hidden;
     overflow-y: auto;
@@ -51,6 +50,7 @@ body {
     height: 45px;
     margin: 3px;
     padding: 5px 10px;
+    text-align: left;
 }
 
 .nav_attribute_description {

@@ -217,8 +217,6 @@ function load_nav() {
 }
 
 function load_category(category) {
-	$("#nav2").css('text-align', 'left');
-
 	$.ajax({
 		url: 'php/load_category.php',
 		dataType: 'json',
