@@ -283,6 +283,8 @@ function load_attribute(attribute_div, category) {
 			for (var i = 0; i < data.length; i++) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
+
+			$("#map" + $("body").data('map_id') + "_title").text(attribute_div.attr('id'));
 			load_map(map_data, 'map' + $("body").data('map_id'));
 			update_scatterplot(map_data);
 			load_parcoords(map_data);

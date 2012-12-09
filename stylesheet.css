@@ -81,11 +81,21 @@ body {
     font-size: 60%;
 }
 
-.map {
+.map_container {
     float: left;
     margin: 10px;
+}
+
+.map {
     width: 400px;
     height: 200px;
+    cursor: pointer;
+}
+
+.map_title {
+    width: 400px;
+    height: 20px;
+    background: #CCC;
 }
 
 #counties path {
