@@ -226,7 +226,7 @@ function load_nav() {
 
 	$("#nav_show").click(function() {
 		$("#nav").show('blind');
-	}
+	});
 }
 
 function load_category(category) {
