@@ -3,9 +3,10 @@ $(document).ready(init);
 function init() {
 	load_nav();
 	var load_map_wrapper = function() {
-		for (var i = 1; i <= 6; i++) {
+		for (var i = 1; i <= 3; i++) {
 			load_map('', "map" + i.toString());
 			$("#map" + i.toString()).click(function() {
+				console.log(i);
 				$("body").data('map_id', i);
 				$(".map").attr('background', '#FFF');
 				$(this).attr('background', '#EFEFEF');
