@@ -18,6 +18,7 @@ body {
 
 .nav_toggle {
     float: right;
+    margin-right: 10px;
     font-size: 120%;
     display: none;
 }
@@ -33,7 +34,7 @@ body {
 #nav {
     width: 1260px;
     background: #EFEFEF;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 #nav1 {
