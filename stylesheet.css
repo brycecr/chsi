@@ -30,6 +30,7 @@ body {
     margin: 0px 20px 5px 0px;
     width: 760px;
     height: 330px;
+    text-align: center;
     overflow-x: hidden;
     overflow-y: auto;
 }

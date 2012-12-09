@@ -195,7 +195,7 @@ function load_nav() {
 			}
 			$("#nav1").html(nav_html);
 			$(".nav_category").each(function(i) {
-				$(this).delay(50*i).show('drop');
+				$(this).delay(100*i).show('drop');
 			});
 		}
 	});
@@ -217,6 +217,8 @@ function load_nav() {
 }
 
 function load_category(category) {
+	$("#nav2").css('text-align', 'left');
+
 	$.ajax({
 		url: 'php/load_category.php',
 		dataType: 'json',
