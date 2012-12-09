@@ -220,6 +220,7 @@ function load_nav() {
 
 	$("nav_hide").click(function() {
 		$("#nav").hide('blind');
+		console.log('clik');
 	});
 }
 
