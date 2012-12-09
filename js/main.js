@@ -56,7 +56,8 @@ function load_map(data, div_id) {
 
 	var svg = d3.select("#" + div_id)
 	.append("svg")
-	.attr("id",div_id);
+	.attr("id",div_id)
+	.attr("backgorund-color", '#EFEFEF');
 	
 	var g = d3.select("#" + div_id + " svg").append("g");
 
@@ -77,7 +78,7 @@ function load_map(data, div_id) {
 	dm = dm.map(function(d) { return d.toFixed(2); });
 
 	var legend = g.append("g")
-		.attr("id", "legend")
+	.attr("id", "legend")
 
 	for (var i = 8; i >= 0; i -= 1) {
 		var ypos = 20 + 15*(8-i);
