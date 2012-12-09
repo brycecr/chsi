@@ -84,6 +84,8 @@ body {
 .map_container {
     float: left;
     margin: 10px;
+    width: 400px;
+    height: 420px;
 }
 
 .map {
