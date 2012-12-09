@@ -202,11 +202,11 @@ function load_nav() {
 
 	$(".nav_category").hover(
 		function () {
-   			$(this).css('background', '#666');
+   			$(this).css('background', '#444');
    			$(this).animate({'marginLeft': "+=20px"}, 100);
   		}, 
   		function () {
-    		$(this).css('background', '#444');
+    		$(this).css('background', '#666');
     		$(this).animate({'marginLeft': "-=20px"}, 100);
 		}
 	);
@@ -227,8 +227,9 @@ function load_category(category) {
 			for (var i = 0; i < data.length; i++) {
 				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
 			}
+			$("#nav2").hide()
 			$("#nav2").html(nav_html);
-			console.log(nav_html);
+			$("#nav2").fadeIn('slow');
 		}
 	});
 
