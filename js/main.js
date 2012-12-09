@@ -110,6 +110,8 @@ function load_map(data) {
 
 	counties.selectAll("path").attr("class", quantize);
 
+	g.attr("transform", "scale(0.5)");
+
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
 	};
@@ -168,23 +170,38 @@ function update_scatterplot(data) {
 	dots.exit().remove();
 }
 
+var pc = null;
 function load_parcoords(data) {
 
 	var transdata = [];
 	var i = 0;
 	for (key in data) {
 		if (data[key]<=0) continue;
-		var o = {fips: key, val: data[key]};
+		var o = {fips: key, val: data[key], name: i};
 		transdata[i++] = o;
 	}
 
-	var pc = d3.parcoords()("#coordspar")
-		.data(transdata)
-		.alpha(0.4)
-		.render()
-		.brushable()
-		.reorderable();
+	if (pc == null) {
+		pc = d3.parcoords()("#coordspar")
+			.data(transdata, String)
+			.alpha(0.2)
+			.render()
+			.brushable()
+			.reorderable();
+	} else {
+		pc.removeAxes()
+			.data(transdata, String)
+			.autoscale()
+			.createAxes()
+			.alpha(0.2)
+			.render()
+			.brushable()
+			.reorderable();
+	}
+
 }
+
+
 
 function load_nav() {
 	$.ajax({
