@@ -12,7 +12,7 @@ function init() {
 					$(this).attr('background', '#EFEFEF');
 					console.log(i);
 				}
-			})(i);
+			}(i));
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
