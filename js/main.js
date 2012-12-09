@@ -228,9 +228,6 @@ function load_category(category) {
 				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '" style="display: none">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
 			}
 			$("#nav2").html(nav_html);
-			$(".nav_category").each(function(i) {
-				$(this).delay(50*i).toggle("slide", {"direction": "left"});
-			});
 		}
 	});
 
