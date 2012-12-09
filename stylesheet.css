@@ -98,7 +98,8 @@ body {
     width: 400px;
     height: 20px;
     background: #CCC;
-    margin: 0px;
+    text-align: center;
+    padding: 3px 0px;
 }
 
 #counties path {
