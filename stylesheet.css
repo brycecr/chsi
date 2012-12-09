@@ -19,8 +19,8 @@ body {
 .nav_toggle {
     float: right;
     margin-right: 10px;
-    font-size: 120%;
     display: none;
+    background: #EDDA74;
 }
 
 .nav_toggle a {
@@ -83,8 +83,8 @@ body {
 
 #map_change {
     width: 1260px;
-    height: 30px;
-    background: #EFEFEF;
+    padding: 3px;
+    background: #EDDA74;
     margin: 0px;
     text-align: right;
 }
@@ -93,7 +93,7 @@ body {
     float: left;
     margin: 10px;
     width: 400px;
-    height: 20px;
+    height: 200px;
 }
 
 .map {
