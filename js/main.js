@@ -16,7 +16,7 @@ function init() {
 	}
 	setTimeout(load_map_wrapper, 2000);
 	$("body").data('map_id', 1);			// set active map id to 1 (by default)
-	$("#map1 svg").attr('background-color', '#EFEFEF');
+	$("#map1").attr('border','20px solid #EFEFEF');
 	load_scatterplot({});
 }
 
@@ -56,8 +56,7 @@ function load_map(data, div_id) {
 
 	var svg = d3.select("#" + div_id)
 	.append("svg")
-	.attr("id",div_id)
-	.attr("backgorund-color", '#EFEFEF');
+	.attr("id",div_id);
 	
 	var g = d3.select("#" + div_id + " svg").append("g");
 
