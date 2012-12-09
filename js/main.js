@@ -31,8 +31,6 @@ function init() {
 
 	$("body").data('map_id_active', 1);			// set active map id to 1 (by default)
 	$("#map1").css('background', '#EFEFEF');
-
-	//load_scatterplot({});
 }
 
 function datmax(arr) {
@@ -73,7 +71,7 @@ function load_map(data, div_id) {
 	.append("svg")
 	.attr("width", 800)
 	.attr("height", 500)
-	.attr("id",div_id);
+	.attr("id",div_id+"svg");
 	
 	var g = d3.select("#" + div_id + " svg").append("g");
 
@@ -83,6 +81,37 @@ function load_map(data, div_id) {
 
 	var states = g.append("g")
 	.attr("id", "states");
+
+	var colorScale = d3.scale.quantile()
+	.domain([datmin(data), datmax(data)])
+	.range(colorbrewer.Reds[9]);
+
+	rg = colorScale.range();
+	dm = colorScale.quantiles().slice();
+	
+	d3.json("data/us-counties.json", function(json) {
+		counties.selectAll("path")
+		.data(json.features)
+		.enter().append("path")
+		.attr("fill", "#DDDDDD")
+		.attr("d", path);
+
+		counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+	});
+
+	d3.json("data/us-states.json", function(json) {
+		states.selectAll("path")
+		.data(json.features)
+		.enter().append("path")
+		.attr("d", path);
+	});
+
+	g.attr("transform", "scale(0.4)");
+}
+
+function update_map(data, div_id) {
+
+	var g = d3.select("#" + div_id+"svg").select("g");
 
 	var colorScale = d3.scale.quantile()
 	.domain([datmin(data), datmax(data)])
@@ -116,30 +145,13 @@ function load_map(data, div_id) {
 			.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 	}
 	
-	d3.json("data/us-counties.json", function(json) {
-		counties.selectAll("path")
-		.data(json.features)
-		.enter().append("path")
-		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
-		.attr("d", path);
 
-		counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
-	});
+	console.log(g);
+	g.select("#counties").selectAll("path")
+		.attr("fill", function(d) {console.log(d); return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
 
-	d3.json("data/us-states.json", function(json) {
-		states.selectAll("path")
-		.data(json.features)
-		.enter().append("path")
-		.attr("d", path);
-	});
-
-	counties.selectAll("path").attr("class", quantize);
 
 	g.attr("transform", "scale(0.4)");
-
-	function quantize(d) {
-		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
-	};
 }
 
 function load_parcoords(data) {
@@ -231,13 +243,12 @@ function load_parcoords(data) {
 
 	pc  = pc.data(transdata, String)
 		.autoscale()
-		.createAxes()
+		.createAxes() //i guess we have to do this for the first load
 		.alpha(0.2)
 		.render()
 		.createAxes()
 		.brushable()
 		.reorderable();
-
 }
 
 function load_nav() {
@@ -334,7 +345,6 @@ function load_attribute(attribute_div, category) {
 			$("#map" + $("body").data('map_id_active') + "_title").text(attribute_div.attr('id'));
 			load_map(map_data, 'map' + $("body").data('map_id_active'));
 			load_parcoords(map_data);
-			//update_scatterplot(map_data);
 		}
 	});
 }
