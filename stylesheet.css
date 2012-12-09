@@ -50,14 +50,6 @@ body {
     padding: 5px 10px;
 }
 
-#nav_back {
-    background: #CCC;
-    width: 220px;
-    margin: 3px;
-    padding: 5px 10px;
-    font-weight: bold;
-}
-
 #map {
 	width: 950px;
 	height: 500px;

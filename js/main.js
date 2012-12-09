@@ -223,7 +223,7 @@ function load_category(category) {
 		data: 'category=' + category,
 		async: false,
 		success: function(data) {
-			nav_html = '<div id="nav_back">Back</div>';
+			nav_html = '';
 			for (var i = 0; i < data.length; i++) {
 				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
 			}
@@ -231,19 +231,6 @@ function load_category(category) {
 			$("#nav2").html(nav_html);
 			$("#nav2").fadeIn('slow');
 		}
-	});
-
-	$("#nav_back").hover(
-		function () {
-   			$(this).css('background', '#666');
-  		}, 
-  		function () {
-    		$(this).css('background', '#444');
-		}
-	);
-
-	$("#nav_back").click(function() {
-		load_nav();
 	});
 
 	$(".nav_attribute").hover(
@@ -261,25 +248,6 @@ function load_category(category) {
 }
 
 function load_attribute(attribute_div, category) {
-	$("#nav").html('<div id="nav_back" style="display: none">Back</div>');
-	attribute_div.css('display', 'none');
-	$("#nav").append(attribute_div);
-	$("#nav_back").fadeIn('slow');
-	attribute_div.fadeIn('slow');
-
-	$("#nav_back").hover(
-		function () {
-   			$(this).css('background', '#666');
-  		}, 
-  		function () {
-    		$(this).css('background', '#CCC');
-		}
-	);
-
-	$("#nav_back").click(function() {
-		load_category(category);
-	});
-
 	$.ajax({
 		url: 'php/load_attribute.php',
 		dataType: 'json',
