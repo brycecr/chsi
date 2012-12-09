@@ -9,14 +9,14 @@ function init() {
 				return function() {
 					$("body").data('map_id', i);
 					$(".map svg").attr('background', '#FFF');
-					$(this).attr('background', '#EFEFEF');
+					$(this).css('background', '#EFEFEF');
 				}
 			}(i));
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
 	$("body").data('map_id', 1);			// set active map id to 1 (by default)
-	$("#map1").attr('border','20px solid #EFEFEF').hide().show();
+	$("#map1").css('background', '#EFEFEF');
 	load_scatterplot({});
 }
 
