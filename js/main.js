@@ -11,7 +11,7 @@ function init() {
 					$(".map").attr('background', '#FFF');
 					$(this).attr('background', '#EFEFEF');
 				}
-			})();
+			});
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
