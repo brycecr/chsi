@@ -11,7 +11,7 @@ body {
 
 #nav_change {
     width: 1260px;
-    height: 20px;
+    height: 25px;
     background: #EFEFEF;
     margin: 0px;
 }
@@ -20,7 +20,7 @@ body {
     position: relative;
     width: 1260px;
     background: #EFEFEF;
-    padding: 20px 0px 10px 0px;
+    padding-bottom: 5px;
 }
 
 #nav1 {
