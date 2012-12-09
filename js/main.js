@@ -82,6 +82,9 @@ function load_map(data, div_id) {
 	var states = g.append("g")
 	.attr("id", "states");
 
+	var legend = g.append("g")
+	.attr("id", "legend");
+
 	var colorScale = d3.scale.quantile()
 	.domain([datmin(data), datmax(data)])
 	.range(colorbrewer.Reds[9]);
@@ -122,20 +125,21 @@ function update_map(data, div_id) {
 	dm.unshift(0);
 	dm = dm.map(function(d) { return d.toFixed(2); });
 
-	var legend = g.append("g")
-	.attr("id", "legend")
+	var legend = g.select("#legend");
+	legend.selectAll("text").remove();
+	legend.selectAll("rect").remove();
 
 	for (var i = 8; i >= 0; i -= 1) {
 		var ypos = 20 + 15*(8-i);
 
-		g.append("rect")
+		legend.append("rect")
 			.attr("x", "30")
 			.attr("y", ypos)
 			.attr("height", "10")
 			.attr("width", "10")
 			.attr("fill",rg[i].toString());
 
-		g.append("text")
+		legend.append("text")
 			.attr("text-anchor", "start")
 			.attr("x", "43")
 			.attr("y", ypos + 10)
