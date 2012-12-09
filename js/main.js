@@ -71,6 +71,8 @@ function load_map(data, div_id) {
 
 	var svg = d3.select("#" + div_id)
 	.append("svg")
+	.attr("width", 800)
+	.attr("height", 500)
 	.attr("id",div_id);
 	
 	var g = d3.select("#" + div_id + " svg").append("g");
@@ -133,7 +135,7 @@ function load_map(data, div_id) {
 
 	counties.selectAll("path").attr("class", quantize);
 
-	g.attr("transform", "scale(0.5)");
+	g.attr("transform", "scale(0.4)");
 
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
