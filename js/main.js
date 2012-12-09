@@ -1,7 +1,10 @@
 $(document).ready(init);
 
 function init() {
-	load_map('')
+	for (var i = 1; i <= 6; i++) {
+		load_map('', "map" + i.toString());
+	}
+
 	load_scatterplot({});
 	load_nav();
 }
@@ -34,20 +37,19 @@ function datmin(arr) {
 	return res;
 }
 
-function load_map(data) {
+function load_map(data, div_id) {
 	// This choropleth map code was seeded off an example by Mike Bostock
 	// using SVG data for backing map from Mike Bostock, Tom Carden, and
 	// the United States Census Bureau.
 
-	$("#map").html('');
+	$("#" + div_id).html('');
 	var width = 400;
 	var height = 200;
 	var path = d3.geo.path();
 
 	var svg = d3.select("#map")
 	.append("svg")
-	.attr("id","map")
-	.attr("transform","scale(0.5)");
+	.attr("id","map");
 	
 	var g = d3.select("svg").append("g");
 
