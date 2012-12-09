@@ -14,23 +14,21 @@ body {
     margin: 0px;
     background: #EDDA74;
     z-index: 10;
-    text-align: right;
     padding: 3px 0px;
     margin-top: 10px;
 }
 
-.nav_toggle {
+.toggle {
     float: right;
     margin-right: 10px;
     display: none;
-    background: #EDDA74;
 }
 
-.nav_toggle a {
+.toggle a {
     color: #000;
 }
 
-.nav_toggle a:hover {
+.toggle a:hover {
     text-decoration: none;
 }
 
