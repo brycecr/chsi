@@ -225,7 +225,7 @@ function load_category(category) {
 		success: function(data) {
 			nav_html = '<div id="nav_back">Back</div>';
 			for (var i = 0; i < data.length; i++) {
-				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '" style="display: none">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
+				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
 			}
 			$("#nav2").html(nav_html);
 			console.log(nav_html);
@@ -237,7 +237,7 @@ function load_category(category) {
    			$(this).css('background', '#666');
   		}, 
   		function () {
-    		$(this).css('background', '#CCC');
+    		$(this).css('background', '#444');
 		}
 	);
 

@@ -38,6 +38,7 @@ body {
     width: 220px;
     margin: 3px;
     padding: 5px 10px;
+    display: none;
 }
 
 .nav_attribute {
