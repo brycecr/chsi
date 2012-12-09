@@ -50,7 +50,7 @@ function load_map(data, div_id) {
 	// This choropleth map code was seeded off an example by Mike Bostock
 	// using SVG data for backing map from Mike Bostock, Tom Carden, and
 	// the United States Census Bureau.
-
+	console.log(div_id);
 	$("#" + div_id).html('');
 	var path = d3.geo.path();
 
