@@ -11,7 +11,7 @@ body {
 
 #nav {
     width: 1250px;
-    border-bottom: 2px solid #333;
+    background: #EFEFEF;
 }
 
 #nav1 {
@@ -28,8 +28,6 @@ body {
     margin-left: 20px;
     width: 760px;
     height: 330px;
-    background: #EFEFEF;
-    padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -47,7 +45,7 @@ body {
     float: left;
     background: #CCC;
     width: 220px;
-    height: 55px;
+    height: 60px;
     margin: 3px;
     padding: 5px 10px;
 }
