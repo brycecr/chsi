@@ -5,7 +5,7 @@ function init() {
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 3; i++) {
 			load_map('', "map" + i.toString());
-			$("#map" + i.toString()).click(function() {
+			$("#map" + i.toString()).click(function(i) {
 				return function(i) {
 					$("body").data('map_id', i);
 					$(".map").attr('background', '#FFF');
