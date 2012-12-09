@@ -71,6 +71,8 @@ function load_map(data, div_id) {
 
 	var svg = d3.select("#" + div_id)
 	.append("svg")
+	.attr("width", 800)
+	.attr("height", 500)
 	.attr("id",div_id);
 	
 	var g = d3.select("#" + div_id + " svg").append("g");
@@ -132,6 +134,8 @@ function load_map(data, div_id) {
 	});
 
 	counties.selectAll("path").attr("class", quantize);
+
+	g.attr("transform", "scale(0.4)");
 
 	function quantize(d) {
 		return "q" + Math.min(8, ~~(data[d.id] * 9 / 12)) + "-9";
@@ -206,6 +210,34 @@ function update_scatterplot(data) {
 		.style("opacity", 0.6); // opacity of circle
 
 	dots.exit().remove();
+}
+
+function load_parcoords(data) {
+	var transdata = [];
+	var i = 0;
+	var pc = null;
+
+	for (key in data) {
+		if (data[key]<=0) continue;
+		var o = {fips: key, val: data[key], name: i};
+		transdata[i++] = o;
+	}
+
+	if (pc == null) {
+		pc = d3.parcoords()("#parallel_coords")
+	} else {
+		pc = pc.removeAxes()
+	}
+
+	pc  = pc.data(transdata, String)
+		.autoscale()
+		.createAxes()
+		.alpha(0.2)
+		.render()
+		.createAxes()
+		.brushable()
+		.reorderable();
+
 }
 
 function load_nav() {
