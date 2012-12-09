@@ -195,7 +195,7 @@ function load_nav() {
 			}
 			$("#nav1").html(nav_html);
 			$(".nav_category").each(function(i) {
-				$(this).delay(50*i).toggle("slide", {"direction": "right"});
+				$(this).delay(50*i).show('drop');
 			});
 		}
 	});

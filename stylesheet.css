@@ -27,7 +27,7 @@ body {
 
 #nav2 {
     float: left;
-    margin-left: 20px;
+    margin: 0px 20px 5px 0px;
     width: 760px;
     height: 330px;
     overflow-x: hidden;
