@@ -217,6 +217,10 @@ function load_nav() {
 
 	$("#nav2").html('<span class="text_large"><br><br><br>Choose a category to begin browsing!</span>');
 	$("#nav_hide").fadeIn('slow');
+
+	$("nav_hide").click(function() {
+		$("#nav").hide('blind');
+	});
 }
 
 function load_category(category) {
