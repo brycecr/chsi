@@ -14,7 +14,6 @@ body {
     margin-left: 110px;
     width: 250px;
     height: 330px;
-    background: #000;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -24,7 +23,6 @@ body {
     margin-left: 20px;
     width: 760px;
     height: 330px;
-    background: red;
     overflow-x: hidden;
     overflow-y: auto;
 }

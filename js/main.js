@@ -250,11 +250,9 @@ function load_category(category) {
 	$(".nav_category").hover(
 		function () {
    			$(this).css('background', '#666');
-   			$(this).animate({'marginLeft': "+=20px"}, 100);
   		}, 
   		function () {
     		$(this).css('background', '#CCC');
-    		$(this).animate({'marginLeft': "-=20px"}, 100);
 		}
 	);
 
