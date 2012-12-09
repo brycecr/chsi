@@ -57,8 +57,7 @@ function load_map(data, div_id) {
 
 	var svg = d3.select("#" + div_id)
 	.append("svg")
-	.attr("id",div_id)
-	.attr("background", "#EFEFEF");
+	.attr("id",div_id);
 	
 	var g = d3.select("#" + div_id + " svg").append("g");
 
@@ -285,7 +284,7 @@ function load_attribute(attribute_div, category) {
 			for (var i = 0; i < data.length; i++) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
-			load_map(map_data, 'map' + $(body).data('map_id'));
+			load_map(map_data, 'map' + $("body").data('map_id'));
 			update_scatterplot(map_data);
 			load_parcoords(map_data);
 		}
