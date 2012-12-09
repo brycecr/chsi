@@ -21,7 +21,7 @@ function datmin(arr) {
 	// So we initialize to that to avoid initing to a negative value
 	var res = 0;
 	if (arr.hasOwnProperty('06073')) {
-		res = arr["06073"]; // this line assumes arr is county fips data
+		res = arr["06073"];		// this line assumes arr is county fips data
 	}
 	if (res < 0) {
 		res = 0;
@@ -274,8 +274,8 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 			load_map(map_data);
-			//update_scatterplot(map_data);
-			//load_parcoords(map_data);
+			update_scatterplot(map_data);
+			load_parcoords(map_data);
 		}
 	});
 }
