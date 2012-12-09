@@ -7,7 +7,7 @@ function init() {
 			load_map('', "map" + i.toString());
 			$("#map" + i.toString()).click(function(i) {
 				return function() {
-					$("body").data('map_id', i);
+					$("body").data('map_id_active', i);
 					$(".map").css('background', '#FFF');
 					$(this).css('background', '#EFEFEF');
 					$("#nav_show").trigger('click');
@@ -29,7 +29,7 @@ function init() {
 		$("#maps_hide").show();
 	});
 
-	$("body").data('map_id', 1);			// set active map id to 1 (by default)
+	$("body").data('map_id_active', 1);			// set active map id to 1 (by default)
 	$("#map1").css('background', '#EFEFEF');
 
 	//load_scatterplot({});
@@ -138,6 +138,23 @@ function load_map(data, div_id) {
 	};
 }
 
+function load_parcoords(data) {
+	var transdata = [];
+	var i = 0;
+	for (key in data) {
+		if (data[key]<=0) continue;
+		var o = {fips: key, val: data[key]};
+		transdata[i++] = o;
+	}
+
+	var pc = d3.parcoords()("#parallel_coords")
+		.data(transdata)
+		.alpha(0.4)
+		.render()
+		.brushable()
+		.reorderable();
+}
+
 function load_scatterplot(data) {
 	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
 
@@ -189,23 +206,6 @@ function update_scatterplot(data) {
 		.style("opacity", 0.6); // opacity of circle
 
 	dots.exit().remove();
-}
-
-function load_parcoords(data) {
-	var transdata = [];
-	var i = 0;
-	for (key in data) {
-		if (data[key]<=0) continue;
-		var o = {fips: key, val: data[key]};
-		transdata[i++] = o;
-	}
-
-	var pc = d3.parcoords()("#coordspar")
-		.data(transdata)
-		.alpha(0.4)
-		.render()
-		.brushable()
-		.reorderable();
 }
 
 function load_nav() {
@@ -299,8 +299,8 @@ function load_attribute(attribute_div, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
 
-			$("#map" + $("body").data('map_id') + "_title").text(attribute_div.attr('id'));
-			load_map(map_data, 'map' + $("body").data('map_id'));
+			$("#map" + $("body").data('map_id_active') + "_title").text(attribute_div.attr('id'));
+			load_map(map_data, 'map' + $("body").data('map_id_active'));
 			load_parcoords(map_data);
 			//update_scatterplot(map_data);
 		}

@@ -116,6 +116,10 @@ body {
     stroke-width: 1.5px;
 }
 
+#parallel_coords {
+    margin: 10px;
+}
+
 .clear {
     clear: both;
 }
