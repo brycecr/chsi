@@ -193,7 +193,7 @@ function load_nav() {
 			for (var i = 0; i < data.length; i++) {
 				nav_html += '<div class="nav_category" id="' + data[i]['name'] + '" style="display: none">' + data[i]['display_name'] + '</div>';
 			}
-			$("#nav").html(nav_html);
+			$("#nav1").html(nav_html);
 			$(".nav_category").each(function(i) {
 				$(this).delay(50*i).toggle("slide", {"direction": "right"});
 			});
@@ -227,7 +227,7 @@ function load_category(category) {
 			for (var i = 0; i < data.length; i++) {
 				nav_html += '<div class="nav_category" id="' + data[i]['COLUMN_NAME'] + '" style="display: none">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
 			}
-			$("#nav1").html(nav_html);
+			$("#nav").html(nav_html);
 			$(".nav_category").each(function(i) {
 				$(this).delay(50*i).toggle("slide", {"direction": "right"});
 			});
