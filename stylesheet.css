@@ -16,6 +16,7 @@ body {
     z-index: 10;
     text-align: right;
     padding: 3px 0px;
+    margin-top: 10px;
 }
 
 .nav_toggle {
@@ -36,7 +37,6 @@ body {
 #nav {
     width: 1260px;
     background: #EFEFEF;
-    margin-bottom: 20px;
     padding: 15px 0px;
 }
 
@@ -91,7 +91,7 @@ body {
     float: left;
     margin: 10px;
     width: 400px;
-    height: 200px;
+    height: 220px;
 }
 
 .map {
