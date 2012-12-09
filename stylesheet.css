@@ -10,7 +10,8 @@ body {
 }
 
 #nav_change {
-    width: 1260px;  
+    width: 1260px;
+    height: 20px;
     background: #EFEFEF;
     margin: 0px;
 }
