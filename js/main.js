@@ -167,7 +167,6 @@ function update_scatterplot(data) {
 }
 
 function load_parcoords(data) {
-	console.log('loading paracoords');
 	var transdata = [];
 	var i = 0;
 	for (key in data) {
