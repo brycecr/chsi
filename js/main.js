@@ -213,9 +213,10 @@ function load_parcoords(data) {
 
 	pc  = pc.data(transdata, String)
 		.autoscale()
-		.render()
 		.createAxes()
 		.alpha(0.2)
+		.render()
+		.createAxes()
 		.brushable()
 		.reorderable();
 
