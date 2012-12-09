@@ -207,21 +207,17 @@ function load_parcoords(data) {
 
 	if (pc == null) {
 		pc = d3.parcoords()("#coordspar")
-			.data(transdata, String)
-			.alpha(0.2)
-			.render()
-			.brushable()
-			.reorderable();
 	} else {
-		pc.removeAxes()
-			.data(transdata, String)
-			.autoscale()
-			.createAxes()
-			.alpha(0.2)
-			.render()
-			.brushable()
-			.reorderable();
+		pc = pc.removeAxes()
 	}
+
+	pc  = pc.data(transdata, String)
+		.autoscale()
+		.render()
+		.createAxes()
+		.alpha(0.2)
+		.brushable()
+		.reorderable();
 
 }
 
