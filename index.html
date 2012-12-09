@@ -2,25 +2,74 @@
 <meta charset="utf-8">
 
 <head>
-	<script language="javascript" type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-	<script language="javascript" type="text/javascript" src="js/jquery-ui-1.9.1.custom.min.js"></script>
+	<script src="js/jquery-1.8.0.min.js"></script>
+	<script src="js/jquery-ui-1.9.1.custom.min.js"></script>
 	<script src="js/d3.v2.js"></script>
 	<script src="js/colorbrewer.js"></script>
 	<script src="js/d3.parcoords.js"></script>
+	<script src='js/colorbrewer.js' type='text/javascript'> </script>
+	<script src='js/main.js' type='text/javascript'> </script>
 	<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
 	<link href='d3.parcoords.css' rel='stylesheet' type='text/css' />
 	<link href='stylesheet.css' rel='stylesheet' type='text/css' />
-	<script src='js/colorbrewer.js' type='text/javascript'> </script>
-	<script src='js/main.js' type='text/javascript'> </script>
 
 	<title>Community Health Status Indicators Browser</title>
 </head>
 <body>
 	<div id="container">
-		<div id="map"></div>
-		<div id="nav"></div>
-		<div id="clear"></div>
+		<div class="bar">
+			<b>nav</b>
+			<div class="toggle" id="nav_hide"><a href="#">hide nav</a></div>
+			<div class="toggle" id="nav_show"><a href="#">show nav</a></div>
+			<div class="clear"></div>
+		</div>
+		<div id="nav">
+			<div id="nav1"></div>
+			<div id="nav2"></div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="bar">
+			<b>maps</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="text_small">hint: click on a map to select its dataset!</span>
+			<div class="toggle" id="maps_hide"><a href="#">hide maps</a></div>
+			<div class="toggle" id="maps_show"><a href="#">show maps</a></div>
+			<div class="clear"></div>
+		</div>
+		<div id="maps">
+			<div class="map_container">
+				<div class="map_title" id="map1_title"> </div>
+				<div class="map" id="map1"></div>
+			</div>
+			<div class="map_container">
+				<div class="map_title" id="map2_title"></div>
+				<div class="map" id="map2"></div>
+			</div>
+			<div class="map_container">
+				<div class="map_title" id="map3_title"></div>
+				<div class="map" id="map3"></div>
+			</div>
+			<div class="map_container">
+				<div class="map_title" id="map4_title"></div>
+				<div class="map" id="map4"></div>
+			</div>
+			<div class="map_container">
+				<div class="map_title" id="map5_title"></div>
+				<div class="map" id="map5"></div>
+			</div>
+			<div class="map_container">
+				<div class="map_title" id="map6_title"></div>
+				<div class="map" id="map6"></div>
+			</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="bar">
+			<b>parallel coordinates</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="clear"></div>
+		</div>
 		<div id="coordspar" class="parcoords" style="width:950px;height:200px"></div>
+
 		<div id="scatterplot"></div>
 	</div>
 </body>

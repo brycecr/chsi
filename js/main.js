@@ -1,9 +1,38 @@
 $(document).ready(init);
 
 function init() {
-	load_map('')
-	load_scatterplot({});
 	load_nav();
+	var load_map_wrapper = function() {
+		for (var i = 1; i <= 6; i++) {
+			load_map('', "map" + i.toString());
+			$("#map" + i.toString()).click(function(i) {
+				return function() {
+					$("body").data('map_id', i);
+					$(".map").css('background', '#FFF');
+					$(this).css('background', '#EFEFEF');
+					$("#nav_show").trigger('click');
+				}
+			}(i));
+		}
+	}
+	setTimeout(load_map_wrapper, 2000);
+	$("#maps_hide").fadeIn('slow');
+	$("#maps_hide").click(function() {
+		$("#maps").hide('blind');
+		$("#maps_hide").hide();
+		$("#maps_show").show();
+	});
+
+	$("#maps_show").click(function() {
+		$("#maps").show('blind');
+		$("#maps_show").hide();
+		$("#maps_hide").show();
+	});
+
+	$("body").data('map_id', 1);			// set active map id to 1 (by default)
+	$("#map1").css('background', '#EFEFEF');
+
+	//load_scatterplot({});
 }
 
 function datmax(arr) {
@@ -17,15 +46,11 @@ function datmax(arr) {
 }
 
 function datmin(arr) {
-	
-	//From a quick glance, San Diego County does a good job reporting.
-	//So we initialize to that to avoid initing to a negative value
 	var res = 0;
 	if (arr.hasOwnProperty('06073')) {
-		res = arr["06073"]; //this line assumes arr is county fips deyed data
-	} 
+		res = arr["06073"];					// initialize res to value of SD County
+	}
 	if (res < 0) {
-		console.log("San Diego N/A Data Error");
 		res = 0;
 	}
 	for (key in arr) {
@@ -36,22 +61,19 @@ function datmin(arr) {
 	return res;
 }
 
-function load_map(data) {
+function load_map(data, div_id) {
 	// This choropleth map code was seeded off an example by Mike Bostock
 	// using SVG data for backing map from Mike Bostock, Tom Carden, and
 	// the United States Census Bureau.
 
-	$("#map").html('');
-	console.log(data);
-
+	$("#" + div_id).html('');
 	var path = d3.geo.path();
 
-	var svg = d3.select("#map")
-	.append("svg");
-
-	svg.attr("id","map");
+	var svg = d3.select("#" + div_id)
+	.append("svg")
+	.attr("id",div_id);
 	
-	var g = d3.select("svg").append("g");
+	var g = d3.select("#" + div_id + " svg").append("g");
 
 	// define country and states svg groups
 	var counties = g.append("g")
@@ -59,7 +81,6 @@ function load_map(data) {
 
 	var states = g.append("g")
 	.attr("id", "states");
-	// end define country and states svg groups
 
 	var colorScale = d3.scale.quantile()
 	.domain([datmin(data), datmax(data)])
@@ -71,42 +92,44 @@ function load_map(data) {
 	dm = dm.map(function(d) { return d.toFixed(2); });
 
 	var legend = g.append("g")
-		.attr("id", "legend")
-		for (var i = 8; i >= 0; i -= 1) {
-			var ypos = 20 + 15*(8-i);
+	.attr("id", "legend")
 
-			g.append("rect")
-				.attr("x", "30")
-				.attr("y", ypos)
-				.attr("height", "10")
-				.attr("width", "10")
-				.attr("fill",rg[i].toString());
+	for (var i = 8; i >= 0; i -= 1) {
+		var ypos = 20 + 15*(8-i);
 
-			g.append("text")
-				.attr("text-anchor", "start")
-				.attr("x", "43")
-				.attr("y", ypos + 10)
-				.attr("fill", "#AAAAAA")
-				.attr("style", "font-family: 'PT Sans'; color: #666")
-				.style("font", "12px \'PT Sans\'")
-				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
+		g.append("rect")
+			.attr("x", "30")
+			.attr("y", ypos)
+			.attr("height", "10")
+			.attr("width", "10")
+			.attr("fill",rg[i].toString());
+
+		g.append("text")
+			.attr("text-anchor", "start")
+			.attr("x", "43")
+			.attr("y", ypos + 10)
+			.attr("fill", "#AAAAAA")
+			.attr("style", "font-family: 'PT Sans'; color: #666")
+			.style("font", "12px \'PT Sans\'")
+			.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 	}
 	
 	d3.json("data/us-counties.json", function(json) {
-			counties.selectAll("path")
-			.data(json.features)
-			.enter().append("path")
-			.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
-			.attr("d", path);
+		counties.selectAll("path")
+		.data(json.features)
+		.enter().append("path")
+		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
+		.attr("d", path);
 
-			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
-			});
+		counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+	});
+
 	d3.json("data/us-states.json", function(json) {
-			states.selectAll("path")
-			.data(json.features)
-			.enter().append("path")
-			.attr("d", path);
-			});
+		states.selectAll("path")
+		.data(json.features)
+		.enter().append("path")
+		.attr("d", path);
+	});
 
 	counties.selectAll("path").attr("class", quantize);
 
@@ -172,7 +195,6 @@ function update_scatterplot(data) {
 
 var pc = null;
 function load_parcoords(data) {
-
 	var transdata = [];
 	var i = 0;
 	for (key in data) {
@@ -213,9 +235,9 @@ function load_nav() {
 			for (var i = 0; i < data.length; i++) {
 				nav_html += '<div class="nav_category" id="' + data[i]['name'] + '" style="display: none">' + data[i]['display_name'] + '</div>';
 			}
-			$("#nav").html(nav_html);
+			$("#nav1").html(nav_html);
 			$(".nav_category").each(function(i) {
-				$(this).delay(50*i).toggle("slide", {"direction": "right"});
+				$(this).delay(100*i).show('drop');
 			});
 		}
 	});
@@ -226,13 +248,28 @@ function load_nav() {
    			$(this).animate({'marginLeft': "+=20px"}, 100);
   		}, 
   		function () {
-    		$(this).css('background', '#CCC');
+    		$(this).css('background', '#999');
     		$(this).animate({'marginLeft': "-=20px"}, 100);
 		}
 	);
 
 	$(".nav_category").click(function() {
 		load_category($(this).attr('id'));
+	});
+
+	$("#nav2").html('<span class="text_large"><br><br><br><br>Choose a category to begin browsing!</span>');
+	$("#nav_hide").fadeIn('slow');
+
+	$("#nav_hide").click(function() {
+		$("#nav").hide('blind');
+		$("#nav_hide").hide();
+		$("#nav_show").show();
+	});
+
+	$("#nav_show").click(function() {
+		$("#nav").show('blind');
+		$("#nav_show").hide();
+		$("#nav_hide").show();
 	});
 }
 
@@ -243,18 +280,17 @@ function load_category(category) {
 		data: 'category=' + category,
 		async: false,
 		success: function(data) {
-			nav_html = '<div id="nav_back">Back</div>';
+			nav_html = '';
 			for (var i = 0; i < data.length; i++) {
-				nav_html += '<div class="nav_category" id="' + data[i]['COLUMN_NAME'] + '" style="display: none">' + data[i]['COLUMN_NAME'] + '<br><span style="font-size: 60%">' + data[i]['DESCRIPTION'] + '</span></div>';
+				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<div class="nav_attribute_description">' + data[i]['DESCRIPTION'] + '</div></div>';
 			}
-			$("#nav").html(nav_html);
-			$(".nav_category").each(function(i) {
-				$(this).delay(50*i).toggle("slide", {"direction": "right"});
-			});
+			$("#nav2").hide()
+			$("#nav2").html(nav_html);
+			$("#nav2").fadeIn('slow');
 		}
 	});
 
-	$("#nav_back").hover(
+	$(".nav_attribute").hover(
 		function () {
    			$(this).css('background', '#666');
   		}, 
@@ -263,47 +299,12 @@ function load_category(category) {
 		}
 	);
 
-	$("#nav_back").click(function() {
-		load_nav();
-	});
-
-	$(".nav_category").hover(
-		function () {
-   			$(this).css('background', '#666');
-   			$(this).animate({'marginLeft': "+=20px"}, 100);
-  		}, 
-  		function () {
-    		$(this).css('background', '#CCC');
-    		$(this).animate({'marginLeft': "-=20px"}, 100);
-		}
-	);
-
-	$(".nav_category").click(function() {
-		$(this).animate({'marginLeft': "-=20px"}, 100);
+	$(".nav_attribute").click(function() {
 		load_attribute($(this), category);
 	});
 }
 
 function load_attribute(attribute_div, category) {
-	$("#nav").html('<div id="nav_back" style="display: none">Back</div>');
-	attribute_div.css('display', 'none');
-	$("#nav").append(attribute_div);
-	$("#nav_back").fadeIn('slow');
-	attribute_div.fadeIn('slow');
-
-	$("#nav_back").hover(
-		function () {
-   			$(this).css('background', '#666');
-  		}, 
-  		function () {
-    		$(this).css('background', '#CCC');
-		}
-	);
-
-	$("#nav_back").click(function() {
-		load_category(category);
-	});
-
 	$.ajax({
 		url: 'php/load_attribute.php',
 		dataType: 'json',
@@ -314,9 +315,11 @@ function load_attribute(attribute_div, category) {
 			for (var i = 0; i < data.length; i++) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
-			load_map(map_data);
-			update_scatterplot(map_data);
+
+			$("#map" + $("body").data('map_id') + "_title").text(attribute_div.attr('id'));
+			load_map(map_data, 'map' + $("body").data('map_id'));
 			load_parcoords(map_data);
+			//update_scatterplot(map_data);
 		}
 	});
 }

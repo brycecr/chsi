@@ -5,38 +5,105 @@ body {
 }
 
 #container {
-    width: 1250px;
+    width: 1260px;
+    margin: -10px;
+}
+
+.bar {
+    width: 1240px;
+    margin: 0px;
+    background: #EDDA74;
+    z-index: 10;
+    padding: 3px 10px;
+    margin-top: 10px;
+}
+
+.toggle {
+    float: right;
+    margin-right: 10px;
+    display: none;
+}
+
+.toggle a {
+    color: #000;
+}
+
+.toggle a:hover {
+    text-decoration: none;
 }
 
 #nav {
+    width: 1260px;
+    background: #EFEFEF;
+    padding: 15px 0px;
+}
+
+#nav1 {
     float: left;
-    margin-top: 20px;
-    width: 260px;
-    height: 500px;
-    overflow-y: auto;
+    margin-left: 110px;
+    margin-right: 20px;
+    width: 250px;
+    height: 325px;
     overflow-x: hidden;
-    padding-bottom: 10px;
+    overflow-y: auto;
+}
+
+#nav2 {
+    float: left;
+    width: 760px;
+    height: 322px;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .nav_category {
-    background: #CCC;
+    float: left;
+    background: #999;
     width: 220px;
     margin: 3px;
     padding: 5px 10px;
+    display: none;
 }
 
-#nav_back {
+.nav_attribute {
+    float: left;
     background: #CCC;
     width: 220px;
+    height: 45px;
     margin: 3px;
     padding: 5px 10px;
-    font-weight: bold;
+    text-align: left;
 }
 
-#map {
-	width: 950px;
-	height: 500px;
-	float:left;
+.nav_attribute_description {
+    font-size: 60%;
+}
+
+#maps {
+    width: 1260px;
+}
+
+.map_container {
+    float: left;
+    margin: 10px;
+    width: 400px;
+    height: 220px;
+}
+
+.map {
+    width: 400px;
+    height: 200px;
+    cursor: pointer;
+    background: #FFF;
+}
+
+.map_title {
+    width: 400px;
+    height: 20px;
+    background: #CCC;
+    text-align: center;
+    padding: 3px 0px;
 }
 
 #counties path {
@@ -49,6 +116,14 @@ body {
     stroke-width: 1.5px;
 }
 
-#clear {
+.clear {
     clear: both;
+}
+
+.text_large {
+    font-size: 150%;
+}
+
+.text_small {
+    font-size: 80%;
 }
