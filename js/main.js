@@ -48,7 +48,7 @@ function load_map(data) {
 	.append("svg")
 	.attr("id","map");
 	
-	var g = d3.select("svg").append("g");
+	var g = d3.select("svg").append("g").scale(0.5);
 
 	// define country and states svg groups
 	var counties = g.append("g")
