@@ -225,7 +225,7 @@ function load_category(category) {
 		success: function(data) {
 			nav_html = '';
 			for (var i = 0; i < data.length; i++) {
-				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<div class="nav_attribtue_description">' + data[i]['DESCRIPTION'] + '</div></div>';
+				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<div class="nav_attribute_description">' + data[i]['DESCRIPTION'] + '</div></div>';
 			}
 			$("#nav2").hide()
 			$("#nav2").html(nav_html);
