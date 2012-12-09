@@ -20,7 +20,7 @@ body {
     float: left;
     margin-left: 110px;
     width: 250px;
-    height: 320px;
+    height: 325px;
     overflow-x: hidden;
     overflow-y: auto;
 }
@@ -29,7 +29,7 @@ body {
     float: left;
     margin: 0px 20px 5px 0px;
     width: 760px;
-    height: 320px;
+    height: 325px;
     text-align: center;
     overflow-x: hidden;
     overflow-y: auto;
@@ -61,7 +61,7 @@ body {
 #map {
 	width: 950px;
 	height: 500px;
-	float:left;
+    margin-top: 10px;
 }
 
 #counties path {
