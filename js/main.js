@@ -16,7 +16,7 @@ function init() {
 	}
 	setTimeout(load_map_wrapper, 2000);
 	$("body").data('map_id', 1);			// set active map id to 1 (by default)
-	$("#map1").attr('border','20px solid #EFEFEF');
+	$("#map1").attr('border','20px solid #EFEFEF').hide().show();
 	load_scatterplot({});
 }
 
