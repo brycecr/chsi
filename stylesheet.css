@@ -81,11 +81,19 @@ body {
     font-size: 60%;
 }
 
+#map_change {
+    width: 1260px;
+    height: 30px;
+    background: #EFEFEF;
+    margin: 0px;
+    text-align: right;
+}
+
 .map_container {
     float: left;
     margin: 10px;
     width: 400px;
-    height: 420px;
+    height: 20px;
 }
 
 .map {
