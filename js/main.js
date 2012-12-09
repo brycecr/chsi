@@ -220,7 +220,13 @@ function load_nav() {
 
 	$("#nav_hide").click(function() {
 		$("#nav").hide('blind');
+		$("#nav_hide").hide();
+		$("#nav_show").show();
 	});
+
+	$("#nav_show").click(function() {
+		$("#nav").show('blind');
+	}
 }
 
 function load_category(category) {
