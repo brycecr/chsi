@@ -2,14 +2,19 @@ $(document).ready(init);
 
 function init() {
 	load_nav();
-
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 6; i++) {
 			load_map('', "map" + i.toString());
+			$("#map" + i.toString()).click(function() {
+				$("body").data('map_id', i);
+				$(".map").attr('background', '#FFF');
+				$(this).attr('background', '#EFEFEF');
+			})
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
-
+	$("body").data('map_id', 1);			// set active map id to 1 (by default)
+	$("#map1").attr('background', '#EFEFEF');
 	load_scatterplot({});
 }
 
@@ -26,7 +31,7 @@ function datmax(arr) {
 function datmin(arr) {
 	var res = 0;
 	if (arr.hasOwnProperty('06073')) {
-		res = arr["06073"];		// initialize res to value of SD County
+		res = arr["06073"];					// initialize res to value of SD County
 	}
 	if (res < 0) {
 		res = 0;
@@ -71,42 +76,43 @@ function load_map(data, div_id) {
 
 	var legend = g.append("g")
 		.attr("id", "legend")
-		for (var i = 8; i >= 0; i -= 1) {
-			var ypos = 20 + 15*(8-i);
 
-			g.append("rect")
-				.attr("x", "30")
-				.attr("y", ypos)
-				.attr("height", "10")
-				.attr("width", "10")
-				.attr("fill",rg[i].toString());
+	for (var i = 8; i >= 0; i -= 1) {
+		var ypos = 20 + 15*(8-i);
 
-			g.append("text")
-				.attr("text-anchor", "start")
-				.attr("x", "43")
-				.attr("y", ypos + 10)
-				.attr("fill", "#AAAAAA")
-				.attr("style", "font-family: 'PT Sans'; color: #666")
-				.style("font", "12px \'PT Sans\'")
-				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
-		}
+		g.append("rect")
+			.attr("x", "30")
+			.attr("y", ypos)
+			.attr("height", "10")
+			.attr("width", "10")
+			.attr("fill",rg[i].toString());
+
+		g.append("text")
+			.attr("text-anchor", "start")
+			.attr("x", "43")
+			.attr("y", ypos + 10)
+			.attr("fill", "#AAAAAA")
+			.attr("style", "font-family: 'PT Sans'; color: #666")
+			.style("font", "12px \'PT Sans\'")
+			.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
+	}
 	
-		d3.json("data/us-counties.json", function(json) {
-			counties.selectAll("path")
-			.data(json.features)
-			.enter().append("path")
-			.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
-			.attr("d", path);
+	d3.json("data/us-counties.json", function(json) {
+		counties.selectAll("path")
+		.data(json.features)
+		.enter().append("path")
+		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
+		.attr("d", path);
 
-			counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
-		});
+		counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+	});
 
-		d3.json("data/us-states.json", function(json) {
-			states.selectAll("path")
-			.data(json.features)
-			.enter().append("path")
-			.attr("d", path);
-		});
+	d3.json("data/us-states.json", function(json) {
+		states.selectAll("path")
+		.data(json.features)
+		.enter().append("path")
+		.attr("d", path);
+	});
 
 	counties.selectAll("path").attr("class", quantize);
 
@@ -275,7 +281,7 @@ function load_attribute(attribute_div, category) {
 			for (var i = 0; i < data.length; i++) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
 			}
-			load_map(map_data, 'map1');
+			load_map(map_data, 'map' + $(body).data('map_id'));
 			update_scatterplot(map_data);
 			load_parcoords(map_data);
 		}
