@@ -200,6 +200,8 @@ function load_nav() {
 		}
 	});
 
+	$("#nav2").html('<span class="text_large"><br><br>Choose a category to begin browsing!</span>');
+
 	$(".nav_category").hover(
 		function () {
    			$(this).css('background', '#666');
