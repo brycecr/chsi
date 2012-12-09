@@ -81,9 +81,9 @@ body {
     font-size: 60%;
 }
 
-#map {
-	width: 400px;
-	height: 200px;
+.map {
+    float: left;
+    margin: 20px;
 }
 
 #counties path {

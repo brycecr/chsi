@@ -1,12 +1,11 @@
 $(document).ready(init);
 
 function init() {
+	load_nav();
 	for (var i = 1; i <= 6; i++) {
 		load_map('', "map" + i.toString());
 	}
-
 	load_scatterplot({});
-	load_nav();
 }
 
 function datmax(arr) {
