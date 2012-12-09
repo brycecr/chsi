@@ -11,16 +11,29 @@ body {
 
 #nav_change {
     width: 1260px;
-    height: 25px;
+    height: 30px;
     background: #EFEFEF;
     margin: 0px;
 }
 
+.nav_toggle {
+    float: right;
+    font-size: 120%;
+    display: none;
+}
+
+.nav_toggle a {
+    color: #000;
+}
+
+.nav_toggle a:hover {
+    text-decoration: none;
+}
+
 #nav {
-    position: relative;
     width: 1260px;
     background: #EFEFEF;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 #nav1 {
@@ -40,22 +53,6 @@ body {
     text-align: center;
     overflow-x: hidden;
     overflow-y: auto;
-}
-
-.nav_toggle {
-    position: absolute;
-    top: 5px;
-    right: 15px;
-    font-size: 120%;
-    display: none;
-}
-
-.nav_toggle a {
-    color: #000;
-}
-
-.nav_toggle a:hover {
-    text-decoration: none;
 }
 
 .nav_category {
