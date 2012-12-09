@@ -6,14 +6,15 @@ body {
 
 #container {
     width: 1260px;
-    margin: -5px auto;
+    margin: -5px;
 }
 
 #nav_change {
     width: 1260px;
     height: 30px;
-    background: #EFEFEF;
     margin: 0px;
+    background: #EDDA74;
+    z-index: 10;
 }
 
 .nav_toggle {
