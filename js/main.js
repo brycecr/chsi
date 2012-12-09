@@ -6,11 +6,12 @@ function init() {
 		for (var i = 1; i <= 3; i++) {
 			load_map('', "map" + i.toString());
 			$("#map" + i.toString()).click(function() {
-				console.log(i);
-				$("body").data('map_id', i);
-				$(".map").attr('background', '#FFF');
-				$(this).attr('background', '#EFEFEF');
-			})
+				return function() {
+					$("body").data('map_id', i);
+					$(".map").attr('background', '#FFF');
+					$(this).attr('background', '#EFEFEF');
+				}
+			})();
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
