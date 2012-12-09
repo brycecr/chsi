@@ -15,8 +15,22 @@ function init() {
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
+	$("#maps_hide").fadeIn('slow');
+	$("#maps_hide").click(function() {
+		$("#maps").hide('blind');
+		$("#maps_hide").hide();
+		$("#maps_show").show();
+	});
+
+	$("#maps_show").click(function() {
+		$("#maps").show('blind');
+		$("#maps_show").hide();
+		$("#maps_hide").show();
+	});
+
 	$("body").data('map_id', 1);			// set active map id to 1 (by default)
 	$("#map1").css('background', '#EFEFEF');
+
 	//load_scatterplot({});
 }
 
