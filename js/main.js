@@ -6,13 +6,13 @@ function init() {
 		for (var i = 1; i <= 3; i++) {
 			load_map('', "map" + i.toString());
 			$("#map" + i.toString()).click(function() {
-				return function() {
+				return function(i) {
 					$("body").data('map_id', i);
 					$(".map").attr('background', '#FFF');
 					$(this).attr('background', '#EFEFEF');
 					console.log(i);
 				}
-			});
+			})(i);
 		}
 	}
 	setTimeout(load_map_wrapper, 2000);
