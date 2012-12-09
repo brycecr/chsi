@@ -14,12 +14,13 @@ body {
     width: 1260px;
     background: #EFEFEF;
     margin: -5px -5px 0px -5px;
-    padding-bottom: 5px;
+    padding: 5px 0px;
 }
 
 #nav1 {
     float: left;
     margin-left: 110px;
+    margin-right: 20px;
     width: 250px;
     height: 325px;
     overflow-x: hidden;
@@ -28,7 +29,6 @@ body {
 
 #nav2 {
     float: left;
-    margin: 0px 40px 5px 0px;
     width: 760px;
     height: 325px;
     text-align: center;
@@ -38,9 +38,17 @@ body {
 
 .nav_toggle {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 5px;
+    right: 15px;
     font-size: 120%;
+}
+
+.nav_toggle a {
+    color: #000;
+}
+
+.nav_toggle a:hover {
+    text-decoration: none;
 }
 
 .nav_category {
