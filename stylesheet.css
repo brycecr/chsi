@@ -10,6 +10,7 @@ body {
 }
 
 #nav {
+    position: relative;
     width: 1260px;
     background: #EFEFEF;
     margin: -5px -5px 0px -5px;
@@ -27,12 +28,19 @@ body {
 
 #nav2 {
     float: left;
-    margin: 0px 20px 5px 0px;
+    margin: 0px 40px 5px 0px;
     width: 760px;
     height: 325px;
     text-align: center;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.nav_toggle {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 120%;
 }
 
 .nav_category {
