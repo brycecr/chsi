@@ -200,8 +200,6 @@ function load_nav() {
 		}
 	});
 
-	$("#nav2").html('<span class="text_large"><br><br>Choose a category to begin browsing!</span>');
-
 	$(".nav_category").hover(
 		function () {
    			$(this).css('background', '#666');
@@ -216,6 +214,9 @@ function load_nav() {
 	$(".nav_category").click(function() {
 		load_category($(this).attr('id'));
 	});
+
+	$("#nav2").html('<span class="text_large"><br><br><br>Choose a category to begin browsing!</span>');
+	$("#nav_hide").fadeIn('slow');
 }
 
 function load_category(category) {
