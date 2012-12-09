@@ -3,7 +3,7 @@ $(document).ready(init);
 function init() {
 	load_nav();
 	var load_map_wrapper = function() {
-		for (var i = 1; i <= 6; i++) {
+		for (var i = 1; i <= 1; i++) {
 			load_map('', "map" + i.toString());
 			$("#map" + i.toString()).click(function(i) {
 				return function() {
