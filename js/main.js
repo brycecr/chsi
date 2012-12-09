@@ -17,7 +17,7 @@ function init() {
 	setTimeout(load_map_wrapper, 2000);
 	$("body").data('map_id', 1);			// set active map id to 1 (by default)
 	$("#map1").css('background', '#EFEFEF');
-	load_scatterplot({});
+	//load_scatterplot({});
 }
 
 function datmax(arr) {
@@ -286,8 +286,8 @@ function load_attribute(attribute_div, category) {
 
 			$("#map" + $("body").data('map_id') + "_title").text(attribute_div.attr('id'));
 			load_map(map_data, 'map' + $("body").data('map_id'));
-			update_scatterplot(map_data);
-			load_parcoords(map_data);
+			//update_scatterplot(map_data);
+			//load_parcoords(map_data);
 		}
 	});
 }
