@@ -11,9 +11,9 @@ body {
 
 #nav1 {
     float: left;
-    margin-left: 120px;
+    margin-left: 110px;
     width: 250px;
-    height: 320px;
+    height: 330px;
     background: #000;
     overflow-x: hidden;
     overflow-y: auto;
@@ -23,7 +23,7 @@ body {
     float: left;
     margin-left: 20px;
     width: 760px;
-    height: 320px;
+    height: 330px;
     background: red;
     overflow-x: hidden;
     overflow-y: auto;
