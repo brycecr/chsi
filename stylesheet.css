@@ -11,8 +11,8 @@ body {
 
 #nav1 {
     float: left;
-    margin-left: 180px;
-    width: 220px;
+    margin-left: 120px;
+    width: 240px;
     height: 300px;
     background: #000;
 }
@@ -20,12 +20,13 @@ body {
 #nav2 {
     float: left;
     margin-left: 20px;
-    width: 700px;
+    width: 760px;
     height: 300px;
     background: red;
 }
 
 .nav_category {
+    float: left;
     background: #CCC;
     width: 220px;
     margin: 3px;
