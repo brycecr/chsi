@@ -86,11 +86,6 @@ body {
 	height: 200px;
 }
 
-svg {
-    width: 400px;
-    height: 200px;
-}
-
 #counties path {
     stroke: #FFFFFF;
     stroke-width: 0.25px;
