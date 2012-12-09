@@ -6,7 +6,7 @@ body {
 
 #container {
     width: 1260px;
-    margin: -5px;
+    margin: -10px;
 }
 
 #nav_change {
@@ -37,7 +37,7 @@ body {
     background: #EFEFEF;
     margin-top: -10px;
     margin-bottom: 10px;
-    padding-bottom: 15px;
+    padding: 15px 0px;
 }
 
 #nav1 {
@@ -88,6 +88,11 @@ body {
     background: #EDDA74;
     margin: 0px;
     text-align: right;
+}
+
+#maps {
+    width: 1260px;
+    background: #333;
 }
 
 .map_container {
