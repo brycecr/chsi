@@ -16,7 +16,7 @@ function init() {
 	}
 	setTimeout(load_map_wrapper, 2000);
 	$("body").data('map_id', 1);			// set active map id to 1 (by default)
-	$("#map1 svg").attr('background', '#EFEFEF');
+	$("#map1 svg").attr('background-color', '#EFEFEF');
 	load_scatterplot({});
 }
 
@@ -50,7 +50,6 @@ function load_map(data, div_id) {
 	// This choropleth map code was seeded off an example by Mike Bostock
 	// using SVG data for backing map from Mike Bostock, Tom Carden, and
 	// the United States Census Bureau.
-	console.log(div_id);
 
 	$("#" + div_id).html('');
 	var path = d3.geo.path();
