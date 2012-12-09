@@ -18,8 +18,17 @@ body {
 }
 
 #nav1 {
+    float: left;
     margin-left: 300px;
+    width: 220px;
     height: 300px;
+}
+
+#nav2 {
+    float: left;
+    margin-left: 20px;
+    height: 300px;
+    width: 450px;
 }
 
 .nav_category {
