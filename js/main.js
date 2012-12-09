@@ -46,8 +46,7 @@ function load_map(data) {
 
 	var svg = d3.select("#map")
 	.append("svg")
-	.attr("id","map")
-	.scale(100);
+	.attr("id","map");
 	
 	var g = d3.select("svg").append("g");
 
