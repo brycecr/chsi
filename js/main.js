@@ -2,9 +2,14 @@ $(document).ready(init);
 
 function init() {
 	load_nav();
-	for (var i = 1; i <= 6; i++) {
-		load_map('', "map" + i.toString());
+
+	var load_map_wrapper = function() {
+		for (var i = 1; i <= 6; i++) {
+			load_map('', "map" + i.toString());
+		}
 	}
+	setTimeout(load_map_wrapper, 2000);
+
 	load_scatterplot({});
 }
 
@@ -42,8 +47,6 @@ function load_map(data, div_id) {
 	// the United States Census Bureau.
 
 	$("#" + div_id).html('');
-	var width = 400;
-	var height = 200;
 	var path = d3.geo.path();
 
 	var svg = d3.select("#" + div_id)
