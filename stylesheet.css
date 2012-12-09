@@ -6,11 +6,12 @@ body {
 
 #container {
     width: 1250px;
+    margin: auto;
 }
 
 #nav1 {
     float: left;
-    margin-left: 200px;
+    margin-left: 180px;
     width: 220px;
     height: 300px;
     background: #000;

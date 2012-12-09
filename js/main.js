@@ -3,7 +3,7 @@ $(document).ready(init);
 function init() {
 	load_map('')
 	load_scatterplot({});
-	//load_nav();
+	load_nav();
 }
 
 function datmax(arr) {
