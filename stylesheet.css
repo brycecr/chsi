@@ -14,7 +14,6 @@ body {
     background: #EFEFEF;
     margin: -5px -5px 0px -5px;
     padding: 5px 0px;
-    text-align: center;
 }
 
 #nav1 {
@@ -75,4 +74,8 @@ body {
 
 #clear {
     clear: both;
+}
+
+.text_large {
+    font-size: 130%;
 }
