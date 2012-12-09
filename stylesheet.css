@@ -10,12 +10,15 @@ body {
 
 #nav {
     float: left;
-    margin-top: 20px;
-    width: 260px;
-    height: 425px;
+    width: 1000px;
+    height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 10px;
+}
+
+#nav1 {
+    margin-left: 300px;
 }
 
 .nav_category {
