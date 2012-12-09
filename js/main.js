@@ -10,6 +10,7 @@ function init() {
 					$("body").data('map_id', i);
 					$(".map").attr('background', '#FFF');
 					$(this).attr('background', '#EFEFEF');
+					console.log(i);
 				}
 			});
 		}
