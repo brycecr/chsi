@@ -202,11 +202,11 @@ function load_nav() {
 
 	$(".nav_category").hover(
 		function () {
-   			$(this).css('background', '#444');
+   			$(this).css('background', '#666');
    			$(this).animate({'marginLeft': "+=20px"}, 100);
   		}, 
   		function () {
-    		$(this).css('background', '#666');
+    		$(this).css('background', '#999');
     		$(this).animate({'marginLeft': "-=20px"}, 100);
 		}
 	);

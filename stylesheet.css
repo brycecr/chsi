@@ -28,13 +28,15 @@ body {
     margin-left: 20px;
     width: 760px;
     height: 330px;
+    background: #EFEFEF;
+    padding: 5px;
     overflow-x: hidden;
     overflow-y: auto;
 }
 
 .nav_category {
     float: left;
-    background: #666;
+    background: #999;
     width: 220px;
     margin: 3px;
     padding: 5px 10px;
@@ -45,7 +47,7 @@ body {
     float: left;
     background: #CCC;
     width: 220px;
-    height: 50px;
+    height: 55px;
     margin: 3px;
     padding: 5px 10px;
 }
