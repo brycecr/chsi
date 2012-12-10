@@ -35,7 +35,7 @@ body {
 #nav {
     width: 1260px;
     background: #EFEFEF;
-    padding: 15px 0px;
+    padding: 15px 0px 10px 0px;
 }
 
 #nav1 {
@@ -120,9 +120,10 @@ body {
 
 #parallel_coordinates {
     width: 1240px;
-    height: 500px;
+    height: 400px;
     margin-top: 10px;
     padding: 10px;
+    background: #EFEFEF;
 }
 
 .clear {
