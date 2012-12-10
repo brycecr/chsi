@@ -149,10 +149,8 @@ function update_map(data, div_id) {
 			.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 	}
 	
-
-	console.log(g);
 	g.select("#counties").selectAll("path")
-		.attr("fill", function(d) {console.log(d); return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
+		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
 
 
 	g.attr("transform", "scale(0.4)");
@@ -224,6 +222,10 @@ function load_parcoords(data) {
 	if (pc == null) {
 		pc = d3.parcoords()("#coordspar")
 	} else {
+		var dims = pc.dimensions();
+		for (var i = 0; i < dims.length;++i) {
+			pc = pc.brushReset(dims[i]);
+		}
 		pc = pc.removeAxes()
 	}
 
