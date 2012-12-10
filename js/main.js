@@ -252,7 +252,7 @@ function load_scatterplots() {
 			}
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var w = 350; var h = 350; var padding_x = 70; var padding_y = 30; 
+			var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
 			var svg = d3.select("#scatterplot" + counter.toString())
             .append("svg")
             .attr("width", w)
@@ -302,13 +302,13 @@ function load_scatterplots() {
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
 		    .attr("x", w - 40)
-		    .attr("y", h - 50)
+		    .attr("y", h - 10)
 		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
 
 		    svg.append("text")
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
-		    .attr("y", 70)
+		    .attr("y", 80)
 		    .attr("transform", "rotate(-90)")
 		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
 
