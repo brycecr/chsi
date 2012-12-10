@@ -218,12 +218,14 @@ function load_parcoords() {
 	var transdata = [];
 	var i = 0;
 
+	console.log($("body").data('map_ids_present'));
+
 	for (var map_id in $("body").data('map_ids_present')) {
 		data = $("body").data('map_' + map_id + '_data');
-		attr_id = $("body").data('map_' + map_id + '_title')
+		attr_id = $("body").data('map_' + map_id + '_title');
 		for (key in data) {
 			if (data[key] <= 0) continue;
-			var o = {fips: key, name: i};
+			var o = {};
 			o[attr_id] = data[key];
 			transdata[i++] = o;
 		}
