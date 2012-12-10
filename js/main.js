@@ -7,7 +7,7 @@ function init() {
 			load_map('', "map" + i.toString(), 0.4);
 			$("#map" + i.toString()).click(function(i) {
 				return function() {
-					$("body").data('map_id_active', i);
+					$("document").data('map_id_active', i);
 					$(".map").css('background', '#FFF');
 					$(this).css('background', '#EFEFEF');
 					$("#nav_show").trigger('click');
@@ -18,8 +18,8 @@ function init() {
 	}
 	setTimeout(load_map_wrapper, 1500);
 
-	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
-	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
+	$("document").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
+	$("document").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 }
 
@@ -165,16 +165,16 @@ function load_scatterplot(data) {
 }
 
 function load_parcoords() {
-	if (Object.keys($("body").data('map_ids_present')).length < 2) {
+	if (Object.keys($("document").data('map_ids_present')).length < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 		return;
 	}
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
-	for (var map_id in $("body").data('map_ids_present')) {
-		data = $("body").data('map' + map_id + '_data');
-		attr_id = $("body").data('map' + map_id + '_title');
+	for (var map_id in $("document").data('map_ids_present')) {
+		data = $("document").data('map' + map_id + '_data');
+		attr_id = $("document").data('map' + map_id + '_title');
 
 		var i = 0;
 		for (key in data) {
@@ -398,29 +398,29 @@ function load_attribute(attr_id, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
 			}
 
-			var map_id = $("body").data('map_id_active');
+			var map_id = $("document").data('map_id_active');
 
-			if (!(map_id in $("body").data('map_ids_present'))) {		// update map_ids_present
-				$("body").data("map_ids_present")[map_id] = true;
+			if (!(map_id in $("document").data('map_ids_present'))) {		// update map_ids_present
+				$("document").data("map_ids_present")[map_id] = true;
 			}
 
-			$("body").data('map' + map_id + '_data', map_data);		// update map_i_data
-			$("body").data('map' + map_id + '_title', attr_id);		// update map_i_title
+			$("document").data('map' + map_id + '_data', map_data);		// update map_i_data
+			$("document").data('map' + map_id + '_title', attr_id);		// update map_i_title
 
 			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
 			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
 				return function() {
-					console.log('click');
 					$("#map_large_title").html(attr_id);
+					$("#map_large_container").css('top', $(document).scrollTop()+100);
 					update_map(map_data, 'map_large', 1);
 					$("#map_large_container").fadeIn('slow');
 				}
 			}(map_id, attr_id));
 			$("#map" + map_id + "_clear").click(function(map_id) {
 				return function() {
-					$("body").data('map' + map_id + '_data', {});
-					$("body").data('map' + map_id + '_title', '');
-					delete $("body").data("map_ids_present")[map_id];
+					$("document").data('map' + map_id + '_data', {});
+					$("document").data('map' + map_id + '_title', '');
+					delete $("document").data("map_ids_present")[map_id];
 					$("#map" + map_id + "_title").html('');
 					update_map({}, 'map' + map_id);
 					load_parcoords();
