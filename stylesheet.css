@@ -135,8 +135,7 @@ body {
 #parallel_coordinates {
     width: 1240px;
     height: 400px;
-    padding: 10px;
-    padding-bottom: 20px;
+    padding: 20px 10px;
     background: #EFEFEF;
 }
 

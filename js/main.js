@@ -403,15 +403,17 @@ function load_attribute(attr_id, category) {
 			$("body").data('map_' + map_id + '_data', map_data);		// update map_i_data
 			$("body").data('map_' + map_id + '_title', attr_id);		// update map_i_title
 
-			$("#map" + map_id + "_title").html(attr_id + '<div class="map_clear" id="map_"' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div>');
+			$("#map" + map_id + "_title").html(attr_id + '<div class="map_clear" id="map_' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div>');
 			$("#map_" + map_id + "_clear").click(function(map_id) {
+				return function() {
 					console.log('click');
 					$("body").data('map_' + map_id + '_data', {});
 					$("body").data('map_' + map_id + '_title', '');
 					delete $("body").data("map_ids_present")[map_id];
 					update_map({}, 'map' + map_id);
 					load_parcoords();
-			});
+				}
+			}(map_id));
 
 			update_map(map_data, 'map' + map_id);
 			load_parcoords();
