@@ -4,7 +4,7 @@ function init() {
 	load_nav();
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 6; i++) {
-			load_map('', "map" + i.toString());
+			load_map('', "map" + i.toString(), 0.4);
 			$("#map" + i.toString()).click(function(i) {
 				return function() {
 					$("body").data('map_id_active', i);
@@ -14,7 +14,7 @@ function init() {
 				}
 			}(i));
 		}
-		load_map('', 'map_large');
+		load_map('', 'map_large', 1);
 	}
 	setTimeout(load_map_wrapper, 1500);
 
@@ -49,7 +49,7 @@ function datmin(arr) {
 	return res;
 }
 
-function load_map(data, div_id) {
+function load_map(data, div_id, scale) {
 	// This choropleth map code was seeded off an example by Mike Bostock
 	// using SVG data for backing map from Mike Bostock, Tom Carden, and
 	// the United States Census Bureau.
@@ -99,10 +99,10 @@ function load_map(data, div_id) {
 		.attr("d", path);
 	});
 
-	g.attr("transform", "scale(0.4)");
+	g.attr("transform", "scale(" + scale + ")");
 }
 
-function update_map(data, div_id) {
+function update_map(data, div_id, scale) {
 	var g = d3.select("#" + div_id+"svg").select("g");
 
 	var colorScale = d3.scale.quantile()
@@ -144,7 +144,7 @@ function update_map(data, div_id) {
 		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
 
 
-	g.attr("transform", "scale(0.4)");
+	g.attr("transform", "scale(" + scale + ")");
 }
 
 function load_scatterplot(data) {
@@ -412,7 +412,7 @@ function load_attribute(attr_id, category) {
 				return function() {
 					console.log('click');
 					$("#map_large_title").html(attr_id);
-					update_map(map_data, 'map_large');
+					update_map(map_data, 'map_large', 1);
 					$("#map_large_container").fadeIn('slow');
 				}
 			}(map_id, attr_id));
@@ -427,7 +427,7 @@ function load_attribute(attr_id, category) {
 				}
 			}(map_id));
 
-			update_map(map_data, 'map' + map_id);
+			update_map(map_data, 'map' + map_id, 0.4);
 			load_parcoords();
 		}
 	});
