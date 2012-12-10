@@ -215,7 +215,6 @@ function load_parcoords() {
 		return;
 	}
 
-	$("#parallel_coordinates").html('');
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	console.log($("body").data('map_ids_present'));
@@ -242,7 +241,8 @@ function load_parcoords() {
 	console.log(transdata);
 
 	if (pc == null) {
-		pc = d3.parcoords()("#parallel_coordinates")
+		$("#parallel_coordinates").html('');
+		pc = d3.parcoords()("#parallel_coordinates");
 	} else {
 		var dims = pc.dimensions();
 		for (var i = 0; i < dims.length;++i) {
