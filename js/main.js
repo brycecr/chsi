@@ -354,7 +354,7 @@ function load_nav() {
 		$("#pcoords_hide").show();
 	});
 
-	$("$map_large_close").click(function() {
+	$("#map_large_close").click(function() {
 		$("#map_large").fadeOut('slow');
 	});
 }
