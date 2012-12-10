@@ -237,9 +237,9 @@ function load_parcoords() {
 			}
 			i += 1;
 		}
-	}
 
-	console.log(transdata);
+		console.log(transdata);
+	}
 
 	if (pc == null) {
 		pc = d3.parcoords()("#parallel_coordinates")
