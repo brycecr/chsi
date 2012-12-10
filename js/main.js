@@ -253,7 +253,7 @@ function load_scatterplots() {
 			console.log(dataset);
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var w = 300; var h = 300;
+			var w = 300; var h = 300; var padding = 30;
 			var svg = d3.select("#scatterplot" + counter.toString())
             .append("svg")
             .attr("width", w)
@@ -283,9 +283,19 @@ function load_scatterplots() {
             .scale(xScale)
             .orient("bottom");
 
+            var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+
 			svg.append("g")
     		.attr("class", "scatterplot_axis")
+    		.attr("transform", "translate(0," + (h - padding) + ")")
    			.call(xAxis);
+
+   			svg.append("g")
+    		.attr("class", "scatter_plotaxis")
+    		.attr("transform", "translate(" + padding + ",0)")
+    		.call(yAxis);
 
 			counter += 1;
 		}
