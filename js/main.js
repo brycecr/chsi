@@ -16,35 +16,10 @@ function init() {
 		}
 	}
 	setTimeout(load_map_wrapper, 1500);
-	$("#maps_hide").fadeIn('slow');
-	$("#maps_hide").click(function() {
-		$("#maps").hide('blind');
-		$("#maps_hide").hide();
-		$("#maps_show").show();
-	});
-
-	$("#maps_show").click(function() {
-		$("#maps").show('blind');
-		$("#maps_show").hide();
-		$("#maps_hide").show();
-	});
 
 	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
-
-	$("#pcoords_hide").fadeIn('slow');
-	$("#pcoords_hide").click(function() {
-		$("#parallel_coordinates").hide('blind');
-		$("#pcoords_hide").hide();
-		$("#pcoords_show").show();
-	});
-
-	$("#pcoords_show").click(function() {
-		$("#parallel_coordinates").show('blind');
-		$("#pcoords_show").hide();
-		$("#pcoords_hide").show();
-	});
 }
 
 function datmax(arr) {
@@ -339,7 +314,6 @@ function load_nav() {
 
 	$("#nav2").html('<span class="text_large"><br><br><br><br>Choose a category to begin browsing!</span>');
 	$("#nav_hide").fadeIn('slow');
-
 	$("#nav_hide").click(function() {
 		$("#nav").hide('blind');
 		$("#nav_hide").hide();
@@ -350,6 +324,33 @@ function load_nav() {
 		$("#nav").show('blind');
 		$("#nav_show").hide();
 		$("#nav_hide").show();
+	});
+
+	$("#maps_hide").fadeIn('slow');
+	$("#maps_hide").click(function() {
+		$("#maps").hide('blind');
+		$("#maps_hide").hide();
+		$("#maps_show").show();
+	});
+
+	$("#maps_show").click(function() {
+		$("#maps").show('blind');
+		$("#maps_show").hide();
+		$("#maps_hide").show();
+	});
+
+	$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
+	$("#pcoords_hide").fadeIn('slow');
+	$("#pcoords_hide").click(function() {
+		$("#parallel_coordinates").hide('blind');
+		$("#pcoords_hide").hide();
+		$("#pcoords_show").show();
+	});
+
+	$("#pcoords_show").click(function() {
+		$("#parallel_coordinates").show('blind');
+		$("#pcoords_show").hide();
+		$("#pcoords_hide").show();
 	});
 }
 
