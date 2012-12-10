@@ -237,9 +237,10 @@ function load_scatterplots() {
 		return;
 	}
 
+	$("#scatterplots_container").html('');
 	var counter = 1;
     var dataset = [];
-	for (var i = 0; i < num_maps; i++) {
+	for (var i = 0; i < num_maps-1; i++) {
 		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
 		for (var j = i+1; i < num_maps; i++) {
 			dataset = [];
