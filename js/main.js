@@ -216,19 +216,23 @@ function load_parcoords() {
 	}
 
 	$("#parallel_coordinates").html('');
-	var transdata = [];
-	var i = 0;
+	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	console.log($("body").data('map_ids_present'));
 
 	for (var map_id in $("body").data('map_ids_present')) {
 		data = $("body").data('map_' + map_id + '_data');
 		attr_id = $("body").data('map_' + map_id + '_title');
+		var i = 0;
 		for (key in data) {
-			if (data[key] <= 0) continue;
-			var o = {};
-			o[attr_id] = data[key];
-			transdata[i++] = o;
+			// if (data[key] <= 0) continue;
+			if typeof transdata[i] === 'Object' {
+				transdata[i][attr_id] = data[key];
+			} else {
+				transdata[i] = {attr_id: data[key]};
+			}
+			
+			i += 1;
 		}
 	}
 
