@@ -414,7 +414,7 @@ function load_attribute(attr_id, category) {
 			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
 			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
 				return function() {
-					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close">close</div>');
+					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
 					$("#map_large_container").css('top', $(document).scrollTop()+50);
 					update_map(map_data, 'map_large', 1);
 					$("#map_large_container").fadeIn('slow');
