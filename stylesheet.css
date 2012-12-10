@@ -161,7 +161,7 @@ body {
 #scatterplots_container {
     width: 1160px;
     height: 300px;
-    padding: 0px 50px 10px 50px;
+    padding: 20px 50px;
 }
 
 .scatterplot {
