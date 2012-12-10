@@ -142,24 +142,26 @@ function update_map(data, div_id) {
 	legend.selectAll("text").remove();
 	legend.selectAll("rect").remove();
 
-	for (var i = 8; i >= 0; i -= 1) {
-		var ypos = 20 + 15*(8-i);
+	if (data != {}) {
+		for (var i = 8; i >= 0; i -= 1) {
+			var ypos = 20 + 15*(8-i);
 
-		legend.append("rect")
-			.attr("x", "30")
-			.attr("y", ypos)
-			.attr("height", "10")
-			.attr("width", "10")
-			.attr("fill",rg[i].toString());
+			legend.append("rect")
+				.attr("x", "30")
+				.attr("y", ypos)
+				.attr("height", "10")
+				.attr("width", "10")
+				.attr("fill",rg[i].toString());
 
-		legend.append("text")
-			.attr("text-anchor", "start")
-			.attr("x", "43")
-			.attr("y", ypos + 10)
-			.attr("fill", "#AAAAAA")
-			.attr("style", "font-family: 'PT Sans'; color: #666")
-			.style("font", "12px \'PT Sans\'")
-			.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
+			legend.append("text")
+				.attr("text-anchor", "start")
+				.attr("x", "43")
+				.attr("y", ypos + 10)
+				.attr("fill", "#AAAAAA")
+				.attr("style", "font-family: 'PT Sans'; color: #666")
+				.style("font", "12px \'PT Sans\'")
+				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
+		}
 	}
 	
 	g.select("#counties").selectAll("path")
@@ -406,7 +408,6 @@ function load_attribute(attr_id, category) {
 			$("#map" + map_id + "_title").html(attr_id + '<div class="map_clear" id="map_' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div>');
 			$("#map_" + map_id + "_clear").click(function(map_id) {
 				return function() {
-					console.log('click');
 					$("body").data('map_' + map_id + '_data', {});
 					$("body").data('map_' + map_id + '_title', '');
 					delete $("body").data("map_ids_present")[map_id];
