@@ -41,6 +41,6 @@
 }
 
 .scatterplot_axis text {
-    font-family: 'PT Sans'
+    font-family: 'PT Sans';
     font-size: 12px;
 }

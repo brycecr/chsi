@@ -279,6 +279,10 @@ function load_scatterplots() {
 			})
 			.attr("r", 3);
 
+			var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+
 			svg.append("g")
     		.attr("class", "scatterplot_axis")
    			.call(xAxis);
