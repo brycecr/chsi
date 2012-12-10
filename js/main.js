@@ -411,7 +411,7 @@ function load_attribute(attr_id, category) {
 					delete $("body").data("map_ids_present")[map_id];
 					update_map({}, 'map' + map_id);
 					load_parcoords();
-			}
+			});
 
 			update_map(map_data, 'map' + map_id);
 			load_parcoords();
