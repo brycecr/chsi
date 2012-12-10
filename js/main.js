@@ -14,6 +14,7 @@ function init() {
 				}
 			}(i));
 		}
+		load_map('', 'map_large');
 	}
 	setTimeout(load_map_wrapper, 1500);
 
@@ -411,7 +412,7 @@ function load_attribute(attr_id, category) {
 				return function() {
 					console.log('click');
 					$("#map_large_title").html(attr_id);
-					//update_map(map_data, 'map_large');
+					update_map(map_data, 'map_large');
 					$("#map_large_container").fadeIn('slow');
 				}
 			}(map_id, attr_id));

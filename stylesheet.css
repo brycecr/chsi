@@ -129,13 +129,15 @@ body {
     width: 800px;
     height: 600px;
     background: #FFF;
-    border: 10px solid #CCC;
+    padding: 10px;
+    border: 20px solid #333;
     border-radius: 10px;
 }
 
 #map_large_title {
     width: 800px;
     text-align: center;
+    font-size: 120%;
 }
 
 #counties path {
