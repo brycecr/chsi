@@ -231,12 +231,12 @@ function load_parcoords() {
 			} else {
 				transdata[i] = {attr_id: data[key]};
 			}
-			
 			i += 1;
 		}
+		console.log(data);
 	}
 
-	console.log(transdata);
+	//console.log(transdata);
 
 	if (pc == null) {
 		pc = d3.parcoords()("#parallel_coordinates")
