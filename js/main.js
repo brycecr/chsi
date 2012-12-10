@@ -344,6 +344,8 @@ function load_attribute(attr_id, category) {
 			if (!(map_id in $("body").data('map_ids_present'))) {		// update map_ids_present
 				$("body").data("map_ids_present")[map_id] = true;
 			}
+
+			console.log('map_' + map_id + '_data');
 			$("body").data('map_' + map_id + '_data') = map_data;		// update map_i_data
 			$("body").data('map_' + map_id + '_title') = attr_id;		// update map_i_title
 
