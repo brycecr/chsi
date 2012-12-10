@@ -3,7 +3,7 @@ $(document).ready(init);
 function init() {
 	load_nav();
 	var load_map_wrapper = function() {
-		for (var i = 1; i <= 6; i++) {
+		for (var i = 1; i <= 3; i++) {
 			load_map('', "map" + i.toString());
 			$("#map" + i.toString()).click(function(i) {
 				return function() {
@@ -215,10 +215,12 @@ function load_parcoords() {
 		return;
 	}
 
+	$("#parallel_coordinates").html('');
 	var transdata = [];
 	var i = 0;
 
 	console.log($("body").data('map_ids_present'));
+	console.log('i am here');
 
 	for (var map_id in $("body").data('map_ids_present')) {
 		data = $("body").data('map_' + map_id + '_data');
