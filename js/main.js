@@ -341,7 +341,7 @@ function load_attribute(attr_id, category) {
 
 			var map_id = $("body").data('map_id_active');
 
-			if (!(map_id in $("body").data('map_ids_present') {			// update map_ids_present
+			if (!(map_id in $("body").data('map_ids_present'))) {		// update map_ids_present
 				$("body").data("map_ids_present")[map_id] = true;
 			}
 			$("body").data('map_' + map_id _ '_data') = map_data;		// update map_i_data
