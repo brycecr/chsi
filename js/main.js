@@ -268,7 +268,7 @@ function load_scatterplots() {
 			.attr("cy", function(d) {
 			    return d[1];
 			})
-			.attr("r", 5);
+			.attr("r", 3);
 		}
 	}
 
