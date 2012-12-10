@@ -2,6 +2,7 @@ $(document).ready(init);
 
 function init() {
 	$("document").data('map_ids_present', new Object());	// tracks map ids with data (key: map id, value: true/false)
+	console.log(typeof $("document").data('map_ids_present'));
 	$("document").data('map_id_active', 1);					// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
