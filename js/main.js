@@ -281,11 +281,13 @@ function load_scatterplots() {
 
 			var xAxis = d3.svg.axis()
             .scale(xScale)
-            .orient("bottom");
+            .orient("bottom")
+            .ticks(5);
 
             var yAxis = d3.svg.axis()
             .scale(yScale)
             .orient("left")
+            .ticks(5);
 
 			svg.append("g")
     		.attr("class", "scatterplot_axis")
@@ -293,7 +295,7 @@ function load_scatterplots() {
    			.call(xAxis);
 
    			svg.append("g")
-    		.attr("class", "scatter_plotaxis")
+    		.attr("class", "scatterplot_axis")
     		.attr("transform", "translate(" + padding + ",0)")
     		.call(yAxis);
 
