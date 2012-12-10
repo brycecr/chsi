@@ -228,8 +228,11 @@ function load_parcoords() {
 			// if (data[key] <= 0) continue;
 			if (typeof transdata[i] === 'Object') {
 				transdata[i][attr_id] = data[key];
+				console.log(key + ' first');
 			} else {
-				transdata[i] = {attr_id: data[key]};
+				transdata[i] = {};
+				transdate[attr_id] = data[key];
+				console.log(key + ' second');
 			}
 			i += 1;
 		}
