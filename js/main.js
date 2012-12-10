@@ -301,15 +301,15 @@ function load_scatterplots() {
     		svg.append("text")
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
-		    .attr("x", w + 5)
-		    .attr("y", h - 20)
+		    .attr("x", w - 20)
+		    .attr("y", h)
 		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
 
 		    svg.append("text")
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
-		    .attr("y", padding)
-		    .attr("dy", "10px")
+		    .attr("x", 20)
+		    .attr("y", 0)
 		    .attr("transform", "rotate(-90)")
 		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
 
