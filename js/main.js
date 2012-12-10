@@ -353,10 +353,6 @@ function load_nav() {
 		$("#pcoords_show").hide();
 		$("#pcoords_hide").show();
 	});
-
-	$("#map_large_close").click(function() {
-		$("#map_large").fadeOut('slow');
-	});
 }
 
 function load_category(category) {
@@ -418,6 +414,10 @@ function load_attribute(attr_id, category) {
 					$("#map_large_container").css('top', $(document).scrollTop()+50);
 					update_map(map_data, 'map_large', 1);
 					$("#map_large_container").fadeIn('slow');
+
+					$("#map_large_close").click(function() {
+						$("#map_large").fadeOut('slow');
+					});
 				}
 			}(map_id, attr_id));
 			$("#map" + map_id + "_clear").click(function(map_id) {
