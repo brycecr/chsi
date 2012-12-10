@@ -1,5 +1,5 @@
 .parcoords > svg, .parcoords > canvas { 
-  font: 12px 'PT Sans';
+  font: 10px 'PT Sans';
   position: absolute;
 }
 .parcoords > canvas {
