@@ -171,7 +171,7 @@ function load_parcoords() {
 	}
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
-	console.log(typeof $("document").data('map_ids_present'));
+
 	for (var map_id in $("document").data('map_ids_present')) {
 		data = $("document").data('map' + map_id + '_data');
 		attr_id = $("document").data('map' + map_id + '_title');
@@ -399,8 +399,8 @@ function load_attribute(attr_id, category) {
 			}
 
 			var map_id = $("document").data('map_id_active');
-
-			if (!(map_id in $("document").data('map_ids_present'))) {		// update map_ids_present
+			console.log(typeof $("document").data('map_ids_present'));
+			if (!(map_id in $("document").data('map_ids_present'))) {	// update map_ids_present
 				$("document").data("map_ids_present")[map_id] = true;
 			}
 
