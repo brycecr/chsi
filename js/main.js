@@ -280,7 +280,7 @@ function load_scatterplots() {
 			.attr("r", 3);
 
             svg.append("g")
-    		.call(xAxis);
+    		.call(xAxis)
     		.scale(xScale)
             .orient("bottom");
 
