@@ -171,7 +171,7 @@ function load_parcoords() {
 	}
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
-
+	console.log(typeof $("document").data('map_ids_present'));
 	for (var map_id in $("document").data('map_ids_present')) {
 		data = $("document").data('map' + map_id + '_data');
 		attr_id = $("document").data('map' + map_id + '_title');
