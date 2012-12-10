@@ -240,13 +240,13 @@ function load_scatterplots() {
 	var counter = 1;
     var dataset = [];
 	for (var i = 0; i < num_maps; i++) {
-		var data1 = $("body").data('map' + i.toString() + '_data');
+		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
 		console.log(data1);
 		for (key in data1) {
 			dataset[key] = [data1[key]];
 		}
 		for (var j = i+1; i < num_maps; i++) {
-			var data2 = $("body").data('map' + j.toString() + '_data');
+			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
 			for (key in data2) {
 				dataset[key].push(data2[key]);
 			}
