@@ -410,6 +410,7 @@ function load_attribute(attr_id, category) {
 					$("body").data('map_' + map_id + '_data', {});
 					$("body").data('map_' + map_id + '_title', '');
 					delete $("body").data("map_ids_present")[map_id];
+					$("#map" + map_id + "_title").html('');
 					update_map({}, 'map' + map_id);
 					load_parcoords();
 				}
