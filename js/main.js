@@ -226,7 +226,7 @@ function load_parcoords() {
 		var i = 0;
 		for (key in data) {
 			// if (data[key] <= 0) continue;
-			if typeof transdata[i] === 'Object' {
+			if (typeof transdata[i] === 'Object') {
 				transdata[i][attr_id] = data[key];
 			} else {
 				transdata[i] = {attr_id: data[key]};
