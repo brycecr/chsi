@@ -217,13 +217,9 @@ function load_parcoords() {
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
-	console.log($("body").data('map_ids_present'));
-
 	for (var map_id in $("body").data('map_ids_present')) {
 		data = $("body").data('map_' + map_id + '_data');
 		attr_id = $("body").data('map_' + map_id + '_title');
-				console.log(data);
-		console.log(attr_id);
 
 		var i = 0;
 		for (key in data) {
@@ -243,10 +239,12 @@ function load_parcoords() {
 	if (pc == null) {
 		$("#parallel_coordinates").html('');
 		pc = d3.parcoords()("#parallel_coordinates");
+			console.log(pc.dimensions());
 	} else {
+			console.log(pc.dimensions());
 		var dims = pc.dimensions();
 		for (var i = 0; i < dims.length;++i) {
-			pc =	pc.brushReset(dims[i]);
+			pc = pc.brushReset(dims[i]);
 		}
 		pc = pc.removeAxes()
 	}
