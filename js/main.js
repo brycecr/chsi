@@ -188,6 +188,7 @@ function load_scatterplot(data) {
 
 function load_parcoords() {
 	if (Object.keys($("body").data('map_ids_present')).length < 2) {
+		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 		return;
 	}
 
