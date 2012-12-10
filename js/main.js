@@ -260,11 +260,11 @@ function load_scatterplots() {
 
             var xScale = d3.scale.linear()
             .domain([0, d3.max(dataset, function(d) { return d[0]; })])
-           	.range([0, w]);
+           	.range([padding, w - padding]);
 
            	var yScale = d3.scale.linear()
             .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-             .range([h, 0]);
+            .range([h - padding, padding]);
 
             svg.selectAll("circle")
 			.data(dataset)
