@@ -231,7 +231,7 @@ function load_parcoords() {
 				console.log(key + ' first');
 			} else {
 				transdata[i] = {};
-				transdate[attr_id] = data[key];
+				transdata[attr_id] = data[key];
 				console.log(key + ' second');
 			}
 			i += 1;
