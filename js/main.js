@@ -400,7 +400,7 @@ function load_attribute(attr_id, category) {
 
 			var map_id = $("document").data('map_id_active');
 
-			if (Object.keys($("document").data('map_ids_present')).length > 0)
+			if (Object.keys($("document").data('map_ids_present')).length > 0) {
 				if (!(map_id in $("document").data('map_ids_present'))) {	// update map_ids_present
 					$("document").data("map_ids_present")[map_id] = true;
 				}
