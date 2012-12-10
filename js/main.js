@@ -211,7 +211,7 @@ function update_scatterplot(data) {
 
 var pc = null;
 function load_parcoords() {
-	if (Object.size($("body").data('map_ids_present')) < 2) {
+	if (Object.keys($("body").data('map_ids_present')).length < 2) {
 		return;
 	}
 
