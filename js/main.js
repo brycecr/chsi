@@ -1,8 +1,8 @@
 $(document).ready(init);
 
 function init() {
-	$("document").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
-	$("document").data('map_id_active', 1);			// set active map id to 1 (default)
+	$("document").data('map_ids_present', new Object());	// tracks map ids with data (key: map id, value: true/false)
+	$("document").data('map_id_active', 1);					// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
 	load_nav();
