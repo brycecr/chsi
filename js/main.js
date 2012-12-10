@@ -250,7 +250,6 @@ function load_scatterplots() {
 					dataset.push([data1[key], data2[key]]);
 				}
 			}
-			console.log(dataset);
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
 			var w = 300; var h = 300; var padding = 30;
@@ -277,7 +276,7 @@ function load_scatterplots() {
 			.attr("cy", function(d) {
 			    return yScale(d[1]);
 			})
-			.attr("r", 3);
+			.attr("r", 2);
 
 			var xAxis = d3.svg.axis()
             .scale(xScale)
