@@ -276,7 +276,8 @@ function load_scatterplots() {
 			.attr("cy", function(d) {
 			    return yScale(d[1]);
 			})
-			.attr("r", 2);
+			.attr("r", 2)
+			.attr("fill", "#333");
 
 			var xAxis = d3.svg.axis()
             .scale(xScale)
