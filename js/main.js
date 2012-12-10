@@ -220,7 +220,6 @@ function load_parcoords() {
 	var i = 0;
 
 	console.log($("body").data('map_ids_present'));
-	console.log('i am here');
 
 	for (var map_id in $("body").data('map_ids_present')) {
 		data = $("body").data('map_' + map_id + '_data');
@@ -232,6 +231,8 @@ function load_parcoords() {
 			transdata[i++] = o;
 		}
 	}
+
+	console.log(transdata);
 
 	if (pc == null) {
 		pc = d3.parcoords()("#parallel_coordinates")
