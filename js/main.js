@@ -233,13 +233,13 @@ function load_parcoords() {
 				transdata[i][attr_id] = data[key];
 			} else {
 				transdata[i] = {};
-				transdata[attr_id] = data[key];
+				transdata[i][attr_id] = data[key];
 			}
 			i += 1;
 		}
-
-		console.log(transdata);
 	}
+
+	console.log(transdata);
 
 	if (pc == null) {
 		pc = d3.parcoords()("#parallel_coordinates")
