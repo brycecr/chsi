@@ -172,8 +172,8 @@ function load_parcoords() {
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	for (var map_id in $("body").data('map_ids_present')) {
-		data = $("body").data('map_' + map_id + '_data');
-		attr_id = $("body").data('map_' + map_id + '_title');
+		data = $("body").data('map' + map_id + '_data');
+		attr_id = $("body").data('map' + map_id + '_title');
 
 		var i = 0;
 		for (key in data) {
@@ -403,11 +403,11 @@ function load_attribute(attr_id, category) {
 				$("body").data("map_ids_present")[map_id] = true;
 			}
 
-			$("body").data('map_' + map_id + '_data', map_data);		// update map_i_data
-			$("body").data('map_' + map_id + '_title', attr_id);		// update map_i_title
+			$("body").data('map' + map_id + '_data', map_data);		// update map_i_data
+			$("body").data('map' + map_id + '_title', attr_id);		// update map_i_title
 
-			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map_' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map_' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
-			$("#map_" + map_id + "_expand").click(function(map_id, attr_id) {
+			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
+			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
 				return function() {
 					console.log('click');
 					$("#map_large_title").html(attr_id);
@@ -415,10 +415,10 @@ function load_attribute(attr_id, category) {
 					$("#map_large").fadeIn('slow');
 				}
 			}(map_id, attr_id));
-			$("#map_" + map_id + "_clear").click(function(map_id) {
+			$("#map" + map_id + "_clear").click(function(map_id) {
 				return function() {
-					$("body").data('map_' + map_id + '_data', {});
-					$("body").data('map_' + map_id + '_title', '');
+					$("body").data('map' + map_id + '_data', {});
+					$("body").data('map' + map_id + '_title', '');
 					delete $("body").data("map_ids_present")[map_id];
 					$("#map" + map_id + "_title").html('');
 					update_map({}, 'map' + map_id);
