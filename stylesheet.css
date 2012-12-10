@@ -168,7 +168,7 @@ body {
     float: left;
     width: 300px;
     height: 300px;
-    margin: 20px;
+    border: 2px solid black;
 }
 
 .clear {

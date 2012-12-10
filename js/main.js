@@ -260,7 +260,7 @@ function load_scatterplots() {
 
             var xScale = d3.scale.linear()
             .domain([0, d3.max(dataset, function(d) { return d[0]; })])
-           	.range([padding, w - padding]);
+           	.range([padding, w - padding*2]);
 
            	var yScale = d3.scale.linear()
             .domain([0, d3.max(dataset, function(d) { return d[1]; })])
