@@ -15,7 +15,7 @@ function init() {
 			}(i));
 		}
 	}
-	setTimeout(load_map_wrapper, 2000);
+	setTimeout(load_map_wrapper, 1500);
 	$("#maps_hide").fadeIn('slow');
 	$("#maps_hide").click(function() {
 		$("#maps").hide('blind');
