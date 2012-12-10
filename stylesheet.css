@@ -158,6 +158,17 @@ body {
     background: #EFEFEF;
 }
 
+#scatterplots_container {
+    width: 1240px;
+    height: 300px;
+    padding: 0px 10px 10px 10px;
+}
+
+.scatterplot {
+    width: 300px;
+    height: 300px;
+}
+
 .clear {
     clear: both;
 }

@@ -230,6 +230,48 @@ function load_parcoords() {
 function load_scatterplots() {
 	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
 
+	map_ids = Object.keys($("body").data('map_ids_present'));
+	num_maps = map_ids.length;
+	if (num_maps < 2) {
+		$("scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+		return;
+	}
+
+	var counter = 1;
+    var dataset = [];
+	for (var i = 0; i < num_maps; i++) {
+		var data1 = $("body").data('map' + i.toString() + '_data');
+		for (key in data1) {
+			dataset[key] = [data1[key]];
+		}
+		for (var j = i+1; i < num_maps; i++) {
+			var data2 = $("body").data('map' + j.toString() + '_data');
+			for (key in data2) {
+				dataset[key].push(data2[key]);
+			}
+			console.log(dataset);
+
+			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
+			var w = 300; var height = 300;
+			var svg = d3.select("scatterplot" + counter.toString())
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+            svg.selectAll("circle")
+			.data(dataset)
+			.enter()
+			.append("circle");
+			.attr("cx", function(d) {
+				return d[0];
+			})
+			.attr("cy", function(d) {
+			    return d[1];
+			})
+			.attr("r", 5);
+		}
+	}
+
  //    var width = 800;
  //    var height = 200;
 
@@ -425,7 +467,7 @@ function load_attribute(attr_id, category) {
 					$("body").data('map' + map_id + '_title', '');
 					delete $("body").data('map_ids_present')[map_id];
 					$("#map" + map_id + "_title").html('');
-					update_map({}, 'map' + map_id);
+					update_map({}, 'map' + map_id, 0.4);
 					load_parcoords();
 					load_scatterplots();
 				}
