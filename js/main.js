@@ -348,7 +348,7 @@ function load_attribute(attribute_div, category) {
 
 			$("#map" + $("body").data('map_id_active') + "_title").text(attribute_div.attr('id'));
 			load_map(map_data, 'map' + $("body").data('map_id_active'));
-			load_parcoords(map_data);
+			//load_parcoords(map_data);
 		}
 	});
 }
