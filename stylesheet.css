@@ -121,6 +121,17 @@ body {
     text-decoration: none;
 }
 
+#map_large {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 410px;
+    width: 800px;
+    height: 600px;
+    border: 10px solid #CCC;
+    border-radius: 10px;
+}
+
 #counties path {
     stroke: #FFFFFF;
     stroke-width: 0.25px;
