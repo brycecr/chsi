@@ -109,6 +109,15 @@ body {
 
 .map_clear {
     font-size: 80%;
+    float: right;
+}
+
+.map_clear a {
+    color: #000;
+}
+
+.map_clear a:hover {
+    text-decoration: none;
 }
 
 #counties path {
