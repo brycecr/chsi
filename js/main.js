@@ -390,6 +390,20 @@ function load_nav() {
 		$("#pcoords_show").hide();
 		$("#pcoords_hide").show();
 	});
+
+	$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+	$("#scatterplots_hide").fadeIn('slow');
+	$("#scatterplots_hide").click(function() {
+		$("#scatterplots_container").hide('blind');
+		$("#scatterplots_hide").hide();
+		$("#scatterplots_show").show();
+	});
+
+	$("#scatterplots_show").click(function() {
+		$("#scatterplots_container").show('blind');
+		$("#scatterplots_show").hide();
+		$("#scatterplots_hide").show();
+	});
 }
 
 function load_category(category) {
