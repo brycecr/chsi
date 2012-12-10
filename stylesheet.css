@@ -82,6 +82,7 @@ body {
 
 #maps {
     width: 1260px;
+    overflow: hidden;
 }
 
 .map_container {
@@ -95,7 +96,7 @@ body {
     width: 400px;
     height: 200px;
     cursor: pointer;
-    background: #000;
+    background: #FFF;
 }
 
 .map_title {
@@ -110,6 +111,7 @@ body {
     stroke: #FFFFFF;
     stroke-width: 0.25px;
 }
+
 #states path {
     fill: none;
     stroke: #FFFFFF;
