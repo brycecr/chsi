@@ -159,15 +159,16 @@ body {
 }
 
 #scatterplots_container {
-    width: 1240px;
+    width: 1220px;
     height: 300px;
-    padding: 0px 10px 10px 10px;
+    padding: 0px 20px 10px 20px;
 }
 
 .scatterplot {
     float: left;
     width: 300px;
     height: 300px;
+    backkground: #CCC;
 }
 
 .clear {
