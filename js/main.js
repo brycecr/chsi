@@ -253,7 +253,7 @@ function load_scatterplots() {
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
 			var width = 300; var height = 300;
-			var svg = d3.select("scatterplot" + counter.toString())
+			var svg = d3.select("#scatterplot" + counter.toString())
             .append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -269,6 +269,8 @@ function load_scatterplots() {
 			    return d[1];
 			})
 			.attr("r", 3);
+
+			counter += 1;
 		}
 	}
 
