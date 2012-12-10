@@ -301,8 +301,8 @@ function load_scatterplots() {
     		svg.append("text")
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
-		    .attr("x", w - 10)
-		    .attr("y", h + padding)
+		    .attr("x", w - 5)
+		    .attr("y", h)
 		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
 
 		    svg.append("text")
