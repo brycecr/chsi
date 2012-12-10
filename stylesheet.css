@@ -110,6 +110,7 @@ body {
 .map_clear {
     font-size: 80%;
     float: right;
+    margin-right: 5px;
 }
 
 .map_clear a {
