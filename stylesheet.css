@@ -107,6 +107,10 @@ body {
     padding: 3px 0px;
 }
 
+.map_clear {
+    font-size: 80%;
+}
+
 #counties path {
     stroke: #FFFFFF;
     stroke-width: 0.25px;
@@ -122,6 +126,7 @@ body {
     width: 1240px;
     height: 400px;
     padding: 10px;
+    padding-bottom: 20px;
     background: #EFEFEF;
 }
 
