@@ -235,21 +235,22 @@ function load_parcoords() {
 	}
 
 	console.log(transdata);
+	$("#parallel_coordinates").html('');
+	pc = d3.parcoords()("#parallel_coordinates");
 
-	if (pc == null) {
-		$("#parallel_coordinates").html('');
-		pc = d3.parcoords()("#parallel_coordinates");
-			console.log(pc.dimensions());
-	} else {
-			console.log(pc.dimensions());
-		var dims = pc.dimensions();
-		for (var i = 0; i < dims.length;++i) {
-			pc = pc.brushReset(dims[i]);
-		}
-		pc = pc.removeAxes()
-	}
 
-	pc  = pc.data(transdata, String)
+	// if (pc == null) {
+	// 	$("#parallel_coordinates").html('');
+	// 	pc = d3.parcoords()("#parallel_coordinates");
+	// } else {
+	// 	var dims = pc.dimensions();
+	// 	for (var i = 0; i < dims.length;++i) {
+	// 		pc = pc.brushReset(dims[i]);
+	// 	}
+	// 	pc = pc.removeAxes()
+	// }
+
+	pc = pc.data(transdata, String)
 		.autoscale()
 		.createAxes() // I guess we have to do this for the first load
 		.createAxes() //i guess we have to do this for the first load
