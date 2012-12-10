@@ -416,7 +416,7 @@ function load_attribute(attr_id, category) {
 					$("#map_large_container").fadeIn('slow');
 
 					$("#map_large_close").click(function() {
-						$("#map_large").fadeOut('slow');
+						$("#map_large_container").fadeOut('slow');
 					});
 				}
 			}(map_id, attr_id));
