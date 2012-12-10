@@ -209,7 +209,7 @@ function update_scatterplot(data) {
 	dots.exit().remove();
 }
 
-var pc = null;
+
 function load_parcoords() {
 	if (Object.keys($("body").data('map_ids_present')).length < 2) {
 		return;
@@ -234,22 +234,8 @@ function load_parcoords() {
 		}
 	}
 
-	console.log(transdata);
 	$("#parallel_coordinates").html('');
-	pc = d3.parcoords()("#parallel_coordinates");
-
-
-	// if (pc == null) {
-	// 	$("#parallel_coordinates").html('');
-	// 	pc = d3.parcoords()("#parallel_coordinates");
-	// } else {
-	// 	var dims = pc.dimensions();
-	// 	for (var i = 0; i < dims.length;++i) {
-	// 		pc = pc.brushReset(dims[i]);
-	// 	}
-	// 	pc = pc.removeAxes()
-	// }
-
+	var pc = d3.parcoords()("#parallel_coordinates");
 	pc = pc.data(transdata, String)
 		.autoscale()
 		.createAxes() // I guess we have to do this for the first load
