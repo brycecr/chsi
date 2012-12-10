@@ -217,14 +217,55 @@ function load_parcoords() {
 	pc = pc.data(transdata, String)
 		.autoscale()
 		.createAxes() // I guess we have to do this for the first load
-		.createAxes() //i guess we have to do this for the first load
 		.autoscale()
 		.alpha(0.2)
 		.render()
 		.createAxes()
 		.brushable()
 		.reorderable();
-}
+
+
+	// click label to activate coloring
+	pc.svg.selectAll(".dimension")
+		.on("click", change_color)
+		.selectAll(".label")
+		.style("font-size", "14px");
+
+	var zcolorscale = d3.scale.linear()
+		.domain([-2,-0.5,0.5,2])
+		.range(colorbrewer.Reds[4])
+		.clamp(true)
+		.interpolate(d3.interpolateLab);
+
+	// update color of parcoords
+	function change_color(dimension) { 
+		pc.svg.selectAll(".dimension")
+			.style("font-weight", "normal")
+			.filter(function(d) { return d == dimension; })
+			.style("font-weight", "bold")
+
+			pc.color(zcolor(pc.data(),dimension)).render()
+	};
+
+	// return color function based on plot and dimension
+	function zcolor(col, dimension) {
+		var z = zscore(_(col).pluck(dimension).map(parseFloat))
+			return function(d) { return zcolorscale(z(d[dimension])) }
+	};
+
+	// color by zscore
+	function zscore(col) {
+		var n = col.length,
+		    mean = _(col).mean(),
+		    sigma = _(col).stdDeviation();
+		return function(d) {
+			return (d-mean)/sigma;
+		};
+	};
+
+	change_color(pc.dimensions()[0]);
+};
+
 
 function update_scatterplot(data) {
     var chart = d3.select("#scatterplot");
