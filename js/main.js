@@ -233,7 +233,7 @@ function load_scatterplots() {
 	map_ids = Object.keys($("body").data('map_ids_present'));
 	num_maps = map_ids.length;
 	if (num_maps < 2) {
-		$("scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
 		return;
 	}
 
@@ -241,6 +241,7 @@ function load_scatterplots() {
     var dataset = [];
 	for (var i = 0; i < num_maps; i++) {
 		var data1 = $("body").data('map' + i.toString() + '_data');
+		console.log(data1);
 		for (key in data1) {
 			dataset[key] = [data1[key]];
 		}
