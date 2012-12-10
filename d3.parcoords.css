@@ -32,3 +32,15 @@
 .parcoords canvas.faded {
   opacity: 0.25;
 }
+
+.scatterplot_axis path,
+.scatterplot_axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.scatterplot_axis text {
+    font-family: 'PT Sans'
+    font-size: 12px;
+}

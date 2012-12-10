@@ -279,64 +279,14 @@ function load_scatterplots() {
 			})
 			.attr("r", 3);
 
-            svg.append("g")
-    		.call(xAxis)
-    		.scale(xScale)
-            .orient("bottom");
+			svg.append("g")
+    		.attr("class", "scatterplot_axis")
+   			.call(xAxis);
 
 			counter += 1;
 		}
 	}
-
- //    var width = 800;
- //    var height = 200;
-
- //    var chart = d3.select("#scatterplot")
-	// 	.append('svg')
-	// 	.attr('width', width)
-	// 	.attr('height', height);
-
-	// var g = chart.append("g");
-	// var points = g.append("g").attr("id", "scatter-dots");
-
-	// update_scatterplot(data);
 }
-
-// function update_scatterplot(data) {
-//     var chart = d3.select("#scatterplot");
-
-//     var width = 800;
-//     var height = 200;
-//     var plotbuf = 20;
-
-//     //X axis represents state, so we take 1st to digits of the FIPS code
-//     var x = d3.scale.ordinal()
-// 		.domain(Object.keys(data).map(function(s) {return s.slice(0,2);}))
-//           .rangePoints([ plotbuf, width-plotbuf ]);
-
-//     var y = d3.scale.linear()
-//           .domain([0, datmax(data)])
-//           .range([ height-plotbuf, plotbuf ])
-// 		.clamp(true);
-
-//     var xaxis = d3.svg.axis()
-// 		.scale(x)
-// 		.orient('bottom');
-
-//     var yaxis = d3.svg.axis()
-// 		.scale(y)
-// 		.orient('left');
-
-// 	var dots = chart.select('g').selectAll("scatter-dots").data(Object.keys(data));  // using the values in the ydata array
-// 		dots.enter().append("circle")  // create a new circle for each value
-// 		.attr("cy", function (d,i) { return (data[d]>0) ? y(data[d]) : -50; } ) // translate y value to a pixel
-// 		.attr("cx", function (d,i) { return x(d.slice(0,2)); } ) // translate x value
-// 		.attr("r", 2) // radius of circle
-// 		.attr("fill", "#000000")
-// 		.style("opacity", 0.6); // opacity of circle
-
-// 	dots.exit().remove();
-// }
 
 function load_nav() {
 	$.ajax({
