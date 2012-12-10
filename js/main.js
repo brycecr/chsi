@@ -403,7 +403,7 @@ function load_attribute(attr_id, category) {
 			$("body").data('map_' + map_id + '_data', map_data);		// update map_i_data
 			$("body").data('map_' + map_id + '_title', attr_id);		// update map_i_title
 
-			$("#map" + map_id + "_title").text(attr_id + '<div class="map_clear" id="map_"' + map_id + '_clear">clear</div>');
+			$("#map" + map_id + "_title").html(attr_id + '<div class="map_clear" id="map_"' + map_id + '_clear">clear</div>');
 			$("#map_" + map_id + "_clear").click(function() {
 				return function(map_id) {
 					$("body").data('map_' + map_id + '_data', {});
