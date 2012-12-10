@@ -228,8 +228,7 @@ function load_parcoords() {
 			// if (data[key] <= 0) continue;
 			if (transdata[i] instanceof Object == true) {
 				transdata[i][attr_id] = data[key];
-				console.log(transdata[i]);
-				console.log(attr_id);
+				console.log('here');
 			} else {
 				transdata[i] = {};
 				transdata[attr_id] = data[key];
