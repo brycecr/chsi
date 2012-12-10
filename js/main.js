@@ -412,7 +412,7 @@ function load_attribute(attr_id, category) {
 					$("#map_large").fadeIn('slow');
 					update_map(map_data, 'map_large');
 				}
-			}
+			}(map_id));
 			$("#map_" + map_id + "_clear").click(function(map_id) {
 				return function() {
 					$("body").data('map_' + map_id + '_data', {});
