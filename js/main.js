@@ -298,6 +298,21 @@ function load_scatterplots() {
     		.attr("transform", "translate(" + padding + ",0)")
     		.call(yAxis);
 
+    		svg.append("text")
+		    .attr("class", "scatterplot_label")
+		    .attr("text-anchor", "end")
+		    .attr("x", w)
+		    .attr("y", h - 5)
+		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
+
+		    svg.append("text")
+		    .attr("class", "scatterplot_label")
+		    .attr("text-anchor", "end")
+		    .attr("y", 5)
+		    .attr("dy", ".75em")
+		    .attr("transform", "rotate(-90)")
+		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
+
 			counter += 1;
 		}
 	}
