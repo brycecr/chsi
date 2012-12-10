@@ -241,19 +241,18 @@ function load_scatterplots() {
     var dataset = [];
 	for (var i = 0; i < num_maps; i++) {
 		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
-		console.log(data1);
-		for (key in data1) {
-			dataset[key] = [data1[key]];
-		}
 		for (var j = i+1; i < num_maps; i++) {
+			dataset = [];
 			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
-			for (key in data2) {
-				dataset[key].push(data2[key]);
+			for (key in data1) {
+				if (key in data2) {
+					dataset.push([data1[key], data2[key]]);
+				}
 			}
 			console.log(dataset);
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var w = 300; var height = 300;
+			var width = 300; var height = 300;
 			var svg = d3.select("scatterplot" + counter.toString())
             .append("svg")
             .attr("width", width)
