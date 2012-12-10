@@ -225,14 +225,14 @@ function load_parcoords(data) {
 	} else {
 		var dims = pc.dimensions();
 		for (var i = 0; i < dims.length;++i) {
-			pc = pc.brushReset(dims[i]);
+			pc =	pc.brushReset(dims[i]);
 		}
 		pc = pc.removeAxes()
 	}
 
 	pc  = pc.data(transdata, String)
-		.autoscale()
 		.createAxes() //i guess we have to do this for the first load
+		.autoscale()
 		.alpha(0.2)
 		.render()
 		.createAxes()
