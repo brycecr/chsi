@@ -121,15 +121,21 @@ body {
     text-decoration: none;
 }
 
-#map_large {
+#map_large_container {
     display: none;
     position: absolute;
     top: 100px;
-    left: 410px;
+    left: 210px;
     width: 800px;
     height: 600px;
+    background: #FFF;
     border: 10px solid #CCC;
     border-radius: 10px;
+}
+
+#map_large_title {
+    width: 800px;
+    text-align: center;
 }
 
 #counties path {
