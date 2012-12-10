@@ -32,6 +32,19 @@ function init() {
 	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
+
+	$("#pcoords_hide").fadeIn('slow');
+	$("#pcoords_hide").click(function() {
+		$("#parallel_coordinates").hide('blind');
+		$("#pcoords_hide").hide();
+		$("#pcoords_show").show();
+	});
+
+	$("#pcoords_show").click(function() {
+		$("#parallel_coordinates").show('blind');
+		$("#pcoords_show").hide();
+		$("#pcoords_hide").show();
+	});
 }
 
 function datmax(arr) {
