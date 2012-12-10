@@ -159,9 +159,9 @@ body {
 }
 
 #scatterplots_container {
-    width: 1160px;
+    width: 1200px;
     height: 300px;
-    padding: 20px 50px;
+    padding: 20px 30px;
 }
 
 .scatterplot {
