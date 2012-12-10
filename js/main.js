@@ -156,23 +156,6 @@ function update_map(data, div_id) {
 	g.attr("transform", "scale(0.4)");
 }
 
-function load_parcoords(data) {
-	var transdata = [];
-	var i = 0;
-	for (key in data) {
-		if (data[key]<=0) continue;
-		var o = {fips: key, val: data[key]};
-		transdata[i++] = o;
-	}
-
-	var pc = d3.parcoords()("#parallel_coords")
-		.data(transdata)
-		.alpha(0.4)
-		.render()
-		.brushable()
-		.reorderable();
-}
-
 function load_scatterplot(data) {
 	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
 
@@ -226,10 +209,10 @@ function update_scatterplot(data) {
 	dots.exit().remove();
 }
 
+var pc = null;
 function load_parcoords(data) {
 	var transdata = [];
 	var i = 0;
-	var pc = null;
 
 	for (key in data) {
 		if (data[key]<=0) continue;
@@ -238,7 +221,7 @@ function load_parcoords(data) {
 	}
 
 	if (pc == null) {
-		pc = d3.parcoords()("#parallel_coords")
+		pc = d3.parcoords()("#parallel_coordinates")
 	} else {
 		var dims = pc.dimensions();
 		for (var i = 0; i < dims.length;++i) {
@@ -350,7 +333,7 @@ function load_attribute(attribute_div, category) {
 
 			$("#map" + $("body").data('map_id_active') + "_title").text(attribute_div.attr('id'));
 			update_map(map_data, 'map' + $("body").data('map_id_active'));
-			//load_parcoords(map_data);
+			load_parcoords(map_data);
 		}
 	});
 }
