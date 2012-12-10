@@ -5,7 +5,7 @@
 	$category = $_GET['category'];
 	$query = '';
 
-	if $category == 'RelativeHealthImportance' {
+	if ($category == 'RelativeHealthImportance') {
 		$query = "SELECT * FROM DataElementDescription WHERE PAGE_NAME =
 		'". $category . "' AND COLUMN_NAME <> 'State_FIPS_Code' AND
 		COLUMN_NAME <> 'County_FIPS_Code' AND COLUMN_NAME <>
