@@ -242,7 +242,7 @@ function load_scatterplots() {
     var dataset = [];
 	for (var i = 0; i < num_maps-1; i++) {
 		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
-		for (var j = i+1; i < num_maps; i++) {
+		for (var j = i+1; j < num_maps; j++) {
 			dataset = [];
 			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
 			for (key in data1) {
@@ -253,21 +253,29 @@ function load_scatterplots() {
 			console.log(dataset);
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var width = 300; var height = 300;
+			var w = 300; var h = 300;
 			var svg = d3.select("#scatterplot" + counter.toString())
             .append("svg")
-            .attr("width", width)
-            .attr("height", height);
+            .attr("width", w)
+            .attr("height", h);
+
+            var xScale = d3.scale.linear()
+            .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+           	.range([0, w]);
+
+           	var yScale = d3.scale.linear()
+            .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+             .range([h, 0]);
 
             svg.selectAll("circle")
 			.data(dataset)
 			.enter()
 			.append("circle")
 			.attr("cx", function(d) {
-				return d[0];
+				return xScale(d[0]);
 			})
 			.attr("cy", function(d) {
-			    return d[1];
+			    return yScale(d[1]);
 			})
 			.attr("r", 3);
 
