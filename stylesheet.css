@@ -120,7 +120,8 @@ body {
 
 #parallel_coordinates {
     width: 1260px;
-    margin: 10px;
+    height: 500px;
+    margin-top: 10px;
 }
 
 .clear {
