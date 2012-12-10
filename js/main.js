@@ -29,7 +29,8 @@ function init() {
 		$("#maps_hide").show();
 	});
 
-	$("body").data('map_id_active', 1);			// set active map id to 1 (by default)
+	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
+	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 }
 
@@ -113,7 +114,6 @@ function load_map(data, div_id) {
 }
 
 function update_map(data, div_id) {
-
 	var g = d3.select("#" + div_id+"svg").select("g");
 
 	var colorScale = d3.scale.quantile()
@@ -210,15 +210,22 @@ function update_scatterplot(data) {
 }
 
 var pc = null;
-function load_parcoords(attr_id, data) {
+function load_parcoords() {
+	if (Object.size($(body).data('map_ids_present')) < 2) {
+		return;
+	}
+
 	var transdata = [];
 	var i = 0;
 
-	for (key in data) {
-		if (data[key] <= 0) continue;
-		var o = {fips: key, name: i};
-		o[attr_id] = data[key];
-		transdata[i++] = o;
+	for (var map_id in $(body).data('map_ids_present')) {
+		data = $(body).data('map_' + map_id + '_data');
+		for (key in data) {
+			if (data[key] <= 0) continue;
+			var o = {fips: key, name: i};
+			o[$(body).data('map_' + map_id + '_title')] = data[key];
+			transdata[i++] = o;
+		}
 	}
 
 	if (pc == null) {
@@ -332,9 +339,17 @@ function load_attribute(attr_id, category) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
 			}
 
-			$("#map" + $("body").data('map_id_active') + "_title").text(attr_id);
-			update_map(map_data, 'map' + $("body").data('map_id_active'));
-			load_parcoords(attr_id, map_data);
+			var map_id = $("body").data('map_id_active');
+
+			if (!(map_id in $("body").data('map_ids_present') {			// update map_ids_present
+				$("body").data("map_ids_present")[map_id] = true;
+			}
+			$("body").data('map_' + map_id _ '_data') = map_data;		// update map_i_data
+			$("body").data('map_' + map_id _ '_title') = attr_id;		// update map_i_title
+
+			$("#map" + map_id + "_title").text(attr_id);
+			update_map(map_data, 'map' + map_id);
+			load_parcoords();
 		}
 	});
 }
