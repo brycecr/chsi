@@ -405,6 +405,7 @@ function load_attribute(attr_id, category) {
 
 			$("#map" + map_id + "_title").html(attr_id + '<div class="map_clear" id="map_"' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div>');
 			$("#map_" + map_id + "_clear").click(function(map_id) {
+				console.log('click outisde');
 				return function() {
 					console.log('click');
 					$("body").data('map_' + map_id + '_data', {});
