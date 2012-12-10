@@ -309,7 +309,7 @@ function load_scatterplots() {
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
 		    .attr("y", padding)
-		    .attr("dy", "30px")
+		    .attr("dy", "100px")
 		    .attr("transform", "rotate(-90)")
 		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
 
