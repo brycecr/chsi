@@ -1,6 +1,10 @@
 $(document).ready(init);
 
 function init() {
+	$("document").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
+	$("document").data('map_id_active', 1);			// set active map id to 1 (default)
+	$("#map1").css('background', '#EFEFEF');
+
 	load_nav();
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 6; i++) {
@@ -17,10 +21,6 @@ function init() {
 		load_map('', 'map_large', 1);
 	}
 	setTimeout(load_map_wrapper, 1500);
-
-	$("document").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
-	$("document").data('map_id_active', 1);			// set active map id to 1 (default)
-	$("#map1").css('background', '#EFEFEF');
 }
 
 function datmax(arr) {
@@ -399,7 +399,7 @@ function load_attribute(attr_id, category) {
 			}
 
 			var map_id = $("document").data('map_id_active');
-			console.log(typeof $("document").data('map_ids_present'));
+
 			if (!(map_id in $("document").data('map_ids_present'))) {	// update map_ids_present
 				$("document").data("map_ids_present")[map_id] = true;
 			}
