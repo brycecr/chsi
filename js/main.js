@@ -216,7 +216,8 @@ function load_parcoords(attr_id, data) {
 
 	for (key in data) {
 		if (data[key] <= 0) continue;
-		var o = {fips: key, attr_id: data[key], name: i};
+		var o = {fips: key, name: i};
+		o[attr_id] = data[key];
 		transdata[i++] = o;
 	}
 
