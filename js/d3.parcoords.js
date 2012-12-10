@@ -320,9 +320,10 @@ d3.parcoords = function(config) {
     yscale[dimension].brush.clear()(
       pc.g()
         .filter(function(p) {
-          return dimension == p;
+          return p == dimension;
         })
     )
+    __.brushed = null;
     return this;
   };
 
