@@ -252,7 +252,7 @@ function load_scatterplots() {
 			}
 
 			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var w = 350; var h = 350; var padding = 70;
+			var w = 350; var h = 350; var padding_x = 70; var padding_y = 30; 
 			var svg = d3.select("#scatterplot" + counter.toString())
             .append("svg")
             .attr("width", w)
@@ -260,11 +260,11 @@ function load_scatterplots() {
 
             var xScale = d3.scale.linear()
             .domain([0, d3.max(dataset, function(d) { return d[0]; })])
-           	.range([padding, w - padding*2]);
+           	.range([padding_x, w - padding_x * 2]);
 
            	var yScale = d3.scale.linear()
             .domain([0, d3.max(dataset, function(d) { return d[1]; })])
-            .range([h - padding, padding]);
+            .range([h - padding_y, padding_y]);
 
             svg.selectAll("circle")
 			.data(dataset)
@@ -290,12 +290,12 @@ function load_scatterplots() {
 
 			svg.append("g")
     		.attr("class", "scatterplot_axis")
-    		.attr("transform", "translate(0," + (h - padding) + ")")
+    		.attr("transform", "translate(0," + (h - padding_y) + ")")
    			.call(xAxis);
 
    			svg.append("g")
     		.attr("class", "scatterplot_axis")
-    		.attr("transform", "translate(" + padding + ",0)")
+    		.attr("transform", "translate(" + padding_x + ",0)")
     		.call(yAxis);
 
     		svg.append("text")
@@ -308,7 +308,7 @@ function load_scatterplots() {
 		    svg.append("text")
 		    .attr("class", "scatterplot_label")
 		    .attr("text-anchor", "end")
-		    .attr("y", 50)
+		    .attr("y", 70)
 		    .attr("transform", "rotate(-90)")
 		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
 
