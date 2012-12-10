@@ -261,7 +261,7 @@ function load_scatterplots() {
             svg.selectAll("circle")
 			.data(dataset)
 			.enter()
-			.append("circle");
+			.append("circle")
 			.attr("cx", function(d) {
 				return d[0];
 			})
