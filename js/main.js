@@ -224,7 +224,6 @@ function load_parcoords() {
 		.brushable()
 		.reorderable();
 
-
 	// click label to activate coloring
 	pc.svg.selectAll(".dimension")
 		.on("click", change_color)
