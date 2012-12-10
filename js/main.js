@@ -223,13 +223,14 @@ function load_parcoords() {
 	for (var map_id in $("body").data('map_ids_present')) {
 		data = $("body").data('map_' + map_id + '_data');
 		attr_id = $("body").data('map_' + map_id + '_title');
+				console.log(data);
+		console.log(attr_id);
+
 		var i = 0;
 		for (key in data) {
 			// if (data[key] <= 0) continue;
 			if (transdata[i] instanceof Object == true) {
-				console.log(transdata[i]);
 				transdata[i][attr_id] = data[key];
-				console.log(transdata[i]);
 			} else {
 				transdata[i] = {};
 				transdata[attr_id] = data[key];
