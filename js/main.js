@@ -315,23 +315,23 @@ function load_category(category) {
 	);
 
 	$(".nav_attribute").click(function() {
-		load_attribute($(this), category);
+		load_attribute($(this).attr('id'), category);
 	});
 }
 
-function load_attribute(attribute_div, category) {
+function load_attribute(attr_id, category) {
 	$.ajax({
 		url: 'php/load_attribute.php',
 		dataType: 'json',
-		data: 'category=' + category + '&attribute=' + attribute_div.attr('id'),
+		data: 'category=' + category + '&attribute=' + attr_id,
 		async: false,
 		success: function(data) {
 			map_data = new Object();
 			for (var i = 0; i < data.length; i++) {
-				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
+				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
 			}
 
-			$("#map" + $("body").data('map_id_active') + "_title").text(attribute_div.attr('id'));
+			$("#map" + $("body").data('map_id_active') + "_title").text(attr_id);
 			update_map(map_data, 'map' + $("body").data('map_id_active'));
 			load_parcoords(map_data);
 		}
