@@ -228,18 +228,15 @@ function load_parcoords() {
 			// if (data[key] <= 0) continue;
 			if (transdata[i] instanceof Object == true) {
 				transdata[i][attr_id] = data[key];
-				console.log(key + ' first');
 			} else {
 				transdata[i] = {};
 				transdata[attr_id] = data[key];
-				console.log(key + ' second');
 			}
 			i += 1;
 		}
-		console.log(data);
 	}
 
-	//console.log(transdata);
+	console.log(transdata);
 
 	if (pc == null) {
 		pc = d3.parcoords()("#parallel_coordinates")
