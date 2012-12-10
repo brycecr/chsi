@@ -210,13 +210,13 @@ function update_scatterplot(data) {
 }
 
 var pc = null;
-function load_parcoords(data) {
+function load_parcoords(attr_id, data) {
 	var transdata = [];
 	var i = 0;
 
 	for (key in data) {
-		if (data[key]<=0) continue;
-		var o = {fips: key, 'temp': data[key], name: i};
+		if (data[key] <= 0) continue;
+		var o = {fips: key, attr_id: data[key], name: i};
 		transdata[i++] = o;
 	}
 
@@ -232,7 +232,7 @@ function load_parcoords(data) {
 
 	pc  = pc.data(transdata, String)
 		.autoscale()
-		.createAxes() //i guess we have to do this for the first load
+		.createAxes() // I guess we have to do this for the first load
 		.alpha(0.2)
 		.render()
 		.createAxes()
@@ -333,7 +333,7 @@ function load_attribute(attr_id, category) {
 
 			$("#map" + $("body").data('map_id_active') + "_title").text(attr_id);
 			update_map(map_data, 'map' + $("body").data('map_id_active'));
-			load_parcoords(map_data);
+			load_parcoords(attr_id, map_data);
 		}
 	});
 }
