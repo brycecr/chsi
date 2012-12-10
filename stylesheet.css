@@ -107,17 +107,17 @@ body {
     padding: 3px 0px;
 }
 
-.map_clear {
+.map_title_option {
     font-size: 80%;
     float: right;
     margin-right: 5px;
 }
 
-.map_clear a {
+.map_title_option a {
     color: #000;
 }
 
-.map_clear a:hover {
+.map_title_option a:hover {
     text-decoration: none;
 }
 
