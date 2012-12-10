@@ -143,7 +143,6 @@ function update_map(data, div_id) {
 	legend.selectAll("rect").remove();
 
 	if (Object.keys(data).length > 0) {
-		console.log('here');
 		for (var i = 8; i >= 0; i -= 1) {
 			var ypos = 20 + 15*(8-i);
 
