@@ -137,8 +137,6 @@ function update_map(data, div_id, scale) {
 				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 		}
 	}
-	
-	console.log(data);
 
 	g.select("#counties").selectAll("path")
 		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
