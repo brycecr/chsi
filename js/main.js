@@ -88,8 +88,6 @@ function load_map(data, div_id, scale) {
 		.enter().append("path")
 		.attr("fill", "#DDDDDD")
 		.attr("d", path);
-
-		counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
 	});
 
 	d3.json("data/us-states.json", function(json) {
