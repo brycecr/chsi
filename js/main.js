@@ -5,7 +5,10 @@ function init() {
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
-	load_nav();
+	var load_nav_wrapper = function() {
+		load_nav();
+	}
+
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 6; i++) {
 			load_map('', "map" + i.toString(), 0.4);
@@ -20,6 +23,8 @@ function init() {
 		}
 		load_map('', 'map_large', 1);
 	}
+
+	setTimeout(load_nav_wrapper, 1000);
 	setTimeout(load_map_wrapper, 1500);
 }
 
