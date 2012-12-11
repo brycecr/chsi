@@ -81,7 +81,7 @@ function load_map(data, div_id, scale) {
 
 	rg = colorScale.range();
 	dm = colorScale.quantiles().slice();
-	console.log(data);
+
 	d3.json("data/us-counties.json", function(json) {
 		counties.selectAll("path")
 		.data(json.features)
@@ -143,6 +143,8 @@ function update_map(data, div_id, scale) {
 	g.select("#counties").selectAll("path")
 		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
 
+	g.select("#counties").selectAll("path")
+		.append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
 
 	g.attr("transform", "scale(" + scale + ")");
 }
