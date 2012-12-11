@@ -5,7 +5,7 @@ function init() {
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
-	$("#top_text1").show("drop", { direction: "down" }, 1000);
+	$("#top_text1").show("drop", { direction: "up" }, 1000);
 	$("#top_text2").show("drop", { direction: "right" }, 1000);
 	$("#top_text3").fadeIn('slow');
 
@@ -29,7 +29,7 @@ function init() {
 	}
 
 	setTimeout(load_nav_wrapper, 1000);
-	setTimeout(load_map_wrapper, 2000);
+	setTimeout(load_map_wrapper, 2500);
 }
 
 function datmax(arr) {
