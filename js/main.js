@@ -238,6 +238,14 @@ function load_parcoords(data) {
 		.createAxes()
 		.brushable()
 		.reorderable();
+
+	var grid = d3.divgrid();
+	d3.select("#grid")
+		.datum(data)
+		.call(grid)
+		.selectAll(".row")
+		.on({"mouseover": function(d) { pc.highlight([d]) },
+			"mouseout": pc.unhighlight});
 }
 
 function load_nav() {
