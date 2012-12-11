@@ -27,14 +27,14 @@ body {
 #top_text2 {
     position: absolute;
     top: 35px;
-    left: 550px;
-    font-size: 400%;
+    left: 450px;
+    font-size: 430%;
     color: #000;
 }
 
 #top_text3 {
     position: absolute;
-    top: 60px;
+    top: 70px;
     left: 120px;
     color: #000;
 }
