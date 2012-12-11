@@ -140,10 +140,10 @@ function update_map(data, div_id, scale) {
 		}
 	}
 	
-	g.select("#counties").selectAll("path")
-		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
+	console.log(data);
 
 	g.select("#counties").selectAll("path")
+		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
 		.append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
 
 	g.attr("transform", "scale(" + scale + ")");
