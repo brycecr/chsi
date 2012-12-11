@@ -5,9 +5,9 @@ function init() {
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
-	$("nav_text1").show("drop", { direction: "down" }, 500);
-	$("nav_text2").show("drop", { direction: "right" }, 500);
-	$("nav_text3").fadeIn('slow');
+	$("#nav_text1").show("drop", { direction: "down" }, 500);
+	$("#nav_text2").show("drop", { direction: "right" }, 500);
+	$("#nav_text3").fadeIn('slow');
 
 	var load_nav_wrapper = function() {
 		load_nav();
