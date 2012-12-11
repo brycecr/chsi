@@ -81,7 +81,7 @@ function load_map(data, div_id, scale) {
 
 	rg = colorScale.range();
 	dm = colorScale.quantiles().slice();
-	
+	console.log(data);
 	d3.json("data/us-counties.json", function(json) {
 		counties.selectAll("path")
 		.data(json.features)
@@ -451,7 +451,7 @@ function load_attribute(attr_id, category) {
 
 			var map_id = $("body").data('map_id_active');
 
-			if (!(map_id in $("body").data('map_ids_present'))) {	// update map_ids_present
+			if (!(map_id in $("body").data('map_ids_present'))) {		// update map_ids_present
 				$("body").data("map_ids_present")[map_id] = true;
 			}
 
