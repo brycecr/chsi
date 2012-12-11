@@ -9,6 +9,41 @@ body {
     margin: -10px;
 }
 
+#top {
+    positon: relative;
+    width: 1260px;
+    height: 100px;
+    padding-bottom: 10px;
+}
+
+#top_text1 {
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    font-size: 400%;
+    color: #666;
+    display: none;   
+}
+
+#top_text2 {
+    position: absolute;
+    top: 35px;
+    left: 580px;
+    font-size: 430%;
+    color: #000;
+    font-weight: bold;
+    display: none;
+}
+
+#top_text3 {
+    position: absolute;
+    top: 75px;
+    left: 110px;
+    color: #333;
+    font-size: 110%;
+    display: none;
+}
+
 .bar {
     width: 1240px;
     margin: 0px;

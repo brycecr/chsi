@@ -5,7 +5,14 @@ function init() {
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
-	load_nav();
+	$("#top_text1").show("drop", { direction: "down" }, 500);
+	$("#top_text2").show("drop", { direction: "right" }, 500);
+	$("#top_text3").fadeIn('slow');
+
+	var load_nav_wrapper = function() {
+		load_nav();
+	}
+
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 6; i++) {
 			load_map('', "map" + i.toString(), 0.4);
@@ -20,7 +27,9 @@ function init() {
 		}
 		load_map('', 'map_large', 1);
 	}
-	setTimeout(load_map_wrapper, 1500);
+
+	setTimeout(load_nav_wrapper, 1000);
+	setTimeout(load_map_wrapper, 2000);
 }
 
 function datmax(arr) {
@@ -137,8 +146,6 @@ function update_map(data, div_id, scale) {
 				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 		}
 	}
-	
-	console.log(data);
 
 	g.select("#counties").selectAll("path")
 		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
