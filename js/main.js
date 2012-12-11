@@ -266,11 +266,14 @@ function load_scatterplots() {
             .attr("height", h);
 
             var xScale = d3.scale.linear()
-            .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+            .domain([d3.min(dataset, 
+				function(d) { if (d[0]>=0) return d[0]; }), 
+				d3.max(dataset, function(d) { return d[0]; })])
            	.range([padding_x, w - padding_x * 2]);
 
            	var yScale = d3.scale.linear()
-            .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
+				 d3.max(dataset, function(d) { return d[1]; })])
             .range([h - padding_y, padding_y]);
 
             svg.selectAll("circle")
