@@ -1,5 +1,7 @@
 $(document).ready(init);
 
+var names = {};
+
 function init() {
    	$.blockUI({												// block page until finished loading
    		css: {
@@ -42,7 +44,20 @@ function init() {
 		});
 	}
 
+	var set_names = function() {
+		var county = $("body").data('counties_json').features;
+		var states = $("body").data('states_json').features;
+		var j = 0;
+		for (var i = 0; i < county.length; ++i) {
+			if (county[i].id.slice(0,2) != states[j].id) ++j;
+			names[county[i].id] = county[i].properties.name+", "+states[j].properties.name;
+		}
+		console.log(names);
+	}
+
 	setTimeout(ajax_calls, 500);							// allows page to be blocked first
+	setTimeout(set_names, 500);
+
 }
 
 function load_top() {
@@ -220,6 +235,13 @@ function load_parcoords() {
 			return (d-mean)/sigma;
 		};
 	};
+
+	var k = 0;
+	for (key in data) {
+		transdata[k]["County_Name"] = names[key];
+		transdata[k]["FIPS_Code"] = key;
+		k++;
+	}
 
 	if (num_maps >= 2) {
 		$("#parallel_coordinates").html('');
