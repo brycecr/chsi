@@ -194,7 +194,7 @@ body {
     overflow-y: auto;
 }
 
-    .row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
+    .row, .header { clear: left; font-size: 12px; line-height: 18px;}
     .row:nth-child(odd) { background: rgba(0,0,0,0.05); }
     .header { font-weight: bold; }
     .cell { float: left; overflow: hidden; white-space: nowrap; width: 160px; height: 18px; }
