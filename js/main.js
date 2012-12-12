@@ -11,7 +11,7 @@ function init() {
 	        'text-align': 'center'
     	}, message: 
     		'<img src="images/loading.gif">Loading...<br><span class="text_small">Thank you for your patience!</span>'
-    }); 
+    });
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);						// set active map id to 1 (default)
@@ -233,6 +233,17 @@ function load_category(category) {
 	$(".nav_attribute").click(function() {
 		$("#nav_hide").trigger('click');
 		var map_id = $("body").data('map_id_active');
+			   	$.blockUI({												// block page until finished loading
+	   		css: {
+		        padding: '15px', 
+		        background: '#000',
+		        opacity: '0.5',
+		        'font-size': '150%',
+		        color: '#FFF',
+		        'text-align': 'center'
+	    	}, message: 
+	    		'<img src="images/loading.gif">Loading...</span>'
+	    });
 		load_attribute($(this).attr('id'), category);
 	});
 }
