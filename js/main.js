@@ -1,5 +1,4 @@
 $(document).ready(init);
-$(document).ajaxStop($.unblockUI);
 
 function init() {
 	$.blockUI({message: 'Loading...' });		// block page until finished loading
@@ -7,6 +6,21 @@ function init() {
 	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
+
+	for (var i = 1; i <= 6; i++) {
+		load_map('', "map" + i.toString(), 0.4);
+		$("#map" + i.toString()).click(function(i) {
+			return function() {
+				$("body").data('map_id_active', i);
+				$(".map").css('background', '#FFF');
+				$(this).css('background', '#EFEFEF');
+				$("#nav_show").trigger('click');
+			}
+		}(i));
+	}
+	load_map('', 'map_large', 1);
+
+	$(document).ajaxStop($.unblockUI);				// unblock page
 
 	$("#top_text1").show("drop", { direction: "up" }, 1000);
 	$("#top_text2").show("drop", { direction: "right" }, 1000);
@@ -16,23 +30,7 @@ function init() {
 		load_nav();
 	}
 
-	var load_map_wrapper = function() {
-		for (var i = 1; i <= 6; i++) {
-			load_map('', "map" + i.toString(), 0.4);
-			$("#map" + i.toString()).click(function(i) {
-				return function() {
-					$("body").data('map_id_active', i);
-					$(".map").css('background', '#FFF');
-					$(this).css('background', '#EFEFEF');
-					$("#nav_show").trigger('click');
-				}
-			}(i));
-		}
-		load_map('', 'map_large', 1);
-	}
-
 	setTimeout(load_nav_wrapper, 1000);
-	setTimeout(load_map_wrapper, 2500);
 }
 
 function datmax(arr) {
