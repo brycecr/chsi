@@ -175,6 +175,7 @@ function load_nav() {
 		$("#pcoords_hide").show();
 	});
 
+	$("#grid").html('<br>Select one or more attributes to create a data table!');
 	$("#datatable_hide").fadeIn('slow');
 	$("#datatable_hide").click(function() {
 		$("#grid").hide('blind', {}, 1000);
@@ -398,6 +399,10 @@ function load_parcoords() {
 		if ($("body").data('map_ids_present')[map_id] == true) {
 			num_maps += 1;
 		}
+	}
+
+	if (num_maps < 1) {
+		$("#grid").html('<br>Select one or more attributes to create a data table!');
 	}
 
 	if (num_maps < 2) {
