@@ -273,7 +273,6 @@ function load_parcoords() {
 		d3.select('#grid')
 			.datum(transdata)
 			.call(grid);
-		});	
 	}
 };
 
