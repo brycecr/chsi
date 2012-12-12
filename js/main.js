@@ -1,7 +1,7 @@
 $(document).ready(init);
 
 function init() {
-	$.blockUI({message: 'Loading...' });		// block page until finished loading
+	$(document).ajaxStart($.blockUI({message: 'Loading...' }));		// block page until finished loading
 
 	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
@@ -20,17 +20,19 @@ function init() {
 	}
 	load_map('', 'map_large', 1);
 
-	$(document).ajaxStop($.unblockUI);				// unblock page
+	$(document).ajaxStop(function() {
+		$.unblockUI;							// unblock page
 
-	$("#top_text1").show("drop", { direction: "up" }, 1000);
-	$("#top_text2").show("drop", { direction: "right" }, 1000);
-	$("#top_text3").fadeIn('slow');
+		$("#top_text1").show("drop", { direction: "up" }, 1000);
+		$("#top_text2").show("drop", { direction: "right" }, 1000);
+		$("#top_text3").fadeIn('slow');
 
-	var load_nav_wrapper = function() {
-		load_nav();
-	}
+		var load_nav_wrapper = function() {
+			load_nav();
+		}
 
-	setTimeout(load_nav_wrapper, 1000);
+		setTimeout(load_nav_wrapper, 1000);
+	});
 }
 
 function datmax(arr) {
