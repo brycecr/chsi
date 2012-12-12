@@ -1,11 +1,12 @@
 body {
-    font-family: 'PT Sans';
+    font-family: 'Lato';
     margin-bottom: 30px;
+    font-weight: 300;
 }
 
 #container {
     width: 1260px;
-    margin: -10px;
+    margin: -10px auto;
 }
 
 #top {
