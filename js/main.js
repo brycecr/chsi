@@ -21,6 +21,7 @@ function init() {
 					async: false,
 					success: function(data) {
 						$("body").data('counties_json', data);
+						$("#top").hide();
 						$.unblockUI();						// unblock page and show top and nav
 						setTimeout(load_top, 500);
 						setTimeout(load_nav, 1000);
