@@ -7,9 +7,8 @@ function init() {
 	        background: '#000',
 	        opacity: 0.5, 
 	        color: '#FFF' 
-    	},{message: 
+    	}, message: 
     		'Loading...'
-    	}
     }); 
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
