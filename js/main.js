@@ -159,6 +159,7 @@ function update_map(data, div_id, scale) {
 
 function load_parcoords() {
 	var len = Object.keys($("body").data('map_ids_present')).length;
+	console.log($("body").data('map_ids_present'));
 	if (len < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 		return;
