@@ -401,12 +401,13 @@ function load_parcoords() {
 		}
 	}
 
-	if (num_maps < 1) {
-		$("#grid").html('<br>Select one or more attributes to create a data table!');
-	}
-
 	if (num_maps < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
+	}
+
+	if (num_maps < 1) {
+		$("#grid").html('<br>Select one or more attributes to create a data table!');
+		return;
 	}
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
