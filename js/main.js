@@ -418,6 +418,7 @@ function load_parcoords() {
 		if (is_first_pass) {
 			var k = 0;
 			for (key in data) {
+				transdata[k] = {};
 				transdata[k]["County Name"] = $('body').data('names')[key];
 				// transdata[k]["FIPS Code"] = key;
 				k++;
