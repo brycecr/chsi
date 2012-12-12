@@ -1,10 +1,21 @@
 $(document).ready(init);
 
 function init() {
-	load_nav();
+	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
+	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
+	$("#map1").css('background', '#EFEFEF');
+
+	$("#top_text1").show("drop", { direction: "up" }, 1000);
+	$("#top_text2").show("drop", { direction: "right" }, 1000);
+	$("#top_text3").fadeIn('slow');
+
+	var load_nav_wrapper = function() {
+		load_nav();
+	}
+
 	var load_map_wrapper = function() {
 		for (var i = 1; i <= 6; i++) {
-			load_map('', "map" + i.toString());
+			load_map('', "map" + i.toString(), 0.4);
 			$("#map" + i.toString()).click(function(i) {
 				return function() {
 					$("body").data('map_id_active', i);
@@ -14,23 +25,11 @@ function init() {
 				}
 			}(i));
 		}
+		load_map('', 'map_large', 1);
 	}
-	setTimeout(load_map_wrapper, 2000);
-	$("#maps_hide").fadeIn('slow');
-	$("#maps_hide").click(function() {
-		$("#maps").hide('blind');
-		$("#maps_hide").hide();
-		$("#maps_show").show();
-	});
 
-	$("#maps_show").click(function() {
-		$("#maps").show('blind');
-		$("#maps_show").hide();
-		$("#maps_hide").show();
-	});
-
-	$("body").data('map_id_active', 1);			// set active map id to 1 (by default)
-	$("#map1").css('background', '#EFEFEF');
+	setTimeout(load_nav_wrapper, 1000);
+	setTimeout(load_map_wrapper, 2500);
 }
 
 function datmax(arr) {
@@ -59,7 +58,7 @@ function datmin(arr) {
 	return res;
 }
 
-function load_map(data, div_id) {
+function load_map(data, div_id, scale) {
 	// This choropleth map code was seeded off an example by Mike Bostock
 	// using SVG data for backing map from Mike Bostock, Tom Carden, and
 	// the United States Census Bureau.
@@ -91,15 +90,13 @@ function load_map(data, div_id) {
 
 	rg = colorScale.range();
 	dm = colorScale.quantiles().slice();
-	
+
 	d3.json("data/us-counties.json", function(json) {
 		counties.selectAll("path")
 		.data(json.features)
 		.enter().append("path")
 		.attr("fill", "#DDDDDD")
 		.attr("d", path);
-
-		counties.selectAll("path").append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
 	});
 
 	d3.json("data/us-states.json", function(json) {
@@ -109,11 +106,10 @@ function load_map(data, div_id) {
 		.attr("d", path);
 	});
 
-	g.attr("transform", "scale(0.4)");
+	g.attr("transform", "scale(" + scale + ")");
 }
 
-function update_map(data, div_id) {
-
+function update_map(data, div_id, scale) {
 	var g = d3.select("#" + div_id+"svg").select("g");
 
 	var colorScale = d3.scale.quantile()
@@ -129,123 +125,227 @@ function update_map(data, div_id) {
 	legend.selectAll("text").remove();
 	legend.selectAll("rect").remove();
 
-	for (var i = 8; i >= 0; i -= 1) {
-		var ypos = 20 + 15*(8-i);
+	if (Object.keys(data).length > 0) {
+		for (var i = 8; i >= 0; i -= 1) {
+			var ypos = 20 + 15*(8-i);
 
-		legend.append("rect")
-			.attr("x", "30")
-			.attr("y", ypos)
-			.attr("height", "10")
-			.attr("width", "10")
-			.attr("fill",rg[i].toString());
+			legend.append("rect")
+				.attr("x", "30")
+				.attr("y", ypos)
+				.attr("height", "10")
+				.attr("width", "10")
+				.attr("fill",rg[i].toString());
 
-		legend.append("text")
-			.attr("text-anchor", "start")
-			.attr("x", "43")
-			.attr("y", ypos + 10)
-			.attr("fill", "#AAAAAA")
-			.attr("style", "font-family: 'PT Sans'; color: #666")
-			.style("font", "12px \'PT Sans\'")
-			.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
-	}
-	
-	g.select("#counties").selectAll("path")
-		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";});
-
-
-	g.attr("transform", "scale(0.4)");
-}
-
-function load_scatterplot(data) {
-	// adapted from: http://stackoverflow.com/questions/10440646/a-simple-scatterplot-example-in-d3-js 
-
-    var width = 800;
-    var height = 200;
-
-    var chart = d3.select("#scatterplot")
-		.append('svg')
-		.attr('width', width)
-		.attr('height', height);
-
-	var g = chart.append("g");
-	var points = g.append("g").attr("id", "scatter-dots");
-
-	update_scatterplot(data);
-}
-
-function update_scatterplot(data) {
-    var chart = d3.select("#scatterplot");
-
-    var width = 800;
-    var height = 200;
-    var plotbuf = 20;
-
-    //X axis represents state, so we take 1st to digits of the FIPS code
-    var x = d3.scale.ordinal()
-		.domain(Object.keys(data).map(function(s) {return s.slice(0,2);}))
-          .rangePoints([ plotbuf, width-plotbuf ]);
-
-    var y = d3.scale.linear()
-          .domain([0, datmax(data)])
-          .range([ height-plotbuf, plotbuf ])
-		.clamp(true);
-
-    var xaxis = d3.svg.axis()
-		.scale(x)
-		.orient('bottom');
-
-    var yaxis = d3.svg.axis()
-		.scale(y)
-		.orient('left');
-
-	var dots = chart.select('g').selectAll("scatter-dots").data(Object.keys(data));  // using the values in the ydata array
-		dots.enter().append("circle")  // create a new circle for each value
-		.attr("cy", function (d,i) { return (data[d]>0) ? y(data[d]) : -50; } ) // translate y value to a pixel
-		.attr("cx", function (d,i) { return x(d.slice(0,2)); } ) // translate x value
-		.attr("r", 2) // radius of circle
-		.attr("fill", "#000000")
-		.style("opacity", 0.6); // opacity of circle
-
-	dots.exit().remove();
-}
-
-var pc = null;
-function load_parcoords(data) {
-	var transdata = [];
-	var i = 0;
-
-	for (key in data) {
-		if (data[key]<=0) continue;
-		var o = {fips: key, val: data[key], name: i};
-		transdata[i++] = o;
-	}
-
-	if (pc == null) {
-		pc = d3.parcoords()("#parallel_coordinates")
-	} else {
-		var dims = pc.dimensions();
-		for (var i = 0; i < dims.length;++i) {
-			pc =	pc.brushReset(dims[i]);
+			legend.append("text")
+				.attr("text-anchor", "start")
+				.attr("x", "43")
+				.attr("y", ypos + 10)
+				.attr("fill", "#AAAAAA")
+				.attr("style", "font-family: 'PT Sans'; color: #666")
+				.style("font", "12px \'PT Sans\'")
+				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 		}
-		pc = pc.removeAxes()
 	}
 
-	pc  = pc.data(transdata, String)
-		.createAxes() //i guess we have to do this for the first load
+	g.select("#counties").selectAll("path")
+		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
+		.append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+
+	g.attr("transform", "scale(" + scale + ")");
+}
+
+function load_parcoords() {
+	var len = Object.keys($("body").data('map_ids_present')).length;
+	if (len < 2) {
+		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
+		return;
+	}
+
+	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
+
+	for (var map_id in $("body").data('map_ids_present')) {
+		data = $("body").data('map' + map_id + '_data');
+		attr_id = $("body").data('map' + map_id + '_title');
+
+		var i = 0;
+		for (key in data) {
+			if (data[key] < 0) {
+				continue;
+			}
+			else if (transdata[i] instanceof Object == true) {
+				transdata[i][attr_id] = data[key];
+			} else {
+				transdata[i] = {};
+				transdata[i][attr_id] = data[key];
+			}
+			i += 1;
+		}
+	}
+
+	$("#parallel_coordinates").html('');
+	var pc = d3.parcoords()("#parallel_coordinates");
+	pc = pc.data(transdata, String)
 		.autoscale()
-		.alpha(0.2)
+		.createAxes() // I guess we have to do this for the first load
+		.autoscale()
+		.alpha(0.4)
 		.render()
 		.createAxes()
 		.brushable()
+		.shadows()
 		.reorderable();
 
+	// click label to activate coloring
+	pc.svg.selectAll(".dimension")
+		.on("click", change_color)
+		.selectAll(".label")
+		.style("font-size", "14px");
+
+	var zcolorscale = d3.scale.linear()
+		.domain([-2,-0.5,0.5,2])
+		.range(colorbrewer.Reds[4])
+		.clamp(true)
+		.interpolate(d3.interpolateLab);
+
+	// update color of parcoords
+	function change_color(dimension) { 
+		pc.svg.selectAll(".dimension")
+			.style("font-weight", "normal")
+			.filter(function(d) { return d == dimension; })
+			.style("font-weight", "bold")
+
+			pc.color(zcolor(pc.data(),dimension)).render()
+	};
+
+	// return color function based on plot and dimension
+	function zcolor(col, dimension) {
+		var z = zscore(_(col).pluck(dimension).map(parseFloat))
+			return function(d) { return zcolorscale(z(d[dimension])) }
+	};
+
+	// color by zscore
+	function zscore(col) {
+		var n = col.length,
+		    mean = _(col).mean(),
+		    sigma = _(col).stdDeviation();
+		return function(d) {
+			return (d-mean)/sigma;
+		};
+	};
+
+	change_color(pc.dimensions()[0]);
+
 	var grid = d3.divgrid();
-	d3.select("#grid")
-		.datum(data)
+	d3.select('#grid')
+		.datum(transdata)
+		.call(grid)
+		.selectAll(".row")
+		.on({"mouseover" : function(d){pc.highlight([d]);},
+				"mouseout" : pc.unhighlight});
+
+	pc.on("brush", function(d) {
+		d3.select("#grid")
+		.datum(d)
 		.call(grid)
 		.selectAll(".row")
 		.on({"mouseover": function(d) { pc.highlight([d]) },
-			"mouseout": pc.unhighlight});
+			"mouseout": pc.unhighlight
+			});
+		});
+};
+
+function load_scatterplots() {
+	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
+
+	map_ids = Object.keys($("body").data('map_ids_present'));
+	num_maps = map_ids.length;
+	if (num_maps < 2) {
+		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+		return;
+	}
+
+	$("#scatterplots_container").html('');
+	var counter = 1;
+    var dataset = [];
+	for (var i = 0; i < num_maps-1; i++) {
+		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
+		for (var j = i+1; j < num_maps; j++) {
+			dataset = [];
+			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
+			for (key in data1) {
+				if (key in data2) {
+					dataset.push([data1[key], data2[key]]);
+				}
+			}
+
+			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
+			var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
+			var svg = d3.select("#scatterplot" + counter.toString())
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+            var xScale = d3.scale.linear()
+            .domain([d3.min(dataset, 
+				function(d) { if (d[0]>=0) return d[0]; }), 
+				d3.max(dataset, function(d) { return d[0]; })])
+           	.range([padding_x, w - padding_x * 2]);
+
+           	var yScale = d3.scale.linear()
+            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
+				 d3.max(dataset, function(d) { return d[1]; })])
+            .range([h - padding_y, padding_y]);
+
+            svg.selectAll("circle")
+			.data(dataset)
+			.enter()
+			.append("circle")
+			.attr("cx", function(d) {
+				return xScale(d[0]);
+			})
+			.attr("cy", function(d) {
+			    return yScale(d[1]);
+			})
+			.attr("r", 2)
+			.attr("fill", "#333");
+
+			var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .ticks(5);
+
+            var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .ticks(5);
+
+			svg.append("g")
+    		.attr("class", "scatterplot_axis")
+    		.attr("transform", "translate(0," + (h - padding_y) + ")")
+   			.call(xAxis);
+
+   			svg.append("g")
+    		.attr("class", "scatterplot_axis")
+    		.attr("transform", "translate(" + padding_x + ",0)")
+    		.call(yAxis);
+
+    		svg.append("text")
+		    .attr("class", "scatterplot_label")
+		    .attr("text-anchor", "left")
+		    .attr("x", w - 120)
+		    .attr("y", h - 10)
+		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
+
+		    svg.append("text")
+		    .attr("class", "scatterplot_label")
+		    .attr("text-anchor", "end")
+		    .attr("y", 85)
+		    .attr("transform", "rotate(-90)")
+		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
+
+			counter += 1;
+		}
+	}
 }
 
 function load_nav() {
@@ -282,7 +382,6 @@ function load_nav() {
 
 	$("#nav2").html('<span class="text_large"><br><br><br><br>Choose a category to begin browsing!</span>');
 	$("#nav_hide").fadeIn('slow');
-
 	$("#nav_hide").click(function() {
 		$("#nav").hide('blind');
 		$("#nav_hide").hide();
@@ -293,6 +392,60 @@ function load_nav() {
 		$("#nav").show('blind');
 		$("#nav_show").hide();
 		$("#nav_hide").show();
+	});
+
+	$("#maps_hide").fadeIn('slow');
+	$("#maps_hide").click(function() {
+		$("#maps").hide('blind');
+		$("#maps_hide").hide();
+		$("#maps_show").show();
+	});
+
+	$("#maps_show").click(function() {
+		$("#maps").show('blind');
+		$("#maps_show").hide();
+		$("#maps_hide").show();
+	});
+
+	$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
+	$("#pcoords_hide").fadeIn('slow');
+	$("#pcoords_hide").click(function() {
+		$("#parallel_coordinates").hide('blind');
+		$("#pcoords_hide").hide();
+		$("#pcoords_show").show();
+	});
+
+	$("#pcoords_show").click(function() {
+		$("#parallel_coordinates").show('blind');
+		$("#pcoords_show").hide();
+		$("#pcoords_hide").show();
+	});
+
+	$("#datatable_hide").fadeIn('slow');
+	$("#datatable_hide").click(function() {
+		$("#grid").hide('blind');
+		$("#datatable_hide").hide();
+		$("#datatable_show").show();
+	});
+
+	$("#datatable_show").click(function() {
+		$("#grid").show('blind');
+		$("#datatable_show").hide();
+		$("#datatable_hide").show();
+	});
+
+	$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+	$("#scatterplots_hide").fadeIn('slow');
+	$("#scatterplots_hide").click(function() {
+		$("#scatterplots_container").hide('blind');
+		$("#scatterplots_hide").hide();
+		$("#scatterplots_show").show();
+	});
+
+	$("#scatterplots_show").click(function() {
+		$("#scatterplots_container").show('blind');
+		$("#scatterplots_show").hide();
+		$("#scatterplots_hide").show();
 	});
 }
 
@@ -323,25 +476,59 @@ function load_category(category) {
 	);
 
 	$(".nav_attribute").click(function() {
-		load_attribute($(this), category);
+		load_attribute($(this).attr('id'), category);
 	});
 }
 
-function load_attribute(attribute_div, category) {
+function load_attribute(attr_id, category) {
 	$.ajax({
 		url: 'php/load_attribute.php',
 		dataType: 'json',
-		data: 'category=' + category + '&attribute=' + attribute_div.attr('id'),
+		data: 'category=' + category + '&attribute=' + attr_id,
 		async: false,
 		success: function(data) {
 			map_data = new Object();
 			for (var i = 0; i < data.length; i++) {
-				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attribute_div.attr('id')]);
+				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
 			}
 
-			$("#map" + $("body").data('map_id_active') + "_title").text(attribute_div.attr('id'));
-			update_map(map_data, 'map' + $("body").data('map_id_active'));
-			load_parcoords(map_data);
+			var map_id = $("body").data('map_id_active');
+
+			if (!(map_id in $("body").data('map_ids_present'))) {		// update map_ids_present
+				$("body").data("map_ids_present")[map_id] = true;
+			}
+
+			$("body").data('map' + map_id + '_data', map_data);			// update map_i_data
+			$("body").data('map' + map_id + '_title', attr_id);			// update map_i_title
+
+			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
+			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
+				return function() {
+					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
+					$("#map_large_container").css('top', $(document).scrollTop()+50);
+					update_map(map_data, 'map_large', 1);
+					$("#map_large_container").fadeIn('slow');
+
+					$("#map_large_close").click(function() {
+						$("#map_large_container").fadeOut('slow');
+					});
+				}
+			}(map_id, attr_id));
+			$("#map" + map_id + "_clear").click(function(map_id) {
+				return function() {
+					$("body").data('map' + map_id + '_data', {});
+					$("body").data('map' + map_id + '_title', '');
+					delete $("body").data('map_ids_present')[map_id];
+					$("#map" + map_id + "_title").html('');
+					update_map({}, 'map' + map_id, 0.4);
+					load_parcoords();
+					load_scatterplots();
+				}
+			}(map_id));
+
+			update_map(map_data, 'map' + map_id, 0.4);
+			load_parcoords();
+			load_scatterplots();
 		}
 	});
 }

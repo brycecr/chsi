@@ -4,9 +4,55 @@ body {
 	margin-bottom: 30px;
 }
 
+.row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
+.row:nth-child(odd) { background: rgba(0,0,0,0.05); }
+.header { font-weight: bold; }
+.cell { float: left; overflow: hidden; white-space: nowrap; width: 100px; height: 18px; }
+.col-0 { width: 180px; }
+
+#grid {
+	height: 300px;
+	overflow: scroll;
+}
+
 #container {
     width: 1260px;
     margin: -10px;
+}
+
+#top {
+    position: relative;
+    width: 1260px;
+    height: 100px;
+    padding-bottom: 10px;
+}
+
+#top_text1 {
+    position: absolute;
+    top: 0px;
+    left: 100px;
+    font-size: 400%;
+    color: #666;
+    display: none;   
+}
+
+#top_text2 {
+    position: absolute;
+    top: 35px;
+    left: 580px;
+    font-size: 430%;
+    color: #000;
+    font-weight: bold;
+    display: none;
+}
+
+#top_text3 {
+    position: absolute;
+    top: 75px;
+    left: 110px;
+    color: #333;
+    font-size: 110%;
+    display: none;
 }
 
 .bar {
@@ -35,7 +81,7 @@ body {
 #nav {
     width: 1260px;
     background: #EFEFEF;
-    padding: 15px 0px;
+    padding: 15px 0px 10px 0px;
 }
 
 #nav1 {
@@ -82,6 +128,7 @@ body {
 
 #maps {
     width: 1260px;
+    overflow: hidden;
 }
 
 .map_container {
@@ -106,18 +153,68 @@ body {
     padding: 3px 0px;
 }
 
+.map_title_option {
+    font-size: 80%;
+    float: right;
+    margin-right: 5px;
+}
+
+.map_title_option a {
+    color: #000;
+}
+
+.map_title_option a:hover {
+    text-decoration: none;
+}
+
+#map_large_container {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    width: 820px;
+    height: 540px;
+    background: #FFF;
+    padding: 10px;
+    border: 20px solid #333;
+    border-radius: 10px;
+    z-index: 10;
+}
+
+#map_large_title {
+    width: 800px;
+    text-align: center;
+    font-size: 120%;
+}
+
 #counties path {
     stroke: #FFFFFF;
     stroke-width: 0.25px;
 }
+
 #states path {
     fill: none;
     stroke: #FFFFFF;
     stroke-width: 1.5px;
 }
 
-#parallel_coords {
-    margin: 10px;
+#parallel_coordinates {
+    width: 1240px;
+    height: 400px;
+    padding: 0px 10px 10px 10px;
+    background: #EFEFEF;
+}
+
+#scatterplots_container {
+    width: 1200px;
+    height: 300px;
+    padding: 20px 30px;
+}
+
+.scatterplot {
+    float: left;
+    width: 400px;
+    height: 350px;
 }
 
 .clear {
