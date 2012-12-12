@@ -29,7 +29,7 @@
 		COLUMN_NAME <> 'CHSI_State_Abbr' AND COLUMN_NAME <>
 		'Strata_ID_Number' AND COLUMN_NAME <>
 		'Strata_Determining_Factors' AND COLUMN_NAME NOT LIKE '%Max_%' AND COLUMN_NAME NOT LIKE '%Min_%' 
-		AND COLUMN_NAME NOT LIKE '%_Ind%'";
+		AND COLUMN_NAME NOT LIKE '%_Ind%' AND COLUMN_NAME NOT LIKE 'US_%'";
 	}
 
 	$result = $db -> query($query);
