@@ -23,8 +23,8 @@ function init() {
 						$("body").data('counties_json', data);
 						$("#top").children().hide();
 						$.unblockUI();						// unblock page and show top and nav
-						setTimeout(load_top, 500);
-						setTimeout(load_nav, 1000);
+						setTimeout(load_top, 1000);
+						setTimeout(load_nav, 1500);
 						load_maps();
 					}
 				});
