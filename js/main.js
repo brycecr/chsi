@@ -23,18 +23,17 @@ function init() {
 			async: false,
 			success: function(data) {
 				$("body").data('states_json',data);
-				$.unblockUI();									// unblock page
+
+				$.unblockUI();									// unblock page and show top and nav
+				$("#top_text1").show("drop", { direction: "up" }, 1000);
+				$("#top_text2").show("drop", { direction: "right" }, 1000);
+				$("#top_text3").fadeIn('slow');
+				load_nav();
 			}
 		});
 	}
 
 	setTimeout(ajax_calls, 500);								// allows page to be blocked first
-
-	$("#top_text1").show("drop", { direction: "up" }, 1000);	// animates top title
-	$("#top_text2").show("drop", { direction: "right" }, 1000);
-	$("#top_text3").fadeIn('slow');
-
-	load_nav();
 
 	for (var i = 1; i <= 6; i++) {
 		load_map('', "map" + i.toString(), 0.4);				// load maps with json data
