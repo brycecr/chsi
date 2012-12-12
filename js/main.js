@@ -96,6 +96,7 @@ function load_map(data, div_id, scale) {
 	dm = colorScale.quantiles().slice();
 
 	d3.json("data/us-counties.json", function(json) {
+		console.log(json);
 		counties.selectAll("path")
 		.data(json.features)
 		.enter().append("path")
