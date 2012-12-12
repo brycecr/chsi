@@ -415,7 +415,7 @@ function load_parcoords() {
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
 
-		if (is_first_pass) {
+		if (is_first_pass) {				// save county names for data table
 			var k = 0;
 			for (key in data) {
 				transdata[k] = {};
