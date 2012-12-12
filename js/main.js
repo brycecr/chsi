@@ -273,7 +273,6 @@ function load_parcoords() {
 	for (key in data) {
 		transdata[k]["County_Name"] = names[key];
 		transdata[k]["FIPS_Code"] = key;
-		if (names[key] == null) console.log(key);
 		k++;
 	}
 
