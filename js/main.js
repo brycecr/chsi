@@ -10,7 +10,7 @@ function init() {
 	        color: '#FFF',
 	        'text-align': 'center'
     	}, message: 
-    		'<img src="images/loading.gif">Loading...<br><span style="text_small">Thank you for your patience!</span>'
+    		'<img src="images/loading.gif">Loading...<br><span class="text_small">Thank you for your patience!</span>'
     }); 
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
@@ -279,7 +279,6 @@ function load_parcoords() {
 
 function load_scatterplots() {
 	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
-	console.log('in load_scatterplots()')
 	var num_maps = 0;
 	var map_ids = [];
 	for (var map_id in $("body").data('map_ids_present')) {
@@ -289,11 +288,8 @@ function load_scatterplots() {
 		}
 	}
 
-	console.log($("body").data('map_ids_present'));
-
 	if (num_maps < 2) {
 		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
-		console.log('here');
 		return;
 	}
 
