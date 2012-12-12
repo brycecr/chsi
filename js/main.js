@@ -3,7 +3,7 @@ $(document).ready(init);
 function init() {
 	$(document).ajaxStart(function() {
 		console.log('start');
-		$.blockUI({message: 'Loading...' }));		// block page until finished loading
+		$.blockUI({message: 'Loading...' });		// block page until finished loading
 	});
 
 	$(document).ajaxStop(function() {
