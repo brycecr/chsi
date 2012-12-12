@@ -35,58 +35,12 @@ function init() {
 						$.unblockUI();						// unblock page and show top and nav
 						setTimeout(load_top, 800);
 						setTimeout(load_nav, 1200);
+						set_names();
 						load_maps();
 					}
 				});
 			}
 		});
-	}
-
-	var set_names = function() {
-		var names = {};
-		var county = $("body").data('counties_json').features;
-		var states = $("body").data('states_json').features;
-		var j = 0;
-		for (var i = 0; i < county.length; ++i) {
-			if (county[i].id.slice(0,2) != states[j].id) ++j;
-			names[county[i].id] = county[i].properties.name+", "+states[j].properties.name;
-		}
-		/* Special rules for exceptional counties */
-		names["15005"] = "Kalawao, Hawaii";
-		names["15007"] = "Kauai, Hawaii";
-		names['25007'] = "Dukes, Massachusetts";
-		names['25019'] = "Nantucket, Massachusetts";
-		names['36085'] = "Richmond, New York";
-		names['44005'] = "Newport, Rhode Island";
-		names['51131'] = 'Northampton, Virginia';
-		names['51515'] = 'Bedford, Virginia';
-		names['51530'] = 'Buena Vista, Virginia';
-		names['51540'] = 'Charlottesville, Virginia';
-		names['51570'] = 'Colonial Heights, Virginia';
-		names['51580'] = 'Covington, Virginia';
-		names['51595'] = 'Emporia, Virginia';
-		names['51600'] = 'Fairfax, Virginia';
-		names['51610'] = 'Falls Church, Virginia';
-		names['51620'] = 'Franklin, Virginia';
-		names['51630'] = 'Fredericksburg, Virginia';
-		names['51640'] = 'Galax, Virginia';
-		names['51660'] = 'Harrisonburg, Virginia';
-		names['51678'] = 'Lexington, Virginia';
-		names['51683'] = 'Manassas, Virginia';
-		names['51685'] = 'Manassas Park, Virginia';
-		names['51690'] = 'Martinsville, Virginia';
-		names['51720'] = 'Norton, Virginia';
-		names['51750'] = 'Radford, Virginia';
-		names['51775'] = 'Salem, Virginia';
-		names['51790'] = 'Staunton, Virginia';
-		names['51820'] = 'Waynesboro, Virginia';
-		names['51830'] = 'Williamsburg, Virginia';
-		names['51840'] = 'Winchester, Virginia';
-		names['53029'] = 'Island, Washington';
-		names['53055'] = 'San Juan, Washington';
-		names['08014'] = 'Broomfield, Colorado';
-
-		$('body').data('names', names);
 	}
 
 	setTimeout(ajax_calls, 500);							// allows page to be blocked first
@@ -100,340 +54,52 @@ function load_top() {
 	$("#top_text3").fadeIn('slow');
 }
 
-function load_maps() {
-	for (var i = 1; i <= 6; i++) {
-		load_map('', "map" + i.toString(), 0.4);		// load maps with json data
-		$("#map" + i.toString()).click(function(i) {
-			return function() {
-				$("body").data('map_id_active', i);
-				$(".map").css('background', '#FFF');
-				$(this).css('background', '#EFEFEF');
-				$("#nav_show").trigger('click');
-			}
-		}(i));
-	}
-	load_map('', 'map_large', 1);
-}
-
-function load_map(data, div_id, scale) {
-	// This choropleth map code was seeded off an example by Mike Bostock
-	// using SVG data for backing map from Mike Bostock, Tom Carden, and
-	// the United States Census Bureau.
-
-	$("#" + div_id).html('');
-	var path = d3.geo.path();
-
-	var svg = d3.select("#" + div_id)
-	.append("svg")
-	.attr("width", 900)
-	.attr("height", 500)
-	.attr("id",div_id+"svg");
-	
-	var g = d3.select("#" + div_id + " svg").append("g");
-
-	// define country and states svg groups
-	var counties = g.append("g")
-	.attr("id", "counties");
-
-	var states = g.append("g")
-	.attr("id", "states");
-
-	var legend = g.append("g")
-	.attr("id", "legend");
-
-	var colorScale = d3.scale.quantile()
-	.domain([datmin(data), datmax(data)])
-	.range(colorbrewer.Reds[9]);
-
-	rg = colorScale.range();
-	dm = colorScale.quantiles().slice();
-
-	counties.selectAll("path")
-	.data($("body").data('counties_json').features)
-	.enter().append("path")
-	.attr("fill", "#DDDDDD")
-	.attr("d", path);
-
-	states.selectAll("path")
-	.data($("body").data('states_json').features)
-	.enter().append("path")
-	.attr("d", path);
-
-	g.attr("transform", "scale(" + scale + ")");
-}
-
-function update_map(data, div_id, scale) {
-	var g = d3.select("#" + div_id+"svg").select("g");
-
-	var colorScale = d3.scale.quantile()
-	.domain([datmin(data), datmax(data)])
-	.range(colorbrewer.Reds[9]);
-
-	rg = colorScale.range();
-	dm = colorScale.quantiles().slice();
-	dm.unshift(0);
-	dm = dm.map(function(d) { return d.toFixed(2); });
-
-	var legend = g.select("#legend");
-	legend.selectAll("text").remove();
-	legend.selectAll("rect").remove();
-
-	if (Object.keys(data).length > 0) {
-		for (var i = 8; i >= 0; i -= 1) {
-			var ypos = 20 + 15*(8-i);
-
-			legend.append("rect")
-				.attr("x", "30")
-				.attr("y", ypos)
-				.attr("height", "10")
-				.attr("width", "10")
-				.attr("fill",rg[i].toString());
-
-			legend.append("text")
-				.attr("text-anchor", "start")
-				.attr("x", "43")
-				.attr("y", ypos + 10)
-				.attr("fill", "#AAAAAA")
-				.attr("style", "font-family: 'PT Sans'; color: #666")
-				.style("font", "12px \'PT Sans\'")
-				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
-		}
+function set_names() {
+	var names = {};
+	var county = $("body").data('counties_json').features;
+	var states = $("body").data('states_json').features;
+	var j = 0;
+	for (var i = 0; i < county.length; ++i) {
+		if (county[i].id.slice(0,2) != states[j].id) ++j;
+		names[county[i].id] = county[i].properties.name + ", " + states[j].properties.name;
 	}
 
-	g.select("#counties").selectAll("path")
-		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
-		.append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+	// Special rules for exceptional counties
+	names["15005"] = "Kalawao, Hawaii";
+	names["15007"] = "Kauai, Hawaii";
+	names['25007'] = "Dukes, Massachusetts";
+	names['25019'] = "Nantucket, Massachusetts";
+	names['36085'] = "Richmond, New York";
+	names['44005'] = "Newport, Rhode Island";
+	names['51131'] = 'Northampton, Virginia';
+	names['51515'] = 'Bedford, Virginia';
+	names['51530'] = 'Buena Vista, Virginia';
+	names['51540'] = 'Charlottesville, Virginia';
+	names['51570'] = 'Colonial Heights, Virginia';
+	names['51580'] = 'Covington, Virginia';
+	names['51595'] = 'Emporia, Virginia';
+	names['51600'] = 'Fairfax, Virginia';
+	names['51610'] = 'Falls Church, Virginia';
+	names['51620'] = 'Franklin, Virginia';
+	names['51630'] = 'Fredericksburg, Virginia';
+	names['51640'] = 'Galax, Virginia';
+	names['51660'] = 'Harrisonburg, Virginia';
+	names['51678'] = 'Lexington, Virginia';
+	names['51683'] = 'Manassas, Virginia';
+	names['51685'] = 'Manassas Park, Virginia';
+	names['51690'] = 'Martinsville, Virginia';
+	names['51720'] = 'Norton, Virginia';
+	names['51750'] = 'Radford, Virginia';
+	names['51775'] = 'Salem, Virginia';
+	names['51790'] = 'Staunton, Virginia';
+	names['51820'] = 'Waynesboro, Virginia';
+	names['51830'] = 'Williamsburg, Virginia';
+	names['51840'] = 'Winchester, Virginia';
+	names['53029'] = 'Island, Washington';
+	names['53055'] = 'San Juan, Washington';
+	names['08014'] = 'Broomfield, Colorado';
 
-	g.attr("transform", "scale(" + scale + ")");
-}
-
-function load_parcoords() {
-	var num_maps = 0;
-	for (var map_id in $("body").data('map_ids_present')) {
-		if ($("body").data('map_ids_present')[map_id] == true) {
-			num_maps += 1;
-		}
-	}
-
-	if (num_maps < 2) {
-		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
-	}
-
-	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
-
-	for (var map_id in $("body").data('map_ids_present')) {
-		if ($("body").data('map_ids_present')[map_id] == false) {
-			continue;
-		}
-
-		data = $("body").data('map' + map_id + '_data');
-		attr_id = $("body").data('map' + map_id + '_title');
-
-		var i = -1;
-		for (key in data) {
-			i += 1;
-			if (data[key] < 0) {
-				if (transdata[i] instanceof Object == false) {
-					transdata[i] = {};
-				}
-				continue;
-			}
-			else if (transdata[i] instanceof Object == true) {
-				transdata[i][attr_id] = data[key];
-			} else {
-				transdata[i] = {};
-				transdata[i][attr_id] = data[key];
-			}
-		}
-	}
-
-	// update color of parcoords
-	function change_color(dimension) { 
-		pc.svg.selectAll(".dimension")
-			.style("font-weight", "normal")
-			.filter(function(d) { return d == dimension; })
-			.style("font-weight", "bold")
-
-			pc.color(zcolor(pc.data(),dimension)).render()
-	};
-
-	// return color function based on plot and dimension
-	function zcolor(col, dimension) {
-		var z = zscore(_(col).pluck(dimension).map(parseFloat))
-			return function(d) { return zcolorscale(z(d[dimension])) }
-	};
-
-	// color by zscore
-	function zscore(col) {
-		var n = col.length,
-		    mean = _(col).mean(),
-		    sigma = _(col).stdDeviation();
-		return function(d) {
-			return (d-mean)/sigma;
-		};
-	};
-
-	var k = 0;
-	for (key in data) {
-		transdata[k]["County_Name"] = $('body').data('names')[key];
-		transdata[k]["FIPS_Code"] = key;
-		k++;
-	}
-
-	if (num_maps >= 2) {
-		$("#parallel_coordinates").html('');
-		var pc = d3.parcoords()("#parallel_coordinates");
-		pc = pc.data(transdata, String)
-			.autoscale()
-			.createAxes() // I guess we have to do this for the first load
-			.autoscale()
-			.alpha(0.4)
-			.mode("queue")
-			.render()
-			.createAxes()
-			.brushable()
-			.shadows()
-			.reorderable();
-
-		// click label to activate coloring
-		pc.svg.selectAll(".dimension")
-			.on("click", change_color)
-			.selectAll(".label")
-			.style("font-size", "14px");
-
-		var zcolorscale = d3.scale.linear()
-			.domain([-2,-0.5,0.5,2])
-			.range(colorbrewer.Reds[4])
-			.clamp(true)
-			.interpolate(d3.interpolateLab);
-
-		change_color(pc.dimensions()[0]);
-
-		$("#grid").html('');
-		var grid = d3.divgrid();
-		d3.select('#grid')
-			.datum(transdata)
-			.call(grid)
-			.selectAll(".row")
-			.on({"mouseover" : function(d){pc.highlight([d]);},
-					"mouseout" : pc.unhighlight});
-
-		pc.on("brush", function(d) {
-			d3.select("#grid")
-			.datum(d)
-			.call(grid)
-			.selectAll(".row")
-			.on({"mouseover": function(d) { pc.highlight([d]) },
-				"mouseout": pc.unhighlight
-				});
-			});
-	} else {
-		$("#grid").html('');
-		var grid = d3.divgrid();
-		d3.select('#grid')
-			.datum(transdata)
-			.call(grid);
-	}
-};
-
-function load_scatterplots() {
-	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
-	var num_maps = 0;
-	var map_ids = [];
-	for (var map_id in $("body").data('map_ids_present')) {
-		if ($("body").data('map_ids_present')[map_id] == true) {
-			num_maps += 1;
-			map_ids.push(map_id);
-		}
-	}
-
-	if (num_maps < 2) {
-		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
-		return;
-	}
-
-	$("#scatterplots_container").html('');
-	var counter = 1;
-    var dataset = [];
-	for (var i = 0; i < num_maps-1; i++) {
-		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
-		for (var j = i+1; j < num_maps; j++) {
-			dataset = [];
-			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
-			for (key in data1) {
-				if (key in data2) {
-					dataset.push([data1[key], data2[key]]);
-				}
-			}
-
-			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
-			var svg = d3.select("#scatterplot" + counter.toString())
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
-
-            var xScale = d3.scale.linear()
-            .domain([d3.min(dataset, 
-				function(d) { if (d[0]>=0) return d[0]; }), 
-				d3.max(dataset, function(d) { return d[0]; })])
-           	.range([padding_x, w - padding_x * 2]);
-
-           	var yScale = d3.scale.linear()
-            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
-				 d3.max(dataset, function(d) { return d[1]; })])
-            .range([h - padding_y, padding_y]);
-
-            svg.selectAll("circle")
-			.data(dataset)
-			.enter()
-			.append("circle")
-			.attr("cx", function(d) {
-				return xScale(d[0]);
-			})
-			.attr("cy", function(d) {
-			    return yScale(d[1]);
-			})
-			.attr("r", 2)
-			.attr("fill", "#333");
-
-			var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-            .ticks(5);
-
-            var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-            .ticks(5);
-
-			svg.append("g")
-    		.attr("class", "scatterplot_axis")
-    		.attr("transform", "translate(0," + (h - padding_y) + ")")
-   			.call(xAxis);
-
-   			svg.append("g")
-    		.attr("class", "scatterplot_axis")
-    		.attr("transform", "translate(" + padding_x + ",0)")
-    		.call(yAxis);
-
-    		svg.append("text")
-		    .attr("class", "scatterplot_label")
-		    .attr("text-anchor", "start")
-		    .attr("x", w - 120)
-		    .attr("y", h - 10)
-		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
-
-		    svg.append("text")
-		    .attr("class", "scatterplot_label")
-		    .attr("text-anchor", "end")
-		    .attr("y", 85)
-		    .attr("transform", "rotate(-90)")
-		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
-
-			counter += 1;
-		}
-	}
+	$('body').data('names', names);
 }
 
 function load_nav() {
@@ -617,6 +283,341 @@ function load_attribute(attr_id, category) {
 			}(map_id));
 		}
 	});
+}
+
+function load_maps() {
+	for (var i = 1; i <= 6; i++) {
+		load_map('', "map" + i.toString(), 0.4);		// load maps with json data
+		$("#map" + i.toString()).click(function(i) {
+			return function() {
+				$("body").data('map_id_active', i);
+				$(".map").css('background', '#FFF');
+				$(this).css('background', '#EFEFEF');
+				$("#nav_show").trigger('click');
+			}
+		}(i));
+	}
+	load_map('', 'map_large', 1);
+}
+
+function load_map(data, div_id, scale) {
+	// This choropleth map code was seeded off an example by Mike Bostock
+	// using SVG data for backing map from Mike Bostock, Tom Carden, and
+	// the United States Census Bureau.
+
+	$("#" + div_id).html('');
+	var path = d3.geo.path();
+
+	var svg = d3.select("#" + div_id)
+	.append("svg")
+	.attr("width", 900)
+	.attr("height", 500)
+	.attr("id",div_id+"svg");
+	
+	var g = d3.select("#" + div_id + " svg").append("g");
+
+	// define country and states svg groups
+	var counties = g.append("g")
+	.attr("id", "counties");
+
+	var states = g.append("g")
+	.attr("id", "states");
+
+	var legend = g.append("g")
+	.attr("id", "legend");
+
+	var colorScale = d3.scale.quantile()
+	.domain([datmin(data), datmax(data)])
+	.range(colorbrewer.Reds[9]);
+
+	rg = colorScale.range();
+	dm = colorScale.quantiles().slice();
+
+	counties.selectAll("path")
+	.data($("body").data('counties_json').features)
+	.enter().append("path")
+	.attr("fill", "#DDDDDD")
+	.attr("d", path);
+
+	states.selectAll("path")
+	.data($("body").data('states_json').features)
+	.enter().append("path")
+	.attr("d", path);
+
+	g.attr("transform", "scale(" + scale + ")");
+}
+
+function update_map(data, div_id, scale) {
+	var g = d3.select("#" + div_id+"svg").select("g");
+
+	var colorScale = d3.scale.quantile()
+	.domain([datmin(data), datmax(data)])
+	.range(colorbrewer.Reds[9]);
+
+	rg = colorScale.range();
+	dm = colorScale.quantiles().slice();
+	dm.unshift(0);
+	dm = dm.map(function(d) { return d.toFixed(2); });
+
+	var legend = g.select("#legend");
+	legend.selectAll("text").remove();
+	legend.selectAll("rect").remove();
+
+	if (Object.keys(data).length > 0) {
+		for (var i = 8; i >= 0; i -= 1) {
+			var ypos = 20 + 15*(8-i);
+
+			legend.append("rect")
+				.attr("x", "30")
+				.attr("y", ypos)
+				.attr("height", "10")
+				.attr("width", "10")
+				.attr("fill",rg[i].toString());
+
+			legend.append("text")
+				.attr("text-anchor", "start")
+				.attr("x", "43")
+				.attr("y", ypos + 10)
+				.attr("fill", "#AAAAAA")
+				.attr("style", "font-family: 'PT Sans'; color: #666")
+				.style("font", "12px \'PT Sans\'")
+				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
+		}
+	}
+
+	g.select("#counties").selectAll("path")
+		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
+		.append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+
+	g.attr("transform", "scale(" + scale + ")");
+}
+
+function load_parcoords() {
+	var num_maps = 0;
+	for (var map_id in $("body").data('map_ids_present')) {
+		if ($("body").data('map_ids_present')[map_id] == true) {
+			num_maps += 1;
+		}
+	}
+
+	if (num_maps < 2) {
+		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
+	}
+
+	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
+
+	for (var map_id in $("body").data('map_ids_present')) {
+		if ($("body").data('map_ids_present')[map_id] == false) {
+			continue;
+		}
+
+		data = $("body").data('map' + map_id + '_data');
+		attr_id = $("body").data('map' + map_id + '_title');
+
+		var i = -1;
+		for (key in data) {
+			i += 1;
+			if (data[key] < 0) {
+				if (transdata[i] instanceof Object == false) {
+					transdata[i] = {};
+				}
+				continue;
+			} else if (transdata[i] instanceof Object == true) {
+				transdata[i][attr_id] = data[key];
+			} else {
+				transdata[i] = {};
+				transdata[i][attr_id] = data[key];
+			}
+		}
+	}
+
+	// update color of parcoords
+	function change_color(dimension) { 
+		pc.svg.selectAll(".dimension")
+			.style("font-weight", "normal")
+			.filter(function(d) { return d == dimension; })
+			.style("font-weight", "bold")
+
+			pc.color(zcolor(pc.data(),dimension)).render()
+	};
+
+	// return color function based on plot and dimension
+	function zcolor(col, dimension) {
+		var z = zscore(_(col).pluck(dimension).map(parseFloat))
+			return function(d) { return zcolorscale(z(d[dimension])) }
+	};
+
+	// color by zscore
+	function zscore(col) {
+		var n = col.length,
+		    mean = _(col).mean(),
+		    sigma = _(col).stdDeviation();
+		return function(d) {
+			return (d-mean)/sigma;
+		};
+	};
+
+	var k = 0;
+	for (key in data) {
+		transdata[k]["County Name"] = $('body').data('names')[key];
+		transdata[k]["FIPS Code"] = key;
+		k++;
+	}
+
+	if (num_maps >= 2) {
+		$("#parallel_coordinates").html('');
+		var pc = d3.parcoords()("#parallel_coordinates");
+		pc = pc.data(transdata, String)
+			.autoscale()
+			.createAxes() // I guess we have to do this for the first load
+			.autoscale()
+			.alpha(0.4)
+			.mode("queue")
+			.render()
+			.createAxes()
+			.brushable()
+			.shadows()
+			.reorderable();
+
+		// click label to activate coloring
+		pc.svg.selectAll(".dimension")
+			.on("click", change_color)
+			.selectAll(".label")
+			.style("font-size", "14px");
+
+		var zcolorscale = d3.scale.linear()
+			.domain([-2,-0.5,0.5,2])
+			.range(colorbrewer.Reds[4])
+			.clamp(true)
+			.interpolate(d3.interpolateLab);
+
+		change_color(pc.dimensions()[0]);
+
+		$("#grid").html('');
+		var grid = d3.divgrid();
+		d3.select('#grid')
+			.datum(transdata)
+			.call(grid)
+			.selectAll(".row")
+			.on({"mouseover" : function(d){pc.highlight([d]);},
+					"mouseout" : pc.unhighlight});
+
+		pc.on("brush", function(d) {
+			d3.select("#grid")
+			.datum(d)
+			.call(grid)
+			.selectAll(".row")
+			.on({"mouseover": function(d) { pc.highlight([d]) },
+				"mouseout": pc.unhighlight
+				});
+			});
+	} else {
+		$("#grid").html('');
+		var grid = d3.divgrid();
+		d3.select('#grid')
+			.datum(transdata)
+			.call(grid);
+	}
+};
+
+function load_scatterplots() {
+	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
+	var num_maps = 0;
+	var map_ids = [];
+	for (var map_id in $("body").data('map_ids_present')) {
+		if ($("body").data('map_ids_present')[map_id] == true) {
+			num_maps += 1;
+			map_ids.push(map_id);
+		}
+	}
+
+	if (num_maps < 2) {
+		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+		return;
+	}
+
+	$("#scatterplots_container").html('');
+	var counter = 1;
+    var dataset = [];
+	for (var i = 0; i < num_maps-1; i++) {
+		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
+		for (var j = i+1; j < num_maps; j++) {
+			dataset = [];
+			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
+			for (key in data1) {
+				if (key in data2) {
+					dataset.push([data1[key], data2[key]]);
+				}
+			}
+
+			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
+			var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
+			var svg = d3.select("#scatterplot" + counter.toString())
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+            var xScale = d3.scale.linear()
+            .domain([d3.min(dataset, 
+				function(d) { if (d[0]>=0) return d[0]; }), 
+				d3.max(dataset, function(d) { return d[0]; })])
+           	.range([padding_x, w - padding_x * 2]);
+
+           	var yScale = d3.scale.linear()
+            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
+				 d3.max(dataset, function(d) { return d[1]; })])
+            .range([h - padding_y, padding_y]);
+
+            svg.selectAll("circle")
+			.data(dataset)
+			.enter()
+			.append("circle")
+			.attr("cx", function(d) {
+				return xScale(d[0]);
+			})
+			.attr("cy", function(d) {
+			    return yScale(d[1]);
+			})
+			.attr("r", 2)
+			.attr("fill", "#333");
+
+			var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .ticks(5);
+
+            var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .ticks(5);
+
+			svg.append("g")
+    		.attr("class", "scatterplot_axis")
+    		.attr("transform", "translate(0," + (h - padding_y) + ")")
+   			.call(xAxis);
+
+   			svg.append("g")
+    		.attr("class", "scatterplot_axis")
+    		.attr("transform", "translate(" + padding_x + ",0)")
+    		.call(yAxis);
+
+    		svg.append("text")
+		    .attr("class", "scatterplot_label")
+		    .attr("text-anchor", "start")
+		    .attr("x", w - 120)
+		    .attr("y", h - 10)
+		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
+
+		    svg.append("text")
+		    .attr("class", "scatterplot_label")
+		    .attr("text-anchor", "end")
+		    .attr("y", 85)
+		    .attr("transform", "rotate(-90)")
+		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
+
+			counter += 1;
+		}
+	}
 }
 
 function datmax(arr) {
