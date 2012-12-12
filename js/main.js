@@ -1,7 +1,8 @@
 $(document).ready(init);
 
 function init() {
-	//$(document).ajaxStart($.blockUI({message: 'Loading...' }));		// block page until finished loading
+	$(document).ajaxStart($.blockUI({message: 'Loading...' }));		// block page until finished loading
+	$(document).ajaxStop($.unblockUI());							// unblock page
 
 	$("body").data('map_ids_present', {});				// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);					// set active map id to 1 (default)
