@@ -125,7 +125,7 @@ function load_map(data, div_id, scale) {
 
 	var svg = d3.select("#" + div_id)
 	.append("svg")
-	.attr("width", 800)
+	.attr("width", 900)
 	.attr("height", 500)
 	.attr("id",div_id+"svg");
 	
@@ -233,6 +233,9 @@ function load_parcoords() {
 		for (key in data) {
 			i += 1;
 			if (data[key] < 0) {
+				if (transdata[i] instanceof Object == false) {
+					transdata[i] = {};
+				}
 				continue;
 			}
 			else if (transdata[i] instanceof Object == true) {
