@@ -233,17 +233,6 @@ function load_category(category) {
 	$(".nav_attribute").click(function() {
 		$("#nav_hide").trigger('click');
 		var map_id = $("body").data('map_id_active');
-			$.blockUI({												// block page until finished loading
-		   		css: {
-			        padding: '15px', 
-			        background: '#000',
-			        opacity: '0.5',
-			        'font-size': '150%',
-			        color: '#FFF',
-			        'text-align': 'center'
-		    	}, message: 
-		    		'<img src="images/loading.gif">Loading...</span>'
-		    });
 		load_attribute($(this).attr('id'), category);
 	});
 }
@@ -255,7 +244,6 @@ function load_attribute(attr_id, category) {
 		data: 'category=' + category + '&attribute=' + attr_id,
 		async: false,
 		success: function(data) {
-						$.unblockUI();
 			map_data = new Object();
 			for (var i = 0; i < data.length; i++) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
