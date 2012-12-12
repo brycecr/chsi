@@ -21,7 +21,7 @@ function init() {
 	load_map('', 'map_large', 1);
 
 	$(document).ajaxStop(function() {
-		$.unblockUI;							// unblock page
+		$.unblockUI();							// unblock page
 
 		$("#top_text1").show("drop", { direction: "up" }, 1000);
 		$("#top_text2").show("drop", { direction: "right" }, 1000);
