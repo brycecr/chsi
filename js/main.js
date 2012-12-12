@@ -6,8 +6,6 @@ function init() {
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);						// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
-	
-	setTimeout(ajax_calls, 500);							// allows page to be blocked first
 
 	var ajax_calls = function() {
 		$.ajax({											// load state json data
@@ -33,52 +31,28 @@ function init() {
 		});
 	}
 
-	var load_top = function() {
-		$("#top_text1").show("drop", { direction: "up" }, 1000);
-		$("#top_text2").show("drop", { direction: "right" }, 1000);
-		$("#top_text3").fadeIn('slow');
-	}
-
-	var load_maps = function() {
-		for (var i = 1; i <= 6; i++) {
-			load_map('', "map" + i.toString(), 0.4);		// load maps with json data
-			$("#map" + i.toString()).click(function(i) {
-				return function() {
-					$("body").data('map_id_active', i);
-					$(".map").css('background', '#FFF');
-					$(this).css('background', '#EFEFEF');
-					$("#nav_show").trigger('click');
-				}
-			}(i));
-		}
-		load_map('', 'map_large', 1);
-	}
+	setTimeout(ajax_calls, 500);							// allows page to be blocked first
 }
 
-function datmax(arr) {
-	var res = 0;
-	for (key in arr) {
-		if (arr[key] > res) {
-			res = arr[key];
-		}
-	}
-	return res;
+function load_top() {
+	$("#top_text1").show("drop", { direction: "up" }, 1000);
+	$("#top_text2").show("drop", { direction: "right" }, 1000);
+	$("#top_text3").fadeIn('slow');
 }
 
-function datmin(arr) {
-	var res = 0;
-	if (arr.hasOwnProperty('06073')) {
-		res = arr["06073"];					// initialize res to value of SD County
+function load_maps() {
+	for (var i = 1; i <= 6; i++) {
+		load_map('', "map" + i.toString(), 0.4);		// load maps with json data
+		$("#map" + i.toString()).click(function(i) {
+			return function() {
+				$("body").data('map_id_active', i);
+				$(".map").css('background', '#FFF');
+				$(this).css('background', '#EFEFEF');
+				$("#nav_show").trigger('click');
+			}
+		}(i));
 	}
-	if (res < 0) {
-		res = 0;
-	}
-	for (key in arr) {
-		if (arr[key] > 0 && arr[key] < res) {
-			res = arr[key];
-		}
-	}
-	return res;
+	load_map('', 'map_large', 1);
 }
 
 function load_map(data, div_id, scale) {
@@ -550,4 +524,30 @@ function load_attribute(attr_id, category) {
 			load_scatterplots();
 		}
 	});
+}
+
+function datmax(arr) {
+	var res = 0;
+	for (key in arr) {
+		if (arr[key] > res) {
+			res = arr[key];
+		}
+	}
+	return res;
+}
+
+function datmin(arr) {
+	var res = 0;
+	if (arr.hasOwnProperty('06073')) {
+		res = arr["06073"];					// initialize res to value of SD County
+	}
+	if (res < 0) {
+		res = 0;
+	}
+	for (key in arr) {
+		if (arr[key] > 0 && arr[key] < res) {
+			res = arr[key];
+		}
+	}
+	return res;
 }
