@@ -182,6 +182,7 @@ function load_parcoords() {
 
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
+		console.log(attr_id);
 
 		var i = 0;
 		for (key in data) {
