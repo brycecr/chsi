@@ -255,6 +255,7 @@ function load_attribute(attr_id, category) {
 		data: 'category=' + category + '&attribute=' + attr_id,
 		async: false,
 		success: function(data) {
+						$.unblockUI();
 			map_data = new Object();
 			for (var i = 0; i < data.length; i++) {
 				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
@@ -293,7 +294,6 @@ function load_attribute(attr_id, category) {
 					load_scatterplots();
 				}
 			}(map_id));
-			$.unblockUI();
 		}
 	});
 }
