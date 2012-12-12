@@ -21,6 +21,7 @@ function init() {
 	load_map('', 'map_large', 1);
 
 	$(document).ajaxStop(function() {
+		console.log('done');
 		$.unblockUI();							// unblock page
 
 		$("#top_text1").show("drop", { direction: "up" }, 1000);
