@@ -167,11 +167,7 @@ function load_parcoords() {
 
 	if (len < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
-		return;
 	}
-
-	$("#parallel_coordinates").html('');
-	$("#grid").html('');
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
@@ -182,7 +178,6 @@ function load_parcoords() {
 
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
-		console.log(attr_id);
 
 		var i = 0;
 		for (key in data) {
@@ -198,31 +193,6 @@ function load_parcoords() {
 			i += 1;
 		}
 	}
-
-	var pc = d3.parcoords()("#parallel_coordinates");
-	pc = pc.data(transdata, String)
-		.autoscale()
-		.createAxes() // I guess we have to do this for the first load
-		.autoscale()
-		.alpha(0.4)
-		.mode("queue")
-		.render()
-		.createAxes()
-		.brushable()
-		.shadows()
-		.reorderable();
-
-	// click label to activate coloring
-	pc.svg.selectAll(".dimension")
-		.on("click", change_color)
-		.selectAll(".label")
-		.style("font-size", "14px");
-
-	var zcolorscale = d3.scale.linear()
-		.domain([-2,-0.5,0.5,2])
-		.range(colorbrewer.Reds[4])
-		.clamp(true)
-		.interpolate(d3.interpolateLab);
 
 	// update color of parcoords
 	function change_color(dimension) { 
@@ -250,8 +220,37 @@ function load_parcoords() {
 		};
 	};
 
-	change_color(pc.dimensions()[0]);
+	if (len >= 2) {
+		$("#parallel_coordinates").html('');
+		var pc = d3.parcoords()("#parallel_coordinates");
+		pc = pc.data(transdata, String)
+			.autoscale()
+			.createAxes() // I guess we have to do this for the first load
+			.autoscale()
+			.alpha(0.4)
+			.mode("queue")
+			.render()
+			.createAxes()
+			.brushable()
+			.shadows()
+			.reorderable();
 
+		// click label to activate coloring
+		pc.svg.selectAll(".dimension")
+			.on("click", change_color)
+			.selectAll(".label")
+			.style("font-size", "14px");
+
+		var zcolorscale = d3.scale.linear()
+			.domain([-2,-0.5,0.5,2])
+			.range(colorbrewer.Reds[4])
+			.clamp(true)
+			.interpolate(d3.interpolateLab);
+
+		change_color(pc.dimensions()[0]);
+	}
+
+	$("#grid").html('');
 	var grid = d3.divgrid();
 	d3.select('#grid')
 		.datum(transdata)
