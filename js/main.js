@@ -479,13 +479,14 @@ function load_parcoords() {
 			.autoscale()
 			.createAxes() // I guess we have to do this for the first load
 			.autoscale()
-			.alpha(0.4)
 			.mode("queue")
+			.alpha(0.4)
+			.rate(40)
 			.render()
 			.createAxes()
 			.brushable()
-			.shadows()
-			.reorderable();
+			.reorderable()
+			.interactive();
 
 		// click label to activate coloring
 		pc.svg.selectAll(".dimension")
