@@ -274,9 +274,11 @@ function load_scatterplots() {
 	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
 
 	var num_maps = 0;
+	var map_ids = [];
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == true) {
 			num_maps += 1;
+			map_ids.push(map_id);
 		}
 	}
 
