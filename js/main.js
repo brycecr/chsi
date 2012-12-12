@@ -45,8 +45,8 @@ function init() {
 }
 
 function load_top() {
-	$("#top_text1").show("drop", { direction: "up" }, 1000);
-	$("#top_text2").show("drop", { direction: "right" }, 1000);
+	$("#top_text1").show("drop", { direction: "left" }, 1000);
+	$("#top_text2").show("drop", { direction: "up" }, 1000);
 	$("#top_text3").fadeIn('slow');
 }
 
