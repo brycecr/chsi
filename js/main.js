@@ -192,6 +192,7 @@ function load_parcoords() {
 		.createAxes() // I guess we have to do this for the first load
 		.autoscale()
 		.alpha(0.4)
+		.mode("queue")
 		.render()
 		.createAxes()
 		.brushable()
