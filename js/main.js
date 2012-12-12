@@ -386,26 +386,26 @@ function load_nav() {
 	$("#nav2").html('<span class="text_large"><br><br><br><br>Choose a category to begin browsing!</span>');
 	$("#nav_hide").fadeIn('slow');
 	$("#nav_hide").click(function() {
-		$("#nav").hide('blind');
+		$("#nav").hide('blind', {}, 1000);
 		$("#nav_hide").hide();
 		$("#nav_show").show();
 	});
 
 	$("#nav_show").click(function() {
-		$("#nav").show('blind');
+		$("#nav").show('blind', {}, 1000);
 		$("#nav_show").hide();
 		$("#nav_hide").show();
 	});
 
 	$("#maps_hide").fadeIn('slow');
 	$("#maps_hide").click(function() {
-		$("#maps").hide('blind');
+		$("#maps").hide('blind', {}, 1000);
 		$("#maps_hide").hide();
 		$("#maps_show").show();
 	});
 
 	$("#maps_show").click(function() {
-		$("#maps").show('blind');
+		$("#maps").show('blind', {}, 1000);
 		$("#maps_show").hide();
 		$("#maps_hide").show();
 	});
@@ -413,26 +413,26 @@ function load_nav() {
 	$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 	$("#pcoords_hide").fadeIn('slow');
 	$("#pcoords_hide").click(function() {
-		$("#parallel_coordinates").hide('blind');
+		$("#parallel_coordinates").hide('blind', {}, 1000);
 		$("#pcoords_hide").hide();
 		$("#pcoords_show").show();
 	});
 
 	$("#pcoords_show").click(function() {
-		$("#parallel_coordinates").show('blind');
+		$("#parallel_coordinates").show('blind', {}, 1000);
 		$("#pcoords_show").hide();
 		$("#pcoords_hide").show();
 	});
 
 	$("#datatable_hide").fadeIn('slow');
 	$("#datatable_hide").click(function() {
-		$("#grid").hide('blind');
+		$("#grid").hide('blind', {}, 1000);
 		$("#datatable_hide").hide();
 		$("#datatable_show").show();
 	});
 
 	$("#datatable_show").click(function() {
-		$("#grid").show('blind');
+		$("#grid").show('blind', {}, 1000);
 		$("#datatable_show").hide();
 		$("#datatable_hide").show();
 	});
@@ -440,13 +440,13 @@ function load_nav() {
 	$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
 	$("#scatterplots_hide").fadeIn('slow');
 	$("#scatterplots_hide").click(function() {
-		$("#scatterplots_container").hide('blind');
+		$("#scatterplots_container").hide('blind', {}, 1000);
 		$("#scatterplots_hide").hide();
 		$("#scatterplots_show").show();
 	});
 
 	$("#scatterplots_show").click(function() {
-		$("#scatterplots_container").show('blind');
+		$("#scatterplots_container").show('blind', {}, 1000);
 		$("#scatterplots_show").hide();
 		$("#scatterplots_hide").show();
 	});
