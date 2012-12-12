@@ -248,26 +248,33 @@ function load_parcoords() {
 			.interpolate(d3.interpolateLab);
 
 		change_color(pc.dimensions()[0]);
-	}
 
-	$("#grid").html('');
-	var grid = d3.divgrid();
-	d3.select('#grid')
-		.datum(transdata)
-		.call(grid)
-		.selectAll(".row")
-		.on({"mouseover" : function(d){pc.highlight([d]);},
-				"mouseout" : pc.unhighlight});
+		$("#grid").html('');
+		var grid = d3.divgrid();
+		d3.select('#grid')
+			.datum(transdata)
+			.call(grid)
+			.selectAll(".row")
+			.on({"mouseover" : function(d){pc.highlight([d]);},
+					"mouseout" : pc.unhighlight});
 
-	pc.on("brush", function(d) {
-		d3.select("#grid")
-		.datum(d)
-		.call(grid)
-		.selectAll(".row")
-		.on({"mouseover": function(d) { pc.highlight([d]) },
-			"mouseout": pc.unhighlight
+		pc.on("brush", function(d) {
+			d3.select("#grid")
+			.datum(d)
+			.call(grid)
+			.selectAll(".row")
+			.on({"mouseover": function(d) { pc.highlight([d]) },
+				"mouseout": pc.unhighlight
+				});
 			});
-		});
+	} else {
+		$("#grid").html('');
+		var grid = d3.divgrid();
+		d3.select('#grid')
+			.datum(transdata)
+			.call(grid);
+		});	
+	}
 };
 
 function load_scatterplots() {
