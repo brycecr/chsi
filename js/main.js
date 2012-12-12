@@ -406,13 +406,7 @@ function load_parcoords() {
 
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
-	var k = 0;
-	for (key in data) {
-		transdata[k]["County Name"] = $('body').data('names')[key];
-		// transdata[k]["FIPS Code"] = key;
-		k++;
-	}
-
+	var is_first_pass = true;
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == false) {
 			continue;
@@ -420,6 +414,16 @@ function load_parcoords() {
 
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
+
+		if (is_first_pass) {
+			var k = 0;
+			for (key in data) {
+				transdata[k]["County Name"] = $('body').data('names')[key];
+				// transdata[k]["FIPS Code"] = key;
+				k++;
+			}
+			is_first_pass = false;
+		}
 
 		var i = -1;
 		for (key in data) {
