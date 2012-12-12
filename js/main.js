@@ -10,25 +10,25 @@ function init() {
 	setTimeout(ajax_calls, 500);							// allows page to be blocked first
 
 	var ajax_calls = function() {
-		$.ajax({											// load county json data
-			url: 'data/us-counties.json',
-			dataType: 'json',
-			async: false,
-			success: function(data) {
-				$("body").data('counties_json',data);
-			}
-		});
-
 		$.ajax({											// load state json data
 			url: 'data/us-states.json',
 			dataType: 'json',
 			async: false,
 			success: function(data) {
-				$("body").data('states_json',data);
-				$.unblockUI();								// unblock page and show top and nav
-				load_top();
-				load_nav();
-				load_maps();
+				$("body").data('states_json', data);
+
+				$.ajax({									// load county json data
+					url: 'data/us-counties.json',
+					dataType: 'json',
+					async: false,
+					success: function(data) {
+						$("body").data('counties_json', data);
+						$.unblockUI();						// unblock page and show top and nav
+						load_top();
+						load_nav();
+						load_maps();
+					}
+				});
 			}
 		});
 	}
