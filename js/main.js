@@ -158,8 +158,13 @@ function update_map(data, div_id, scale) {
 }
 
 function load_parcoords() {
-	var len = Object.keys($("body").data('map_ids_present')).length;
-	console.log($("body").data('map_ids_present'));
+	var len = 0;
+	for (var map_id in $("body").data('map_ids_present')) {
+		if ($("body").data('map_ids_present') == true) {
+			len += 1;
+		}
+	}
+
 	if (len < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 		return;
@@ -168,6 +173,10 @@ function load_parcoords() {
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	for (var map_id in $("body").data('map_ids_present')) {
+		if ($("body").data('map_ids_present') == false) {
+			continue;
+		}
+
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
 
