@@ -471,8 +471,8 @@ function load_category(category) {
 
 	$(".nav_attribute").click(function() {
 		var map_id = $("body").data('map_id_active');
-		$("#map" + map_id).block({ message: 'Loading...' }); 
-		load_attribute($(this).attr('id'), category);
+		$("#map" + map_id).block({ message: 'Loading...' });
+		setTimeout(load_attribute($(this).attr('id'), category), 500);
 	});
 }
 
