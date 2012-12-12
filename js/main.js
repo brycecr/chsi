@@ -6,7 +6,7 @@ function init() {
 	        padding: '15px', 
 	        background: '#000',
 	        opacity: '0.5',
-	        font-size: '150%',
+	        'font-size': '150%',
 	        color: '#FFF' 
     	}, message: 
     		'<img src="images/loading.gif">Loading...'
