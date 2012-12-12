@@ -6,11 +6,6 @@ function init() {
 		$.blockUI({message: 'Loading...' });		// block page until finished loading
 	});
 
-	$(document).ajaxStop(function() {
-		console.log('stop');
-		$.unblockUI();								// unblock page
-	});
-
 	$("body").data('map_ids_present', {});				// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);					// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
@@ -385,6 +380,9 @@ function load_nav() {
 			});
 		}
 	});
+
+	console.log('stop');
+	$.unblockUI();								// unblock page
 
 	$(".nav_category").hover(
 		function () {
