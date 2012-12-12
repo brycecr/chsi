@@ -526,7 +526,7 @@ function load_attribute(attr_id, category) {
 				return function() {
 					$("body").data('map' + map_id + '_data', {});
 					$("body").data('map' + map_id + '_title', '');
-					delete $("body").data('map_ids_present').map_id;
+					$("body").data('map_ids_present')[map_id] = false;
 					$("#map" + map_id + "_title").html('');
 					update_map({}, 'map' + map_id, 0.4);
 					load_parcoords();
