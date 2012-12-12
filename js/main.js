@@ -421,6 +421,19 @@ function load_nav() {
 		$("#pcoords_hide").show();
 	});
 
+	$("#datatable_hide").fadeIn('slow');
+	$("#datatable_hide").click(function() {
+		$("#grid").hide('blind');
+		$("#datatable_hide").hide();
+		$("#datatable_show").show();
+	});
+
+	$("#datatable_show").click(function() {
+		$("#grid").show('blind');
+		$("#datatable_show").hide();
+		$("#datatable_hide").show();
+	});
+
 	$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
 	$("#scatterplots_hide").fadeIn('slow');
 	$("#scatterplots_hide").click(function() {
