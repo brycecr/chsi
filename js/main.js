@@ -8,7 +8,7 @@ function init() {
 	        opacity: '0.5',
 	        'font-size': '150%',
 	        color: '#FFF',
-	        'text-align': 'center';
+	        'text-align': 'center'
     	}, message: 
     		'<img src="images/loading.gif">Loading...<br><span style="text_small">Thank you for your patience!</span>'
     }); 
