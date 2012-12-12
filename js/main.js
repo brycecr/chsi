@@ -12,7 +12,7 @@ function init() {
 		dataType: 'json',
 		async: false,
 		success: function(data) {
-			$("body").data('counties_json',data)''
+			$("body").data('counties_json',data);
 		}
 	});
 
@@ -21,7 +21,7 @@ function init() {
 		dataType: 'json',
 		async: false,
 		success: function(data) {
-			$("body").data('states_json',data)''
+			$("body").data('states_json',data);
 		}
 	});
 
