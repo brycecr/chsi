@@ -1,7 +1,16 @@
 $(document).ready(init);
 
 function init() {
-	$.blockUI({message: 'Loading...' });					// block page until finished loading
+   	$.blockUI({												// block page until finished loading
+   		css: {
+	        padding: '15px', 
+	        background: '#000',
+	        opacity: 0.5, 
+	        color: '#FFF' 
+    	},{message: 
+    		'Loading...'
+    	}
+    }); 
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);						// set active map id to 1 (default)
@@ -472,7 +481,7 @@ function load_category(category) {
 	$(".nav_attribute").click(function() {
 		var map_id = $("body").data('map_id_active');
 		$("#map" + map_id).block({ message: 'Loading...' });
-		setTimeout(load_attribute($(this).attr('id'), category), 500);
+		setTimeout(load_attribute($(this).attr('id'), category), 1000);
 	});
 }
 
