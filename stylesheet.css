@@ -1,6 +1,5 @@
 body {
 	font-family: 'PT Sans';
-	overflow-y: scroll;
 	margin-bottom: 30px;
 }
 
@@ -13,7 +12,6 @@ body {
 #grid {
 	margin-left: 10px;
 	height: 300px;
-	overflow: scroll;
 }
 
 #container {
