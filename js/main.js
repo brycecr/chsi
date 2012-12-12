@@ -380,8 +380,8 @@ function update_map(data, div_id, scale) {
 				.attr("x", "43")
 				.attr("y", ypos + 10)
 				.attr("fill", "#AAAAAA")
-				.attr("style", "font-family: 'PT Sans'; color: #666")
-				.style("font", "12px \'PT Sans\'")
+				.attr("style", "font-family: 'Lato'; color: #666")
+				.style("font", "12px \'Lato\'")
 				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 		}
 	}
