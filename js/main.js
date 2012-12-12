@@ -5,10 +5,11 @@ function init() {
    		css: {
 	        padding: '15px', 
 	        background: '#000',
-	        opacity: 0.5, 
+	        opacity: 0.5,
+	        font-size: '150%',
 	        color: '#FFF' 
     	}, message: 
-    		'Loading...'
+    		'<img src="images/loading.gif">Loading...'
     }); 
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
@@ -31,8 +32,8 @@ function init() {
 						$("body").data('counties_json', data);
 						$("#top").children().fadeOut('fast');
 						$.unblockUI();						// unblock page and show top and nav
-						setTimeout(load_top, 1000);
-						setTimeout(load_nav, 1500);
+						setTimeout(load_top, 800);
+						setTimeout(load_nav, 1200);
 						load_maps();
 					}
 				});
