@@ -527,11 +527,7 @@ function load_attribute(attr_id, category) {
 			}
 
 			var map_id = $("body").data('map_id_active');
-
-			if (!(map_id in $("body").data('map_ids_present'))) {		// update map_ids_present
-				$("body").data("map_ids_present")[map_id] = true;
-			}
-
+			$("body").data("map_ids_present")[map_id] = true;			// update map_ids_present
 			$("body").data('map' + map_id + '_data', map_data);			// update map_i_data
 			$("body").data('map' + map_id + '_title', attr_id);			// update map_i_title
 			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
