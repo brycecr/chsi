@@ -180,8 +180,9 @@ function load_parcoords() {
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
 
-		var i = 0;
+		var i = -1;
 		for (key in data) {
+			i += 1;
 			if (data[key] < 0) {
 				continue;
 			}
@@ -191,7 +192,6 @@ function load_parcoords() {
 				transdata[i] = {};
 				transdata[i][attr_id] = data[key];
 			}
-			i += 1;
 		}
 	}
 
