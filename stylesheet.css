@@ -12,6 +12,7 @@ body {
 #grid {
 	margin-left: 10px;
 	height: 300px;
+    overflow-y: scroll;
 }
 
 #container {

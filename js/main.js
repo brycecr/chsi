@@ -470,6 +470,8 @@ function load_category(category) {
 	);
 
 	$(".nav_attribute").click(function() {
+		var map_id = $("body").data('map_id_active');
+		$("#map" + map_id).block({ message: 'Loading...' }); 
 		load_attribute($(this).attr('id'), category);
 	});
 }
@@ -523,6 +525,7 @@ function load_attribute(attr_id, category) {
 			update_map(map_data, 'map' + map_id, 0.4);
 			load_parcoords();
 			load_scatterplots();
+			$("#map" + map_id).unblock();
 		}
 	});
 }
