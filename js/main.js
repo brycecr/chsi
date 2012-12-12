@@ -1,14 +1,32 @@
 $(document).ready(init);
 
 function init() {
-	$(document).ajaxStart($.blockUI({message: 'Loading...' }));		// block page until finished loading
+	//$(document).ajaxStart($.blockUI({message: 'Loading...' }));		// block page until finished loading
 
-	$("body").data('map_ids_present', {});		// tracks map ids with data (key: map id, value: true/false)
-	$("body").data('map_id_active', 1);			// set active map id to 1 (default)
+	$("body").data('map_ids_present', {});				// track map ids with data (key: map id, value: true/false)
+	$("body").data('map_id_active', 1);					// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
+	$.ajax({											// load county json data
+		url: 'data/us-counties.json',
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			$("body").data('counties_json',data)''
+		}
+	});
+
+	$.ajax({											// load state json data
+		url: 'data/us-states.json',
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			$("body").data('states_json',data)''
+		}
+	});
+
 	for (var i = 1; i <= 6; i++) {
-		load_map('', "map" + i.toString(), 0.4);
+		load_map('', "map" + i.toString(), 0.4);		// load maps with json data
 		$("#map" + i.toString()).click(function(i) {
 			return function() {
 				$("body").data('map_id_active', i);
@@ -20,20 +38,15 @@ function init() {
 	}
 	load_map('', 'map_large', 1);
 
-	$(document).ajaxStop(function() {
-		console.log('done');
-		$.unblockUI();							// unblock page
+	$("#top_text1").show("drop", { direction: "up" }, 1000);
+	$("#top_text2").show("drop", { direction: "right" }, 1000);
+	$("#top_text3").fadeIn('slow');
 
-		$("#top_text1").show("drop", { direction: "up" }, 1000);
-		$("#top_text2").show("drop", { direction: "right" }, 1000);
-		$("#top_text3").fadeIn('slow');
+	var load_nav_wrapper = function() {
+		load_nav();
+	}
 
-		var load_nav_wrapper = function() {
-			load_nav();
-		}
-
-		setTimeout(load_nav_wrapper, 1000);
-	});
+	setTimeout(load_nav_wrapper, 1000);
 }
 
 function datmax(arr) {
@@ -95,21 +108,16 @@ function load_map(data, div_id, scale) {
 	rg = colorScale.range();
 	dm = colorScale.quantiles().slice();
 
-	d3.json("data/us-counties.json", function(json) {
-		console.log(json);
-		counties.selectAll("path")
-		.data(json.features)
-		.enter().append("path")
-		.attr("fill", "#DDDDDD")
-		.attr("d", path);
-	});
+	counties.selectAll("path")
+	.data($("body").data('counties_json').features)
+	.enter().append("path")
+	.attr("fill", "#DDDDDD")
+	.attr("d", path);
 
-	d3.json("data/us-states.json", function(json) {
-		states.selectAll("path")
-		.data(json.features)
-		.enter().append("path")
-		.attr("d", path);
-	});
+	states.selectAll("path")
+	.data($("body").data('states_json').features)
+	.enter().append("path")
+	.attr("d", path);
 
 	g.attr("transform", "scale(" + scale + ")");
 }
