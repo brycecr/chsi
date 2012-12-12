@@ -155,7 +155,8 @@ function update_map(data, div_id, scale) {
 }
 
 function load_parcoords() {
-	if (Object.keys($("body").data('map_ids_present')).length < 2) {
+	var len = Object.keys($("body").data('map_ids_present')).length;
+	if (len < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 		return;
 	}
@@ -191,6 +192,7 @@ function load_parcoords() {
 		.render()
 		.createAxes()
 		.brushable()
+		.shadows()
 		.reorderable();
 
 	// click label to activate coloring
@@ -232,6 +234,24 @@ function load_parcoords() {
 	};
 
 	change_color(pc.dimensions()[0]);
+
+	var grid = d3.divgrid();
+	d3.select('#grid')
+		.datum(transdata)
+		.call(grid)
+		.selectAll(".row")
+		.on({"mouseover" : function(d){pc.highlight([d]);},
+				"mouseout" : pc.unhighlight});
+
+	pc.on("brush", function(d) {
+		d3.select("#grid")
+		.datum(d)
+		.call(grid)
+		.selectAll(".row")
+		.on({"mouseover": function(d) { pc.highlight([d]) },
+			"mouseout": pc.unhighlight
+			});
+		});
 };
 
 function load_scatterplots() {
