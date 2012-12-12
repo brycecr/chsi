@@ -3,18 +3,6 @@ body {
 	margin-bottom: 30px;
 }
 
-.row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
-.row:nth-child(odd) { background: rgba(0,0,0,0.05); }
-.header { font-weight: bold; }
-.cell { float: left; overflow: hidden; white-space: nowrap; width: 160px; height: 18px; }
-.col-0 { width: 180px; }
-
-#grid {
-	margin-left: 10px;
-	height: 300px;
-    overflow-y: auto;
-}
-
 #container {
     width: 1260px;
     margin: -10px;
@@ -195,10 +183,22 @@ body {
 
 #parallel_coordinates {
     width: 1240px;
-    height: 400px;
+    height: 300px;
     padding: 0px 10px 10px 10px;
     background: #EFEFEF;
 }
+
+#grid {
+    margin-left: 10px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+    .row, .header { clear: left; font-size: 12px; line-height: 18px; height: 18px; }
+    .row:nth-child(odd) { background: rgba(0,0,0,0.05); }
+    .header { font-weight: bold; }
+    .cell { float: left; overflow: hidden; white-space: nowrap; width: 160px; height: 18px; }
+    .col-0 { width: 180px; }
 
 #scatterplots_container {
     width: 1200px;
