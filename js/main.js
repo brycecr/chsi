@@ -480,7 +480,7 @@ function load_category(category) {
 
 	$(".nav_attribute").click(function() {
 		var map_id = $("body").data('map_id_active');
-		setTimeout(load_attribute($(this).attr('id'), category), 1000);
+		load_attribute($(this).attr('id'), category);
 	});
 }
 
