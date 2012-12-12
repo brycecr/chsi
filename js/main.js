@@ -334,7 +334,7 @@ function load_scatterplots() {
 
     		svg.append("text")
 		    .attr("class", "scatterplot_label")
-		    .attr("text-anchor", "left")
+		    .attr("text-anchor", "start")
 		    .attr("x", w - 120)
 		    .attr("y", h - 10)
 		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
@@ -479,6 +479,7 @@ function load_category(category) {
 	);
 
 	$(".nav_attribute").click(function() {
+		$("#nav_hide").trigger('click');
 		var map_id = $("body").data('map_id_active');
 		load_attribute($(this).attr('id'), category);
 	});
