@@ -220,7 +220,7 @@ function load_parcoords() {
 		};
 	};
 
-	if (len >= 2) {
+	if (num_maps >= 2) {
 		$("#parallel_coordinates").html('');
 		var pc = d3.parcoords()("#parallel_coordinates");
 		pc = pc.data(transdata, String)
