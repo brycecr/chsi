@@ -158,14 +158,14 @@ function update_map(data, div_id, scale) {
 }
 
 function load_parcoords() {
-	var len = 0;
+	var num_maps = 0;
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == true) {
-			len += 1;
+			num_maps += 1;
 		}
 	}
 
-	if (len < 2) {
+	if (num_maps < 2) {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 	}
 
@@ -273,8 +273,13 @@ function load_parcoords() {
 function load_scatterplots() {
 	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
 
-	map_ids = Object.keys($("body").data('map_ids_present'));
-	num_maps = map_ids.length;
+	var num_maps = 0;
+	for (var map_id in $("body").data('map_ids_present')) {
+		if ($("body").data('map_ids_present')[map_id] == true) {
+			num_maps += 1;
+		}
+	}
+
 	if (num_maps < 2) {
 		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
 		return;
@@ -518,8 +523,11 @@ function load_attribute(attr_id, category) {
 
 			$("body").data('map' + map_id + '_data', map_data);			// update map_i_data
 			$("body").data('map' + map_id + '_title', attr_id);			// update map_i_title
-
 			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
+			update_map(map_data, 'map' + map_id, 0.4);
+			load_parcoords();
+			load_scatterplots();
+
 			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
 				return function() {
 					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
@@ -544,10 +552,6 @@ function load_attribute(attr_id, category) {
 					load_scatterplots();
 				}
 			}(map_id));
-
-			update_map(map_data, 'map' + map_id, 0.4);
-			load_parcoords();
-			load_scatterplots();
 		}
 	});
 }
