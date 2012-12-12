@@ -1,11 +1,12 @@
 body {
-	font-family: 'PT Sans';
-	margin-bottom: 30px;
+    font-family: 'Lato';
+    margin-bottom: 30px;
+    font-weight: 300;
 }
 
 #container {
     width: 1260px;
-    margin: -10px;
+    margin: -10px auto;
 }
 
 #top {
@@ -165,7 +166,7 @@ body {
 }
 
 #map_large_title {
-    width: 800px;
+    width: 920px;
     text-align: center;
     font-size: 120%;
 }
@@ -198,7 +199,7 @@ body {
     .row:nth-child(odd) { background: rgba(0,0,0,0.05); }
     .header { font-weight: bold; }
     .cell { float: left; overflow: hidden; white-space: nowrap; width: 160px; height: 18px; }
-    .col-0 { width: 180px; }
+    .col-0 { width: 210px; }
 
 #scatterplots_container {
     width: 1200px;

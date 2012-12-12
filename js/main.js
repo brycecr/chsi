@@ -11,7 +11,7 @@ function init() {
 	        'text-align': 'center'
     	}, message: 
     		'<img src="images/loading.gif">Loading...<br><span class="text_small">Thank you for your patience!</span>'
-    }); 
+    });
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);						// set active map id to 1 (default)
@@ -35,58 +35,12 @@ function init() {
 						$.unblockUI();						// unblock page and show top and nav
 						setTimeout(load_top, 800);
 						setTimeout(load_nav, 1200);
+						set_names();
 						load_maps();
 					}
 				});
 			}
 		});
-	}
-
-	var set_names = function() {
-		var names = {};
-		var county = $("body").data('counties_json').features;
-		var states = $("body").data('states_json').features;
-		var j = 0;
-		for (var i = 0; i < county.length; ++i) {
-			if (county[i].id.slice(0,2) != states[j].id) ++j;
-			names[county[i].id] = county[i].properties.name+", "+states[j].properties.name;
-		}
-		/* Special rules for exceptional counties */
-		names["15005"] = "Kalawao, Hawaii";
-		names["15007"] = "Kauai, Hawaii";
-		names['25007'] = "Dukes, Massachusetts";
-		names['25019'] = "Nantucket, Massachusetts";
-		names['36085'] = "Richmond, New York";
-		names['44005'] = "Newport, Rhode Island";
-		names['51131'] = 'Northampton, Virginia';
-		names['51515'] = 'Bedford, Virginia';
-		names['51530'] = 'Buena Vista, Virginia';
-		names['51540'] = 'Charlottesville, Virginia';
-		names['51570'] = 'Colonial Heights, Virginia';
-		names['51580'] = 'Covington, Virginia';
-		names['51595'] = 'Emporia, Virginia';
-		names['51600'] = 'Fairfax, Virginia';
-		names['51610'] = 'Falls Church, Virginia';
-		names['51620'] = 'Franklin, Virginia';
-		names['51630'] = 'Fredericksburg, Virginia';
-		names['51640'] = 'Galax, Virginia';
-		names['51660'] = 'Harrisonburg, Virginia';
-		names['51678'] = 'Lexington, Virginia';
-		names['51683'] = 'Manassas, Virginia';
-		names['51685'] = 'Manassas Park, Virginia';
-		names['51690'] = 'Martinsville, Virginia';
-		names['51720'] = 'Norton, Virginia';
-		names['51750'] = 'Radford, Virginia';
-		names['51775'] = 'Salem, Virginia';
-		names['51790'] = 'Staunton, Virginia';
-		names['51820'] = 'Waynesboro, Virginia';
-		names['51830'] = 'Williamsburg, Virginia';
-		names['51840'] = 'Winchester, Virginia';
-		names['53029'] = 'Island, Washington';
-		names['53055'] = 'San Juan, Washington';
-		names['08014'] = 'Broomfield, Colorado';
-
-		$('body').data('names', names);
 	}
 
 	setTimeout(ajax_calls, 500);							// allows page to be blocked first
@@ -98,6 +52,238 @@ function load_top() {
 	$("#top_text1").show("drop", { direction: "up" }, 1000);
 	$("#top_text2").show("drop", { direction: "right" }, 1000);
 	$("#top_text3").fadeIn('slow');
+}
+
+function set_names() {
+	var names = {};
+	var county = $("body").data('counties_json').features;
+	var states = $("body").data('states_json').features;
+	var j = 0;
+	for (var i = 0; i < county.length; ++i) {
+		if (county[i].id.slice(0,2) != states[j].id) ++j;
+		names[county[i].id] = county[i].properties.name + ", " + states[j].properties.name;
+	}
+
+	// Special rules for exceptional counties
+	names["15005"] = "Kalawao, Hawaii";
+	names["15007"] = "Kauai, Hawaii";
+	names['25007'] = "Dukes, Massachusetts";
+	names['25019'] = "Nantucket, Massachusetts";
+	names['36085'] = "Richmond, New York";
+	names['44005'] = "Newport, Rhode Island";
+	names['51131'] = 'Northampton, Virginia';
+	names['51515'] = 'Bedford, Virginia';
+	names['51530'] = 'Buena Vista, Virginia';
+	names['51540'] = 'Charlottesville, Virginia';
+	names['51570'] = 'Colonial Heights, Virginia';
+	names['51580'] = 'Covington, Virginia';
+	names['51595'] = 'Emporia, Virginia';
+	names['51600'] = 'Fairfax, Virginia';
+	names['51610'] = 'Falls Church, Virginia';
+	names['51620'] = 'Franklin, Virginia';
+	names['51630'] = 'Fredericksburg, Virginia';
+	names['51640'] = 'Galax, Virginia';
+	names['51660'] = 'Harrisonburg, Virginia';
+	names['51678'] = 'Lexington, Virginia';
+	names['51683'] = 'Manassas, Virginia';
+	names['51685'] = 'Manassas Park, Virginia';
+	names['51690'] = 'Martinsville, Virginia';
+	names['51720'] = 'Norton, Virginia';
+	names['51750'] = 'Radford, Virginia';
+	names['51775'] = 'Salem, Virginia';
+	names['51790'] = 'Staunton, Virginia';
+	names['51820'] = 'Waynesboro, Virginia';
+	names['51830'] = 'Williamsburg, Virginia';
+	names['51840'] = 'Winchester, Virginia';
+	names['53029'] = 'Island, Washington';
+	names['53055'] = 'San Juan, Washington';
+	names['08014'] = 'Broomfield, Colorado';
+
+	$('body').data('names', names);
+}
+
+function load_nav() {
+	$.ajax({
+		url: 'php/load_categories.php',
+		dataType: 'json',
+		async: false,
+		success: function(data) {
+			nav_html = '';
+			for (var i = 0; i < data.length; i++) {
+				nav_html += '<div class="nav_category" id="' + data[i]['name'] + '" style="display: none">' + data[i]['display_name'] + '</div>';
+			}
+			$("#nav1").html(nav_html);
+			$(".nav_category").each(function(i) {
+				$(this).delay(100*i).show('drop');
+			});
+		}
+	});
+
+	$(".nav_category").hover(
+		function () {
+   			$(this).css('background', '#666');
+   			$(this).animate({'marginLeft': "+=20px"}, 100);
+  		}, 
+  		function () {
+    		$(this).css('background', '#999');
+    		$(this).animate({'marginLeft': "-=20px"}, 100);
+		}
+	);
+
+	$(".nav_category").click(function() {
+		load_category($(this).attr('id'));
+	});
+
+	$("#nav2").html('<span class="text_large"><br><br><br><br>Choose a category to begin browsing!</span>');
+	$("#nav_hide").fadeIn('slow');
+	$("#nav_hide").click(function() {
+		$("#nav").hide('blind', {}, 1000);
+		$("#nav_hide").hide();
+		$("#nav_show").show();
+	});
+
+	$("#nav_show").click(function() {
+		$("#nav").show('blind', {}, 1000);
+		$("#nav_show").hide();
+		$("#nav_hide").show();
+	});
+
+	$("#maps_hide").fadeIn('slow');
+	$("#maps_hide").click(function() {
+		$("#maps").hide('blind', {}, 1000);
+		$("#maps_hide").hide();
+		$("#maps_show").show();
+	});
+
+	$("#maps_show").click(function() {
+		$("#maps").show('blind', {}, 1000);
+		$("#maps_show").hide();
+		$("#maps_hide").show();
+	});
+
+	$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
+	$("#pcoords_hide").fadeIn('slow');
+	$("#pcoords_hide").click(function() {
+		$("#parallel_coordinates").hide('blind', {}, 1000);
+		$("#pcoords_hide").hide();
+		$("#pcoords_show").show();
+	});
+
+	$("#pcoords_show").click(function() {
+		$("#parallel_coordinates").show('blind', {}, 1000);
+		$("#pcoords_show").hide();
+		$("#pcoords_hide").show();
+	});
+
+	$("#grid").html('<br>Select one or more attributes to create a data table!');
+	$("#datatable_hide").fadeIn('slow');
+	$("#datatable_hide").click(function() {
+		$("#grid").hide('blind', {}, 1000);
+		$("#datatable_hide").hide();
+		$("#datatable_show").show();
+	});
+
+	$("#datatable_show").click(function() {
+		$("#grid").show('blind', {}, 1000);
+		$("#datatable_show").hide();
+		$("#datatable_hide").show();
+	});
+
+	$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
+	$("#scatterplots_hide").fadeIn('slow');
+	$("#scatterplots_hide").click(function() {
+		$("#scatterplots_container").hide('blind', {}, 1000);
+		$("#scatterplots_hide").hide();
+		$("#scatterplots_show").show();
+	});
+
+	$("#scatterplots_show").click(function() {
+		$("#scatterplots_container").show('blind', {}, 1000);
+		$("#scatterplots_show").hide();
+		$("#scatterplots_hide").show();
+	});
+}
+
+function load_category(category) {
+	$.ajax({
+		url: 'php/load_category.php',
+		dataType: 'json',
+		data: 'category=' + category,
+		async: false,
+		success: function(data) {
+			nav_html = '';
+			for (var i = 0; i < data.length; i++) {
+				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<div class="nav_attribute_description">' + data[i]['DESCRIPTION'] + '</div></div>';
+			}
+			$("#nav2").hide()
+			$("#nav2").html(nav_html);
+			$("#nav2").fadeIn('slow');
+		}
+	});
+
+	$(".nav_attribute").hover(
+		function () {
+   			$(this).css('background', '#666');
+  		}, 
+  		function () {
+    		$(this).css('background', '#CCC');
+		}
+	);
+
+	$(".nav_attribute").click(function() {
+		$("#nav_hide").trigger('click');
+		var map_id = $("body").data('map_id_active');
+		load_attribute($(this).attr('id'), category);
+	});
+}
+
+function load_attribute(attr_id, category) {
+	$.ajax({
+		url: 'php/load_attribute.php',
+		dataType: 'json',
+		data: 'category=' + category + '&attribute=' + attr_id,
+		async: false,
+		success: function(data) {
+			map_data = new Object();
+			for (var i = 0; i < data.length; i++) {
+				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
+			}
+
+			var map_id = $("body").data('map_id_active');
+			$("body").data("map_ids_present")[map_id] = true;			// update map_ids_present
+			$("body").data('map' + map_id + '_data', map_data);			// update map_i_data
+			$("body").data('map' + map_id + '_title', attr_id);			// update map_i_title
+			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
+			update_map(map_data, 'map' + map_id, 0.4);
+			load_parcoords();
+			load_scatterplots();
+
+			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
+				return function() {
+					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
+					$("#map_large_container").css('top', $(document).scrollTop()+50);
+					$("#map_large_container").css('left', ($(document).width()-820)/2);
+					update_map(map_data, 'map_large', 1);
+					$("#map_large_container").fadeIn('slow');
+
+					$("#map_large_close").click(function() {
+						$("#map_large_container").fadeOut('slow');
+					});
+				}
+			}(map_id, attr_id));
+			$("#map" + map_id + "_clear").click(function(map_id) {
+				return function() {
+					$("body").data('map' + map_id + '_data', {});
+					$("body").data('map' + map_id + '_title', '');
+					$("body").data('map_ids_present')[map_id] = false;
+					$("#map" + map_id + "_title").html('');
+					update_map({}, 'map' + map_id, 0.4);
+					load_parcoords();
+					load_scatterplots();
+				}
+			}(map_id));
+		}
+	});
 }
 
 function load_maps() {
@@ -194,8 +380,8 @@ function update_map(data, div_id, scale) {
 				.attr("x", "43")
 				.attr("y", ypos + 10)
 				.attr("fill", "#AAAAAA")
-				.attr("style", "font-family: 'PT Sans'; color: #666")
-				.style("font", "12px \'PT Sans\'")
+				.attr("style", "font-family: 'Lato'; color: #666")
+				.style("font", "12px \'Lato\'")
 				.text(function () { return (i == 8) ? dm[8]+'+': dm[i]+'-'+dm[i+1]; });
 		}
 	}
@@ -219,8 +405,14 @@ function load_parcoords() {
 		$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
 	}
 
+	if (num_maps < 1) {
+		$("#grid").html('<br>Select one or more attributes to create a data table!');
+		return;
+	}
+
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
+	var is_first_pass = true;
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == false) {
 			continue;
@@ -229,16 +421,23 @@ function load_parcoords() {
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
 
+		if (is_first_pass) {				// save county names for data table
+			var k = 0;
+			for (key in data) {
+				transdata[k] = {};
+				transdata[k]["County Name"] = $('body').data('names')[key];
+				// transdata[k]["FIPS Code"] = key;
+				k++;
+			}
+			is_first_pass = false;
+		}
+
 		var i = -1;
 		for (key in data) {
 			i += 1;
 			if (data[key] < 0) {
-				if (transdata[i] instanceof Object == false) {
-					transdata[i] = {};
-				}
 				continue;
-			}
-			else if (transdata[i] instanceof Object == true) {
+			} else if (transdata[i] instanceof Object == true) {
 				transdata[i][attr_id] = data[key];
 			} else {
 				transdata[i] = {};
@@ -272,13 +471,6 @@ function load_parcoords() {
 			return (d-mean)/sigma;
 		};
 	};
-
-	var k = 0;
-	for (key in data) {
-		transdata[k]["County_Name"] = $('body').data('names')[key];
-		transdata[k]["FIPS_Code"] = key;
-		k++;
-	}
 
 	if (num_maps >= 2) {
 		$("#parallel_coordinates").html('');
@@ -434,189 +626,6 @@ function load_scatterplots() {
 			counter += 1;
 		}
 	}
-}
-
-function load_nav() {
-	$.ajax({
-		url: 'php/load_categories.php',
-		dataType: 'json',
-		async: false,
-		success: function(data) {
-			nav_html = '';
-			for (var i = 0; i < data.length; i++) {
-				nav_html += '<div class="nav_category" id="' + data[i]['name'] + '" style="display: none">' + data[i]['display_name'] + '</div>';
-			}
-			$("#nav1").html(nav_html);
-			$(".nav_category").each(function(i) {
-				$(this).delay(100*i).show('drop');
-			});
-		}
-	});
-
-	$(".nav_category").hover(
-		function () {
-   			$(this).css('background', '#666');
-   			$(this).animate({'marginLeft': "+=20px"}, 100);
-  		}, 
-  		function () {
-    		$(this).css('background', '#999');
-    		$(this).animate({'marginLeft': "-=20px"}, 100);
-		}
-	);
-
-	$(".nav_category").click(function() {
-		load_category($(this).attr('id'));
-	});
-
-	$("#nav2").html('<span class="text_large"><br><br><br><br>Choose a category to begin browsing!</span>');
-	$("#nav_hide").fadeIn('slow');
-	$("#nav_hide").click(function() {
-		$("#nav").hide('blind', {}, 1000);
-		$("#nav_hide").hide();
-		$("#nav_show").show();
-	});
-
-	$("#nav_show").click(function() {
-		$("#nav").show('blind', {}, 1000);
-		$("#nav_show").hide();
-		$("#nav_hide").show();
-	});
-
-	$("#maps_hide").fadeIn('slow');
-	$("#maps_hide").click(function() {
-		$("#maps").hide('blind', {}, 1000);
-		$("#maps_hide").hide();
-		$("#maps_show").show();
-	});
-
-	$("#maps_show").click(function() {
-		$("#maps").show('blind', {}, 1000);
-		$("#maps_show").hide();
-		$("#maps_hide").show();
-	});
-
-	$("#parallel_coordinates").html('<br>Select two or more attributes to create a parallel coordinates graph!');
-	$("#pcoords_hide").fadeIn('slow');
-	$("#pcoords_hide").click(function() {
-		$("#parallel_coordinates").hide('blind', {}, 1000);
-		$("#pcoords_hide").hide();
-		$("#pcoords_show").show();
-	});
-
-	$("#pcoords_show").click(function() {
-		$("#parallel_coordinates").show('blind', {}, 1000);
-		$("#pcoords_show").hide();
-		$("#pcoords_hide").show();
-	});
-
-	$("#datatable_hide").fadeIn('slow');
-	$("#datatable_hide").click(function() {
-		$("#grid").hide('blind', {}, 1000);
-		$("#datatable_hide").hide();
-		$("#datatable_show").show();
-	});
-
-	$("#datatable_show").click(function() {
-		$("#grid").show('blind', {}, 1000);
-		$("#datatable_show").hide();
-		$("#datatable_hide").show();
-	});
-
-	$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
-	$("#scatterplots_hide").fadeIn('slow');
-	$("#scatterplots_hide").click(function() {
-		$("#scatterplots_container").hide('blind', {}, 1000);
-		$("#scatterplots_hide").hide();
-		$("#scatterplots_show").show();
-	});
-
-	$("#scatterplots_show").click(function() {
-		$("#scatterplots_container").show('blind', {}, 1000);
-		$("#scatterplots_show").hide();
-		$("#scatterplots_hide").show();
-	});
-}
-
-function load_category(category) {
-	$.ajax({
-		url: 'php/load_category.php',
-		dataType: 'json',
-		data: 'category=' + category,
-		async: false,
-		success: function(data) {
-			nav_html = '';
-			for (var i = 0; i < data.length; i++) {
-				nav_html += '<div class="nav_attribute" id="' + data[i]['COLUMN_NAME'] + '">' + data[i]['COLUMN_NAME'] + '<div class="nav_attribute_description">' + data[i]['DESCRIPTION'] + '</div></div>';
-			}
-			$("#nav2").hide()
-			$("#nav2").html(nav_html);
-			$("#nav2").fadeIn('slow');
-		}
-	});
-
-	$(".nav_attribute").hover(
-		function () {
-   			$(this).css('background', '#666');
-  		}, 
-  		function () {
-    		$(this).css('background', '#CCC');
-		}
-	);
-
-	$(".nav_attribute").click(function() {
-		$("#nav_hide").trigger('click');
-		var map_id = $("body").data('map_id_active');
-		load_attribute($(this).attr('id'), category);
-	});
-}
-
-function load_attribute(attr_id, category) {
-	$.ajax({
-		url: 'php/load_attribute.php',
-		dataType: 'json',
-		data: 'category=' + category + '&attribute=' + attr_id,
-		async: false,
-		success: function(data) {
-			map_data = new Object();
-			for (var i = 0; i < data.length; i++) {
-				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
-			}
-
-			var map_id = $("body").data('map_id_active');
-			$("body").data("map_ids_present")[map_id] = true;			// update map_ids_present
-			$("body").data('map' + map_id + '_data', map_data);			// update map_i_data
-			$("body").data('map' + map_id + '_title', attr_id);			// update map_i_title
-			$("#map" + map_id + "_title").html(attr_id + '<div class="map_title_option" id="map' + map_id + '_clear"><a href="javascript:void(0);">clear</a></div><div class="map_title_option" id="map' + map_id + '_expand"><a href="javascript:void(0);">expand</a></div>');
-			update_map(map_data, 'map' + map_id, 0.4);
-			load_parcoords();
-			load_scatterplots();
-
-			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
-				return function() {
-					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
-					$("#map_large_container").css('top', $(document).scrollTop()+50);
-					$("#map_large_container").css('left', ($(document).width()-820)/2);
-					update_map(map_data, 'map_large', 1);
-					$("#map_large_container").fadeIn('slow');
-
-					$("#map_large_close").click(function() {
-						$("#map_large_container").fadeOut('slow');
-					});
-				}
-			}(map_id, attr_id));
-			$("#map" + map_id + "_clear").click(function(map_id) {
-				return function() {
-					$("body").data('map' + map_id + '_data', {});
-					$("body").data('map' + map_id + '_title', '');
-					$("body").data('map_ids_present')[map_id] = false;
-					$("#map" + map_id + "_title").html('');
-					update_map({}, 'map' + map_id, 0.4);
-					load_parcoords();
-					load_scatterplots();
-				}
-			}(map_id));
-		}
-	});
 }
 
 function datmax(arr) {
