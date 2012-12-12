@@ -158,6 +158,8 @@ function update_map(data, div_id, scale) {
 }
 
 function load_parcoords() {
+
+		console.log($("body").data('map_ids_present'));
 	var num_maps = 0;
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == true) {
@@ -282,7 +284,7 @@ function load_scatterplots() {
 		}
 	}
 
-	console.log(num_maps);
+	console.log($("body").data('map_ids_present'));
 
 	if (num_maps < 2) {
 		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
