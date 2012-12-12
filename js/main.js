@@ -489,7 +489,10 @@ function load_attribute(attr_id, category) {
 		success: function(data) {
 			map_data = new Object();
 			for (var i = 0; i < data.length; i++) {
-				map_data[("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3)] = parseInt(data[i][attr_id]);
+				var fips = ("0" + data[i]['State_FIPS_Code'].toString()).slice(-2) + ("00" + data[i]['County_FIPS_Code'].toString()).slice(-3);
+				map_data[fips] = parseInt(data[i][attr_id]);
+				map_data[fips + '_county'] = data[i]['CHSI_County_Name'];
+				map_data[fips + '_state'] = data[i]['CHSI_State_Abbr'];
 			}
 
 			var map_id = $("body").data('map_id_active');
