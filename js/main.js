@@ -22,7 +22,7 @@ function init() {
 					success: function(data) {
 						$("body").data('counties_json', data);
 						$.unblockUI();						// unblock page and show top and nav
-						load_top();
+						setTimeout(load_top, 500);
 						load_nav();
 						load_maps();
 					}
