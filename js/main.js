@@ -1,45 +1,46 @@
 $(document).ready(init);
 
 function init() {
-	$(document).ajaxStart(function() {
-		console.log('start');
-		$.blockUI({message: 'Loading...' });		// block page until finished loading
-	});
+	$.blockUI({message: 'Loading...' });		// block page until finished loading
 
 	$("body").data('map_ids_present', {});				// track map ids with data (key: map id, value: true/false)
 	$("body").data('map_id_active', 1);					// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
 
-	$.ajax({											// load county json data
-		url: 'data/us-counties.json',
-		dataType: 'json',
-		async: false,
-		success: function(data) {
-			$("body").data('counties_json',data);
-		}
-	});
-
-	$.ajax({											// load state json data
-		url: 'data/us-states.json',
-		dataType: 'json',
-		async: false,
-		success: function(data) {
-			$("body").data('states_json',data);
-		}
-	});
-
-	for (var i = 1; i <= 6; i++) {
-		load_map('', "map" + i.toString(), 0.4);		// load maps with json data
-		$("#map" + i.toString()).click(function(i) {
-			return function() {
-				$("body").data('map_id_active', i);
-				$(".map").css('background', '#FFF');
-				$(this).css('background', '#EFEFEF');
-				$("#nav_show").trigger('click');
+	var ajax_calls = function() {
+		$.ajax({											// load county json data
+			url: 'data/us-counties.json',
+			dataType: 'json',
+			async: false,
+			success: function(data) {
+				$("body").data('counties_json',data);
 			}
-		}(i));
+		});
+
+		$.ajax({											// load state json data
+			url: 'data/us-states.json',
+			dataType: 'json',
+			async: false,
+			success: function(data) {
+				$("body").data('states_json',data);
+			}
+		});
+
+		for (var i = 1; i <= 6; i++) {
+			load_map('', "map" + i.toString(), 0.4);		// load maps with json data
+			$("#map" + i.toString()).click(function(i) {
+				return function() {
+					$("body").data('map_id_active', i);
+					$(".map").css('background', '#FFF');
+					$(this).css('background', '#EFEFEF');
+					$("#nav_show").trigger('click');
+				}
+			}(i));
+		}
+		load_map('', 'map_large', 1);
 	}
-	load_map('', 'map_large', 1);
+
+	setTimeout(ajax_calls, 500);
 
 	$("#top_text1").show("drop", { direction: "up" }, 1000);
 	$("#top_text2").show("drop", { direction: "right" }, 1000);
