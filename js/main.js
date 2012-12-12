@@ -1,14 +1,16 @@
 $(document).ready(init);
 
 function init() {
-	$.blockUI({message: 'Loading...' });						// block page until finished loading
+	$.blockUI({message: 'Loading...' });					// block page until finished loading
 
-	$("body").data('map_ids_present', {});						// track map ids with data (key: map id, value: true/false)
-	$("body").data('map_id_active', 1);							// set active map id to 1 (default)
+	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
+	$("body").data('map_id_active', 1);						// set active map id to 1 (default)
 	$("#map1").css('background', '#EFEFEF');
+	
+	setTimeout(ajax_calls, 500);							// allows page to be blocked first
 
 	var ajax_calls = function() {
-		$.ajax({												// load county json data
+		$.ajax({											// load county json data
 			url: 'data/us-counties.json',
 			dataType: 'json',
 			async: false,
@@ -17,36 +19,40 @@ function init() {
 			}
 		});
 
-		$.ajax({												// load state json data
+		$.ajax({											// load state json data
 			url: 'data/us-states.json',
 			dataType: 'json',
 			async: false,
 			success: function(data) {
 				$("body").data('states_json',data);
-
-				$.unblockUI();									// unblock page and show top and nav
-				$("#top_text1").show("drop", { direction: "up" }, 1000);
-				$("#top_text2").show("drop", { direction: "right" }, 1000);
-				$("#top_text3").fadeIn('slow');
+				$.unblockUI();								// unblock page and show top and nav
+				load_top();
 				load_nav();
+				load_maps();
 			}
 		});
 	}
 
-	setTimeout(ajax_calls, 500);								// allows page to be blocked first
-
-	for (var i = 1; i <= 6; i++) {
-		load_map('', "map" + i.toString(), 0.4);				// load maps with json data
-		$("#map" + i.toString()).click(function(i) {
-			return function() {
-				$("body").data('map_id_active', i);
-				$(".map").css('background', '#FFF');
-				$(this).css('background', '#EFEFEF');
-				$("#nav_show").trigger('click');
-			}
-		}(i));
+	var load_top = function() {
+		$("#top_text1").show("drop", { direction: "up" }, 1000);
+		$("#top_text2").show("drop", { direction: "right" }, 1000);
+		$("#top_text3").fadeIn('slow');
 	}
-	load_map('', 'map_large', 1);
+
+	var load_maps = function() {
+		for (var i = 1; i <= 6; i++) {
+			load_map('', "map" + i.toString(), 0.4);		// load maps with json data
+			$("#map" + i.toString()).click(function(i) {
+				return function() {
+					$("body").data('map_id_active', i);
+					$(".map").css('background', '#FFF');
+					$(this).css('background', '#EFEFEF');
+					$("#nav_show").trigger('click');
+				}
+			}(i));
+		}
+		load_map('', 'map_large', 1);
+	}
 }
 
 function datmax(arr) {
