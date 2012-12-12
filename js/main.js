@@ -1,7 +1,5 @@
 $(document).ready(init);
 
-var names = {};
-
 function init() {
    	$.blockUI({												// block page until finished loading
    		css: {
@@ -45,6 +43,7 @@ function init() {
 	}
 
 	var set_names = function() {
+		var names = {};
 		var county = $("body").data('counties_json').features;
 		var states = $("body").data('states_json').features;
 		var j = 0;
@@ -86,6 +85,8 @@ function init() {
 		names['53029'] = 'Island, Washington';
 		names['53055'] = 'San Juan, Washington';
 		names['08014'] = 'Broomfield, Colorado';
+
+		$('body').data('names', names);
 	}
 
 	setTimeout(ajax_calls, 500);							// allows page to be blocked first
@@ -271,7 +272,7 @@ function load_parcoords() {
 
 	var k = 0;
 	for (key in data) {
-		transdata[k]["County_Name"] = names[key];
+		transdata[k]["County_Name"] = $('body').data('names')[key];
 		transdata[k]["FIPS_Code"] = key;
 		k++;
 	}
