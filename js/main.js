@@ -170,6 +170,9 @@ function load_parcoords() {
 		return;
 	}
 
+	$("#parallel_coordinates").html('');
+	$("#grid").html('');
+
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	for (var map_id in $("body").data('map_ids_present')) {
@@ -195,7 +198,6 @@ function load_parcoords() {
 		}
 	}
 
-	$("#parallel_coordinates").html('');
 	var pc = d3.parcoords()("#parallel_coordinates");
 	pc = pc.data(transdata, String)
 		.autoscale()
