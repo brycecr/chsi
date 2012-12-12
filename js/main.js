@@ -282,6 +282,8 @@ function load_scatterplots() {
 		}
 	}
 
+	console.log(num_maps);
+
 	if (num_maps < 2) {
 		$("#scatterplots_container").html('<br>Select two or more attributes to create scatterplots!');
 		return;
