@@ -7,9 +7,10 @@ function init() {
 	        background: '#000',
 	        opacity: '0.5',
 	        'font-size': '150%',
-	        color: '#FFF' 
+	        color: '#FFF',
+	        'text-align': 'center';
     	}, message: 
-    		'<img src="images/loading.gif">Loading...'
+    		'<img src="images/loading.gif">Loading...<br><span style="text_small">Thank you for your patience!</span>'
     }); 
 
 	$("body").data('map_ids_present', {});					// track map ids with data (key: map id, value: true/false)
