@@ -52,7 +52,40 @@ function init() {
 			if (county[i].id.slice(0,2) != states[j].id) ++j;
 			names[county[i].id] = county[i].properties.name+", "+states[j].properties.name;
 		}
-		console.log(names);
+		/* Special rules for exceptional counties */
+		names["15005"] = "Kalawao, Hawaii";
+		names["15007"] = "Kauai, Hawaii";
+		names['25007'] = "Dukes, Massachusetts";
+		names['25019'] = "Nantucket, Massachusetts";
+		names['36085'] = "Richmond, New York";
+		names['44005'] = "Newport, Rhode Island";
+		names['51131'] = 'Northampton, Virginia';
+		names['51515'] = 'Bedford, Virginia';
+		names['51530'] = 'Buena Vista, Virginia';
+		names['51540'] = 'Charlottesville, Virginia';
+		names['51570'] = 'Colonial Heights, Virginia';
+		names['51580'] = 'Covington, Virginia';
+		names['51595'] = 'Emporia, Virginia';
+		names['51600'] = 'Fairfax, Virginia';
+		names['51610'] = 'Falls Church, Virginia';
+		names['51620'] = 'Franklin, Virginia';
+		names['51630'] = 'Fredericksburg, Virginia';
+		names['51640'] = 'Galax, Virginia';
+		names['51660'] = 'Harrisonburg, Virginia';
+		names['51678'] = 'Lexington, Virginia';
+		names['51683'] = 'Manassas, Virginia';
+		names['51685'] = 'Manassas Park, Virginia';
+		names['51690'] = 'Martinsville, Virginia';
+		names['51720'] = 'Norton, Virginia';
+		names['51750'] = 'Radford, Virginia';
+		names['51775'] = 'Salem, Virginia';
+		names['51790'] = 'Staunton, Virginia';
+		names['51820'] = 'Waynesboro, Virginia';
+		names['51830'] = 'Williamsburg, Virginia';
+		names['51840'] = 'Winchester, Virginia';
+		names['53029'] = 'Island, Washington';
+		names['53055'] = 'San Juan, Washington';
+		names['08014'] = 'Broomfield, Colorado';
 	}
 
 	setTimeout(ajax_calls, 500);							// allows page to be blocked first
@@ -240,6 +273,7 @@ function load_parcoords() {
 	for (key in data) {
 		transdata[k]["County_Name"] = names[key];
 		transdata[k]["FIPS_Code"] = key;
+		if (names[key] == null) console.log(key);
 		k++;
 	}
 
