@@ -8,7 +8,7 @@ function init() {
 
 	$(document).ajaxStop(function() {
 		console.log('stop');
-		$.unblockUI());								// unblock page
+		$.unblockUI();								// unblock page
 	});
 
 	$("body").data('map_ids_present', {});				// track map ids with data (key: map id, value: true/false)
