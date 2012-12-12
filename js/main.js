@@ -45,8 +45,8 @@ function init() {
 }
 
 function load_top() {
-	$("#top_text1").show("drop", { direction: "left" }, 1000);
-	$("#top_text2").show("drop", { direction: "up" }, 1000);
+	$("#top_text1").show("drop", { direction: "up" }, 1000);
+	$("#top_text2").show("drop", { direction: "right" }, 1000);
 	$("#top_text3").fadeIn('slow');
 }
 
@@ -480,7 +480,6 @@ function load_category(category) {
 
 	$(".nav_attribute").click(function() {
 		var map_id = $("body").data('map_id_active');
-		$("#map" + map_id).block({ message: 'Loading...' });
 		setTimeout(load_attribute($(this).attr('id'), category), 1000);
 	});
 }
@@ -511,6 +510,7 @@ function load_attribute(attr_id, category) {
 				return function() {
 					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
 					$("#map_large_container").css('top', $(document).scrollTop()+50);
+					$("#map_large_container").css('left', ($(document).width()-820)/2);
 					update_map(map_data, 'map_large', 1);
 					$("#map_large_container").fadeIn('slow');
 
@@ -534,7 +534,6 @@ function load_attribute(attr_id, category) {
 			update_map(map_data, 'map' + map_id, 0.4);
 			load_parcoords();
 			load_scatterplots();
-			$("#map" + map_id).unblock();
 		}
 	});
 }
