@@ -588,7 +588,7 @@ function load_scatterplots() {
 
 	values = [];		// array of objects, each object is a data point
 	var is_first_pass = true;
-	for (var i = 0; i < num_maps-1; i++) {
+	for (var i = 0; i < num_maps; i++) {
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
 
@@ -629,7 +629,7 @@ function load_scatterplots() {
 	return;
 	scatterplot_obj.traits.forEach(function(trait) {
 		function value(d) { return d[trait]; }
-		position[trait] = d3.scale.linear()
+		posi gtion[trait] = d3.scale.linear()
 			.domain([d3.min(scatterplot_obj.values, value), d3.max(scatterplot_obj.values, value)])
 			.range([padding / 2, size - padding / 2]);
 	});
