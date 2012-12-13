@@ -40,11 +40,6 @@
     shape-rendering: crispEdges;
 }
 
-.scatterplot_axis text {
-    font-family: 'PT Sans';
-    font-size: 12px;
-}
-
 .scatterplot_label {
   font-family: 'PT Sans';
   font-size: 12px;
