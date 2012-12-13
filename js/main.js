@@ -616,7 +616,7 @@ function load_scatterplots() {
 	var scatterplot_obj = {'traits': traits, 'values': values};
 
 	$("#scatterplots_container").html('');
-	var size = 150; var padding = 20;
+	var size = 200; var padding = 50;
 
 	// position scales
 	var position = {};
@@ -640,14 +640,20 @@ function load_scatterplots() {
 		svg.append("text")									// column labels
 		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
-		.attr("x", counter * size)
-		.attr("y", 0)
+		.attr("x", function() {
+			if (counter == 0) {
+				return padding/2;
+			} else {
+				return (size+padding)*counter + padding/2;
+			}
+		})
+		.attr("y", 20)
 		.text(trait);
 
 		svg.append("text")									// row labels
 		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
-		.attr("y", size - counter * size)
+		.attr("y", 85)
 		.attr("transform", "rotate(-90)")
 		.text(trait);
 
