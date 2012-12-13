@@ -564,7 +564,7 @@ function load_parcoords() {
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
-			.datum(transdata)
+			.datum(transdata.splice(0,1))
 			.call(grid);
 	}
 };
