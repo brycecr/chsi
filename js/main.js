@@ -470,7 +470,7 @@ function load_parcoords() {
 		for (key in data) {
 			i += 1;
 			if (data[key] < 0) {
-				transdata[i][attr_id] = 'N/A';
+				transdata[i][attr_id] = null;
 			} else if (transdata[i] instanceof Object == true) {
 				transdata[i][attr_id] = data[key];
 			} else {
@@ -555,7 +555,6 @@ function load_parcoords() {
 				});
 			});
 	} else {
-		console.log(transdata);
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
