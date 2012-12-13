@@ -634,6 +634,26 @@ function load_scatterplots() {
 	.attr("height", size * scatterplot_obj.traits.length)
 	.attr("cursor", "crosshair");
 
+	// axis labels
+	var counter = 0;
+	scatterplot_obj.traits.forEach(function(trait)) {
+		svg.append("text")									// column labels
+		attr("class", "scatterplot_label")
+		.attr("text-anchor", "start")
+		.attr("x", counter * size)
+		.attr("y", 0)
+		.text(trait);
+
+		svg.append("text")									// row labels
+		.attr("class", "scatterplot_label")
+		.attr("text-anchor", "start")
+		.attr("y", size - counter * size)
+		.attr("transform", "rotate(-90)")
+		.text(trait);
+
+		counter += 1;
+	}
+
 	// one col per trait
 	var column = svg.selectAll("g")
 	.data(scatterplot_obj.traits)

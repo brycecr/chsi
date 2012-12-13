@@ -202,9 +202,9 @@ body {
     .col-0 { width: 210px; }
 
 #scatterplots_container {
-    width: 1200px;
+    width: 1240px;
     height: 300px;
-    padding: 20px 30px;
+    padding: 0px 10px 10px 10px;
     background: #EFEFEF;
 }
 
