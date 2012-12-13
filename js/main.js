@@ -461,7 +461,6 @@ function load_parcoords() {
 			for (key in data) {
 				transdata[k] = {};
 				transdata[k]["County Name"] = $('body').data('names')[key];
-				// transdata[k]["FIPS Code"] = key;
 				k++;
 			}
 			is_first_pass = false;
@@ -480,6 +479,8 @@ function load_parcoords() {
 			}
 		}
 	}
+
+	console.log(transdata);
 
 	// update color of parcoords
 	function change_color(dimension) { 
