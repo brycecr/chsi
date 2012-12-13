@@ -640,7 +640,7 @@ function load_scatterplots() {
 		svg.append("text")									// column labels
 		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
-		.attr("x", (size + padding) * counter))
+		.attr("x", (size + padding) * counter)
 		.attr("y", 20)
 		.text(trait);
 
