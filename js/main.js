@@ -617,7 +617,7 @@ function load_scatterplots() {
 	var size = 200; var padding = 50;
 	$("#scatterplots_container").html('');
 	$("#scatterplots_container").animate({
-    	height: (size+padding)*num_maps + 'px'
+    	height: size*num_maps + 'px'
   	}, 100 );
 
 	// position scales
@@ -646,7 +646,7 @@ function load_scatterplots() {
 			if (counter == 0) {
 				return padding/2;
 			} else {
-				return (size+padding)*counter;
+				return size*counter;
 			}
 		})
 		.attr("y", 20)
