@@ -103,7 +103,7 @@
   //   => 2/3
   math.variance = function(arr) {
     var mean = _(arr).mean();
-    var variance = function(x) { if (x>=0) return _(x-mean).pow(2); };
+    var variance = function(x) { if (x!=null && x>=0) return _(x-mean).pow(2); };
     return _(arr).chain().map(variance).mean().value();
   };
   

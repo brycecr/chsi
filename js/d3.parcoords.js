@@ -489,7 +489,7 @@ d3.parcoords.quantitative = function(data) {
   return d3.keys(data[0])
     .filter(function(col) {
       var v = data[0][col];
-      return (parseFloat(v) == v) && (v != null);
+      return (parseFloat(v) == v) || (v == null);
     });
 };
 
