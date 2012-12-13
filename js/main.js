@@ -276,7 +276,7 @@ function load_attribute(attr_id, category) {
 			load_parcoords();
 			load_scatterplots();
 
-			$("#map" + map_id + "_expand").click(function(map_id, attr_id) {
+			$("#map" + map_id + "_expand").click(function(map_id, attr_id, map_data) {
 				return function() {
 					$("#map_large_title").html(attr_id + '<div class="map_title_option" id="map_large_close"><a href="javascript:void(0);">close</a></div>');
 					$("#map_large_container").css('top', $(document).scrollTop()+50);
@@ -288,7 +288,7 @@ function load_attribute(attr_id, category) {
 						$("#map_large_container").fadeOut('slow');
 					});
 				}
-			}(map_id, attr_id));
+			}(map_id, attr_id, map_data));
 			$("#map" + map_id + "_clear").click(function(map_id) {
 				return function() {
 					$("body").data('map' + map_id + '_data', {});
