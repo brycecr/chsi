@@ -614,7 +614,7 @@ function load_scatterplots() {
 
 	var scatterplot_obj = {'traits': traits, 'values': values};
 	console.log(scatterplot_obj);
-	
+
 	$("#scatterplots_container").html('');
 	var size = 150; var padding = 20;
 
@@ -628,7 +628,7 @@ function load_scatterplots() {
 	var position = {};
 	scatterplot_obj.traits.forEach(function(trait) {
 		function value(d) { return d[trait]; }
-		posi gtion[trait] = d3.scale.linear()
+		position[trait] = d3.scale.linear()
 			.domain([d3.min(scatterplot_obj.values, value), d3.max(scatterplot_obj.values, value)])
 			.range([padding / 2, size - padding / 2]);
 	});
