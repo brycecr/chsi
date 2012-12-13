@@ -628,7 +628,7 @@ function load_scatterplots() {
 	var position = {};
 	console.log(scatterplot_obj);
 	scatterplot_obj.traits.forEach(function(trait) {
-		function value(d) { console.log(d); console.log(d[trait]); return d[trait]; }
+		function value(d) { return d[trait]; }
 		position[trait] = d3.scale.linear()
 			.domain([d3.min(scatterplot_obj.values, value), d3.max(scatterplot_obj.values, value)])
 			.range([padding / 2, size - padding / 2]);
