@@ -233,7 +233,9 @@ function load_category(category) {
 	$(".nav_attribute").click(function() {
 		$("#nav_hide").trigger('click');
 		var map_id = $("body").data('map_id_active');
+		console.log(new Date());
 		load_attribute($(this).attr('id'), category);
+		console.log(new Date());
 	});
 }
 
