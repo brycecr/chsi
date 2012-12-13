@@ -636,7 +636,7 @@ function load_scatterplots() {
 
 	// axis labels
 	var counter = 0;
-	scatterplot_obj.traits.forEach(function(trait)) {
+	scatterplot_obj.traits.forEach(function(trait) {
 		svg.append("text")									// column labels
 		attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
@@ -652,7 +652,7 @@ function load_scatterplots() {
 		.text(trait);
 
 		counter += 1;
-	}
+	});
 
 	// one col per trait
 	var column = svg.selectAll("g")
