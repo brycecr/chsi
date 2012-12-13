@@ -388,7 +388,7 @@ function update_map(data, div_id, scale) {
 
 	g.select("#counties").selectAll("path")
 		.attr("fill", function(d) {return (!isNaN(data[d.id]) && data[d.id] >= 0) ? colorScale(data[d.id]) : "#CCCCCC";})
-		.append("title").text(function(d) {return "FIPS: "+d.id+"\n"+data[d.id];});
+		.append("title").text(function(d) {return ($('body').data('names')[d.id])+"\n"+data[d.id];});
 
 	g.attr("transform", "scale(" + scale + ")");
 }
@@ -600,29 +600,29 @@ function load_scatterplots() {
             .orient("left")
             .ticks(5);
 
-			svg.append("g")
-    		.attr("class", "scatterplot_axis")
-    		.attr("transform", "translate(0," + (h - padding_y) + ")")
+		  svg.append("g")
+    			.attr("class", "scatterplot_axis")
+			.attr("transform", "translate(0," + (h - padding_y) + ")")
    			.call(xAxis);
 
-   			svg.append("g")
-    		.attr("class", "scatterplot_axis")
-    		.attr("transform", "translate(" + padding_x + ",0)")
-    		.call(yAxis);
+		  svg.append("g")
+			.attr("class", "scatterplot_axis")
+			.attr("transform", "translate(" + padding_x + ",0)")
+			.call(yAxis);
 
-    		svg.append("text")
-		    .attr("class", "scatterplot_label")
-		    .attr("text-anchor", "start")
-		    .attr("x", w - 120)
-		    .attr("y", h - 10)
-		    .text($("body").data('map' + map_ids[i].toString() + '_title'));
+    		  svg.append("text")
+		     .attr("class", "scatterplot_label")
+		     .attr("text-anchor", "start")
+		     .attr("x", w - 120)
+		     .attr("y", h - 10)
+		     .text($("body").data('map' + map_ids[i].toString() + '_title'));
 
-		    svg.append("text")
-		    .attr("class", "scatterplot_label")
-		    .attr("text-anchor", "end")
-		    .attr("y", 85)
-		    .attr("transform", "rotate(-90)")
-		    .text($("body").data('map' + map_ids[j].toString() + '_title'));
+	      svg.append("text")
+		     .attr("class", "scatterplot_label")
+		     .attr("text-anchor", "end")
+		     .attr("y", 85)
+		     .attr("transform", "rotate(-90)")
+		     .text($("body").data('map' + map_ids[j].toString() + '_title'));
 
 			counter += 1;
 		}
