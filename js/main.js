@@ -560,7 +560,7 @@ function load_parcoords() {
 				});
 			});
 	} else {
-		console.log(transdata);
+		console.log(transdata.shift());
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
