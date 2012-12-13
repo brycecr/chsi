@@ -626,6 +626,7 @@ function load_scatterplots() {
 	// position scales
 	var position = {};
 	console.log(scatterplot_obj);
+	return;
 	scatterplot_obj.traits.forEach(function(trait) {
 		function value(d) { return d[trait]; }
 		position[trait] = d3.scale.linear()
