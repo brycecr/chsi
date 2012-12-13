@@ -589,8 +589,10 @@ function load_scatterplots() {
 	values = [];		// array of objects, each object is a data point
 	var is_first_pass = true;
 	for (var i = 0; i < num_maps; i++) {
+		var map_id = map_ids[i];
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
+		console.log(attr_id);
 
 		if (is_first_pass) {				// populate with objects
 			var k = 0;
