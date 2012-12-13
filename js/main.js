@@ -480,8 +480,6 @@ function load_parcoords() {
 		}
 	}
 
-	console.log(transdata);
-
 	// update color of parcoords
 	function change_color(dimension) { 
 		pc.svg.selectAll(".dimension")
@@ -557,6 +555,7 @@ function load_parcoords() {
 				});
 			});
 	} else {
+		console.log(transdata);
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
