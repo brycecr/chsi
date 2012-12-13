@@ -243,7 +243,7 @@ function load_category(category) {
 		        color: '#FFF',
 		        'text-align': 'center'
 	    	}, message: 
-	    		'<img src="images/loading.gif">Loading...<br><span class="text_small">Thank you for your patience!</span>'
+	    		'<img src="images/loading.gif">Loading attribute...</span>'
 	    });
 
 	   	var curr_attr = this;
@@ -294,10 +294,27 @@ function load_attribute(attr_id, category) {
 					$("body").data('map' + map_id + '_data', {});
 					$("body").data('map' + map_id + '_title', '');
 					$("body").data('map_ids_present')[map_id] = false;
-					$("#map" + map_id + "_title").html('');
-					update_map({}, 'map' + map_id, 0.4);
-					load_parcoords();
-					load_scatterplots();
+
+				   	$.blockUI({												// block page until finished loading
+				   		css: {
+					        padding: '15px', 
+					        background: '#000',
+					        opacity: '0.5',
+					        'font-size': '150%',
+					        color: '#FFF',
+					        'text-align': 'center'
+				    	}, message: 
+				    		'<img src="images/loading.gif">Clearing attribute...</span>'
+				    });
+
+				    var update_map_wrapper = function() {
+						$("#map" + map_id + "_title").html('');
+						update_map({}, 'map' + map_id, 0.4);
+						load_parcoords();
+						load_scatterplots();
+						$.unblockUI();
+				    }
+				    setTimeout(update_map_wrapper, 1000);
 				}
 			}(map_id));
 		}
