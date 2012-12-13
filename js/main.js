@@ -618,12 +618,6 @@ function load_scatterplots() {
 	$("#scatterplots_container").html('');
 	var size = 150; var padding = 20;
 
-	var color = d3.scale.ordinal().range([
-		"rgb(50%, 0%, 0%)",
-		"rgb(0%, 50%, 0%)",
-		"rgb(0%, 0%, 50%)"
-	]);
-
 	// position scales
 	var position = {};
 	scatterplot_obj.traits.forEach(function(trait) {
@@ -744,7 +738,7 @@ function load_scatterplots() {
 		.style("fill", function(d) {
 			return mins <= d.y[v.x] && maxs >= d.y[v.x]
 				&& mint <= d.y[v.y] && maxt >= d.y[v.y]
-				? (count++, color("#222222"))
+				? (count++, "#660000")
 				: "#ccc";
 			});
 		}
@@ -755,8 +749,7 @@ function load_scatterplots() {
 			rect = null;
 			
 			if (!count) svg.selectAll("circle")
-				.style("fill", function(d) {
-				return color("#333");
+				.style("fill", "#666");
 			});
 		}
 	
