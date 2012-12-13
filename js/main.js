@@ -233,9 +233,9 @@ function load_category(category) {
 	$(".nav_attribute").click(function() {
 		$("#nav_hide").trigger('click');
 		var map_id = $("body").data('map_id_active');
-		$("body").css('background', '#000';)
+		$("body").css('background', '#000');
 		load_attribute($(this).attr('id'), category);
-		$("body").css('background', '#FFF';)
+		$("body").css('background', '#FFF');
 	});
 }
 
