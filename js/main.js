@@ -530,8 +530,8 @@ function load_parcoords() {
 			.style("font-size", "14px");
 
 		var zcolorscale = d3.scale.linear()
-			.domain([-2,-0.5,0.5,2])
-			.range(colorbrewer.RdYlGn[5].reverse())
+			.domain([-2,-1,-0.5,0,0.5,1,2])
+			.range(colorbrewer.RdYlGn[7].slice().reverse())
 			.clamp(true)
 			.interpolate(d3.interpolateLab);
 
