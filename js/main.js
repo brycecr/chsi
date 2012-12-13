@@ -544,7 +544,7 @@ function load_parcoords() {
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
-			.datum(transdata.splice(0,1))		// removes first placeholder object
+			.datum(transdata.shift())		// removes first placeholder object
 			.call(grid)
 			.selectAll(".row")
 			.on({"mouseover" : function(d){pc.highlight([d]);},
@@ -564,7 +564,7 @@ function load_parcoords() {
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
-			.datum(transdata.splice(0,1))
+			.datum(transdata.shift())
 			.call(grid);
 	}
 };
