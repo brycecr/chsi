@@ -429,6 +429,7 @@ function update_map(data, div_id, scale) {
 }
 
 function load_parcoords() {
+	console.log('in load_parcoords()');
 	var num_maps = 0;
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == true) {
