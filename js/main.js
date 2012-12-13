@@ -592,11 +592,10 @@ function load_scatterplots() {
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
 
-		if (is_first_pass) {				// save county names
+		if (is_first_pass) {				// populate with objects
 			var k = 0;
 			for (key in data) {
 				values[k] = {};
-				values[k]["County Name"] = $('body').data('names')[key];
 				k++;
 			}
 			is_first_pass = false;
