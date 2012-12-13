@@ -690,7 +690,7 @@ function load_scatterplots() {
 	.enter().append("svg:circle")
 	.attr("cx", function(d) { return position[d.x.x](d.y[d.x.x]); })
 	.attr("cy", function(d) { return size - position[d.x.y](d.y[d.x.y]); })
-	.attr("r", 3)
+	.attr("r", 2)
 	.style("fill", "#666")
 	.style("fill-opacity", .5)
 	.attr("pointer-events", "none");
