@@ -543,8 +543,9 @@ function load_parcoords() {
 
 		$("#grid").html('');
 		var grid = d3.divgrid();
+		transdata.shift();				// removes first placeholder object
 		d3.select('#grid')
-			.datum(transdata.shift())		// removes first placeholder object
+			.datum(transdata)
 			.call(grid)
 			.selectAll(".row")
 			.on({"mouseover" : function(d){pc.highlight([d]);},
@@ -560,11 +561,11 @@ function load_parcoords() {
 				});
 			});
 	} else {
-		console.log(transdata.shift());
 		$("#grid").html('');
 		var grid = d3.divgrid();
+		transdata.shift();
 		d3.select('#grid')
-			.datum(transdata.shift())
+			.datum(transdata)
 			.call(grid);
 	}
 };
