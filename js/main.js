@@ -573,7 +573,7 @@ function load_scatterplots() {
 			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
 			for (key in data1) {
 				if (key in data2) {
-					dataset.push([data1[key], data2[key]]);
+					dataset.push([data1[key], data2[key], key]);
 				}
 			}
 
@@ -606,7 +606,8 @@ function load_scatterplots() {
 			    return yScale(d[1]);
 			})
 			.attr("r", 2)
-			.attr("fill", "#333");
+			.attr("fill", "#333")
+			.append("title").text(function(d,i) {return $('body').data('names')[d[2]]+'\n'+d[0]+', '+d[1];});
 
 			var xAxis = d3.svg.axis()
             .scale(xScale)
