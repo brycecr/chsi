@@ -564,7 +564,6 @@ function load_parcoords() {
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		transdata.shift();
-		console.log(transdata);
 		d3.select('#grid')
 			.datum(transdata)
 			.call(grid);
