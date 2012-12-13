@@ -544,7 +544,7 @@ function load_parcoords() {
 		$("#grid").html('');
 		var grid = d3.divgrid();
 		d3.select('#grid')
-			.datum(transdata)
+			.datum(transdata.splice(0,1))		// removes first placeholder object
 			.call(grid)
 			.selectAll(".row")
 			.on({"mouseover" : function(d){pc.highlight([d]);},
