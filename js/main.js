@@ -642,20 +642,15 @@ function load_scatterplots() {
 		svg.append("text")									// column labels
 		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
-		.attr("x", function() {
-			if (counter == 0) {
-				return padding/2;
-			} else {
-				return size*counter;
-			}
-		})
+		.attr("x", size*counter + padding/2)
 		.attr("y", 20)
 		.text(trait);
 
 		svg.append("text")									// row labels
 		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
-		.attr("y", 85)
+		.attr("x", 100)
+		.attr("y", 300)
 		.attr("transform", "rotate(-90)")
 		.text(trait);
 
