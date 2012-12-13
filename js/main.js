@@ -613,7 +613,7 @@ function load_scatterplots() {
 		}
 	}
 
-	var scatterplot_obj = {'traits': traits, 'values', values};
+	var scatterplot_obj = {'traits': traits, 'values': values};
 
 	$("#scatterplots_container").html('');
 	var size = 150; var padding = 20;
