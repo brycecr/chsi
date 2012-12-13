@@ -638,7 +638,7 @@ function load_scatterplots() {
 	var counter = 0;
 	scatterplot_obj.traits.forEach(function(trait) {
 		svg.append("text")									// column labels
-		attr("class", "scatterplot_label")
+		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
 		.attr("x", counter * size)
 		.attr("y", 0)
