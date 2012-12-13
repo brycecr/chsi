@@ -748,9 +748,8 @@ function load_scatterplots() {
 			rect.remove();
 			rect = null;
 			
-			if (!count) svg.selectAll("circle") {
+			if (!count) svg.selectAll("circle")
 				.style("fill", "#666");
-			}
 		}
 	
 	// var counter = 1;
