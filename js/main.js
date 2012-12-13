@@ -470,7 +470,6 @@ function load_parcoords() {
 		for (key in data) {
 			i += 1;
 			if (data[key] < 0) {
-				continue;
 				transdata[i][attr_id] = '';
 			} else if (transdata[i] instanceof Object == true) {
 				transdata[i][attr_id] = data[key];
@@ -508,34 +507,34 @@ function load_parcoords() {
 	};
 
 	if (num_maps >= 2) {
-		// $("#parallel_coordinates").html('');
-		// var pc = d3.parcoords()("#parallel_coordinates");
-		// pc = pc.data(transdata, String)
-		// 	.autoscale()
-		// 	.createAxes() // I guess we have to do this for the first load
-		// 	.autoscale()
-		// 	.mode("queue")
-		// 	.alpha(0.4)
-		// 	.rate(40)
-		// 	.render()
-		// 	.createAxes()
-		// 	.brushable()
-		// 	.reorderable()
-		// 	.interactive();
+		$("#parallel_coordinates").html('');
+		var pc = d3.parcoords()("#parallel_coordinates");
+		pc = pc.data(transdata, String)
+			.autoscale()
+			.createAxes() // I guess we have to do this for the first load
+			.autoscale()
+			.mode("queue")
+			.alpha(0.4)
+			.rate(40)
+			.render()
+			.createAxes()
+			.brushable()
+			.reorderable()
+			.interactive();
 
-		// // click label to activate coloring
-		// pc.svg.selectAll(".dimension")
-		// 	.on("click", change_color)
-		// 	.selectAll(".label")
-		// 	.style("font-size", "14px");
+		// click label to activate coloring
+		pc.svg.selectAll(".dimension")
+			.on("click", change_color)
+			.selectAll(".label")
+			.style("font-size", "14px");
 
-		// var zcolorscale = d3.scale.linear()
-		// 	.domain([-2,-1,-0.5,0,0.5,1,2])
-		// 	.range(colorbrewer.RdYlGn[7].slice().reverse())
-		// 	.clamp(true)
-		// 	.interpolate(d3.interpolateLab);
+		var zcolorscale = d3.scale.linear()
+			.domain([-2,-1,-0.5,0,0.5,1,2])
+			.range(colorbrewer.RdYlGn[7].slice().reverse())
+			.clamp(true)
+			.interpolate(d3.interpolateLab);
 
-		// change_color(pc.dimensions()[0]);
+		change_color(pc.dimensions()[0]);
 
 		$("#grid").html('');
 		var grid = d3.divgrid();
@@ -546,15 +545,15 @@ function load_parcoords() {
 			.on({"mouseover" : function(d){pc.highlight([d]);},
 					"mouseout" : pc.unhighlight});
 
-		// pc.on("brush", function(d) {
-		// 	d3.select("#grid")
-		// 	.datum(d)
-		// 	.call(grid)
-		// 	.selectAll(".row")
-		// 	.on({"mouseover": function(d) { pc.highlight([d]) },
-		// 		"mouseout": pc.unhighlight
-		// 		});
-		// 	});
+		pc.on("brush", function(d) {
+			d3.select("#grid")
+			.datum(d)
+			.call(grid)
+			.selectAll(".row")
+			.on({"mouseover": function(d) { pc.highlight([d]) },
+				"mouseout": pc.unhighlight
+				});
+			});
 	} else {
 		console.log(transdata);
 		$("#grid").html('');
