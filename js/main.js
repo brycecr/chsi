@@ -629,7 +629,7 @@ function load_scatterplots() {
 	scatterplot_obj.traits.forEach(function(trait) {
 		function value(d) { return d[trait]; }
 		position[trait] = d3.scale.linear()
-			.domain([d3.min(flower.values, value), d3.max(flower.values, value)])
+			.domain([d3.min(scatterplot_obj.values, value), d3.max(scatterplot_obj.values, value)])
 			.range([padding / 2, size - padding / 2]);
 	});
 
