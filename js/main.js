@@ -616,7 +616,7 @@ function load_scatterplots() {
 	var scatterplot_obj = {'traits': traits, 'values': values};
 
 	$("#scatterplots_container").html('');
-	var size = 150; var padding = 50;
+	var size = 200; var padding = 50;
 
 	// position scales
 	var position = {};
@@ -640,7 +640,13 @@ function load_scatterplots() {
 		svg.append("text")									// column labels
 		.attr("class", "scatterplot_label")
 		.attr("text-anchor", "start")
-		.attr("x", (size + padding) * counter)
+		.attr("x", function() {
+			if (counter == 0) {
+				return padding/2;
+			} else {
+				return (size+padding)*counter + padding/2;
+			}
+		})
 		.attr("y", 20)
 		.text(trait);
 
