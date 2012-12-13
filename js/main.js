@@ -614,12 +614,11 @@ function load_scatterplots() {
 	}
 
 	var scatterplot_obj = {'traits': traits, 'values': values};
-
+	var size = 200; var padding = 50;
 	$("#scatterplots_container").html('');
 	$("#scatterplots_container").animate({
     	height: (size+padding)*num_maps + 'px'
   	}, 100 );
-	var size = 200; var padding = 50;
 
 	// position scales
 	var position = {};
