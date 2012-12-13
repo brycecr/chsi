@@ -453,8 +453,8 @@ function load_parcoords() {
 			continue;
 		}
 
-		data = $("body").data('map' + map_id + '_data');
-		attr_id = $("body").data('map' + map_id + '_title');
+		var data = $("body").data('map' + map_id + '_data');
+		var attr_id = $("body").data('map' + map_id + '_title');
 
 		if (is_first_pass) {				// save county names for data table
 			var k = 0;
@@ -565,7 +565,7 @@ function load_parcoords() {
 };
 
 function load_scatterplots() {
-	// adapted from: http://alignedleft.com/tutorials/d3/making-a-scatterplot/ 
+	// adapted from: http://strongriley.github.com/d3/ex/splom.html
 	var num_maps = 0;
 	var map_ids = [];
 	for (var map_id in $("body").data('map_ids_present')) {
@@ -580,89 +580,267 @@ function load_scatterplots() {
 		return;
 	}
 
-	$("#scatterplots_container").html('');
-	var counter = 1;
-    var dataset = [];
+	var traits = [];
+	for (var i = 0; i < map_ids.length; i++) {
+		var map_id = map_ids[i];
+		traits.push($("body").data('map' + map_id + '_title');
+	}
+
+	values = [];		// array of objects, each object is a data point
+	var is_first_pass = true;
 	for (var i = 0; i < num_maps-1; i++) {
-		var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
-		for (var j = i+1; j < num_maps; j++) {
-			dataset = [];
-			var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
-			for (key in data1) {
-				if (key in data2) {
-					dataset.push([data1[key], data2[key], key]);
-				}
+		data = $("body").data('map' + map_id + '_data');
+		attr_id = $("body").data('map' + map_id + '_title');
+
+		if (is_first_pass) {				// save county names
+			var k = 0;
+			for (key in data) {
+				transdata[k] = {};
+				transdata[k]["County Name"] = $('body').data('names')[key];
+				k++;
 			}
+			is_first_pass = false;
+		}
 
-			$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-			var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
-			var svg = d3.select("#scatterplot" + counter.toString())
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
-
-            var xScale = d3.scale.linear()
-            .domain([d3.min(dataset, 
-				function(d) { if (d[0]>=0) return d[0]; }), 
-				d3.max(dataset, function(d) { return d[0]; })])
-           	.range([padding_x, w - padding_x * 2]);
-
-           	var yScale = d3.scale.linear()
-            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
-				 d3.max(dataset, function(d) { return d[1]; })])
-            .range([h - padding_y, padding_y]);
-
-            svg.selectAll("circle")
-			.data(dataset)
-			.enter()
-			.append("circle")
-			.attr("cx", function(d) {
-				return xScale(d[0]);
-			})
-			.attr("cy", function(d) {
-			    return yScale(d[1]);
-			})
-			.attr("r", 2)
-			.attr("fill", "#333")
-			.append("title").text(function(d,i) {return $('body').data('names')[d[2]]+'\n'+d[0]+', '+d[1];});
-
-			var xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom")
-            .ticks(5);
-
-            var yAxis = d3.svg.axis()
-            .scale(yScale)
-            .orient("left")
-            .ticks(5);
-
-		  svg.append("g")
-    			.attr("class", "scatterplot_axis")
-			.attr("transform", "translate(0," + (h - padding_y) + ")")
-   			.call(xAxis);
-
-		  svg.append("g")
-			.attr("class", "scatterplot_axis")
-			.attr("transform", "translate(" + padding_x + ",0)")
-			.call(yAxis);
-
-    		  svg.append("text")
-		     .attr("class", "scatterplot_label")
-		     .attr("text-anchor", "start")
-		     .attr("x", w - 120)
-		     .attr("y", h - 10)
-		     .text($("body").data('map' + map_ids[i].toString() + '_title'));
-
-	      svg.append("text")
-		     .attr("class", "scatterplot_label")
-		     .attr("text-anchor", "end")
-		     .attr("y", 85)
-		     .attr("transform", "rotate(-90)")
-		     .text($("body").data('map' + map_ids[j].toString() + '_title'));
-
-			counter += 1;
+		var k = -1;
+		for (key in data) {
+			k += 1;
+			if (data[key] < 0) {
+				continue;
+			} else {
+				values[k][attr_id] = data[key];
+			}
 		}
 	}
+
+	var scatterplot_obj = {'traits': traits, 'values', values};
+
+	$("#scatterplots_container").html('');
+	var size = 150; var padding = 20;
+
+	var color = d3.scale.ordinal().range([
+		"rgb(50%, 0%, 0%)",
+		"rgb(0%, 50%, 0%)",
+		"rgb(0%, 0%, 50%)"
+	]);
+
+	// position scales
+	var position = {};
+	scatterplot_obj.traits.forEach(function(trait) {
+		function value(d) { return d[trait]; }
+		position[trait] = d3.scale.linear()
+			.domain([d3.min(flower.values, value), d3.max(flower.values, value)])
+			.range([padding / 2, size - padding / 2]);
+	});
+
+	// root panel
+	var svg = d3.select("#scatterplots_container")
+	.append("svg:svg")
+	.attr("width", size * scatterplot_obj.traits.length)
+	.attr("height", size * scatterplot_obj.traits.length);
+
+	// one col per trait
+	var column = svg.selectAll("g")
+	.data(scatterplot_obj.traits)
+	.enter().append("svg:g")
+	.attr("transform", function(d, i) { return "translate(" + i * size + ",0)"; });
+
+	// one row per trait
+	var row = column.selectAll("g")
+	.data(cross(scatterplot_obj.traits))
+	.enter().append("svg:g")
+	.attr("transform", function(d, i) { return "translate(0," + i * size + ")"; });
+
+	// x ticks
+	row.selectAll("line.x")
+	.data(function(d) { return position[d.x].ticks(5).map(position[d.x]); })
+	.enter().append("svg:line")
+	.attr("class", "x")
+	.attr("x1", function(d) { return d; })
+	.attr("x2", function(d) { return d; })
+	.attr("y1", padding / 2)
+	.attr("y2", size - padding / 2);
+
+	// y ticks
+	row.selectAll("line.y")
+	.data(function(d) { return position[d.y].ticks(5).map(position[d.y]); })
+	.enter().append("svg:line")
+	.attr("class", "y")
+	.attr("x1", padding / 2)
+	.attr("x2", size - padding / 2)
+	.attr("y1", function(d) { return d; })
+	.attr("y2", function(d) { return d; });
+
+	// frame
+	row.append("svg:rect")
+	.attr("x", padding / 2)
+	.attr("y", padding / 2)
+	.attr("width", size - padding)
+	.attr("height", size - padding)
+	.style("fill", "none")
+	.style("stroke", "#aaa")
+	.style("stroke-width", 1.5)
+	.attr("pointer-events", "all")
+	.on("mousedown", mousedown);
+
+	// dot plot
+	var dot = row.selectAll("circle")
+	.data(cross(scatterplot_obj.values))
+	.enter().append("svg:circle")
+	.attr("cx", function(d) { return position[d.x.x](d.y[d.x.x]); })
+	.attr("cy", function(d) { return size - position[d.x.y](d.y[d.x.y]); })
+	.attr("r", 3)
+	.style("fill", "#666");
+	.style("fill-opacity", .5)
+	.attr("pointer-events", "none");
+
+	d3.select(window)
+	.on("mousemove", mousemove)
+	.on("mouseup", mouseup);
+	
+	var rect, x0, x1, count;
+	
+	function mousedown() {
+		x0 = d3.svg.mouse(this);
+		count = 0;
+		
+		rect = d3.select(this.parentNode)
+		.append("svg:rect")
+		.style("fill", "#999")
+		.style("fill-opacity", .5);
+		
+		d3.event.preventDefault();
+	}
+
+	function mousemove() {
+		if (!rect) return;
+		x1 = d3.svg.mouse(rect.node());
+
+		x1[0] = Math.max(padding / 2, Math.min(size - padding / 2, x1[0]));
+		x1[1] = Math.max(padding / 2, Math.min(size - padding / 2, x1[1]));
+
+		var minx = Math.min(x0[0], x1[0]),
+			maxx = Math.max(x0[0], x1[0]),
+			miny = Math.min(x0[1], x1[1]),
+			maxy = Math.max(x0[1], x1[1]);
+
+		rect
+			.attr("x", minx - .5)
+			.attr("y", miny - .5)
+			.attr("width", maxx - minx + 1)
+			.attr("height", maxy - miny + 1);
+			
+		var v = rect.node().__data__,
+			x = position[v.x],
+			y = position[v.y],
+			mins = x.invert(minx),
+			maxs = x.invert(maxx),
+			mint = y.invert(size - maxy),
+			maxt = y.invert(size - miny);
+
+		count = 0;
+		svg.selectAll("circle")
+		.style("fill", function(d) {
+			return mins <= d.y[v.x] && maxs >= d.y[v.x]
+				&& mint <= d.y[v.y] && maxt >= d.y[v.y]
+				? (count++, color("#333"))
+				: "#ccc";
+			});
+		}
+
+		function mouseup() {
+			if (!rect) return;
+			rect.remove();
+			rect = null;
+			
+			if (!count) svg.selectAll("circle")
+				.style("fill", function(d) {
+				return color("#333");
+			});
+		}
+	
+	// var counter = 1;
+ //    var dataset = [];
+	// for (var i = 0; i < num_maps-1; i++) {
+	// 	var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
+	// 	for (var j = i+1; j < num_maps; j++) {
+	// 		dataset = [];
+	// 		var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
+	// 		for (key in data1) {
+	// 			if (key in data2) {
+	// 				dataset.push([data1[key], data2[key], key]);
+	// 			}
+	// 		}
+
+	// 		$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
+	// 		var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
+	// 		var svg = d3.select("#scatterplot" + counter.toString())
+ //            .append("svg")
+ //            .attr("width", w)
+ //            .attr("height", h);
+
+ //            var xScale = d3.scale.linear()
+ //            .domain([d3.min(dataset, 
+	// 			function(d) { if (d[0]>=0) return d[0]; }), 
+	// 			d3.max(dataset, function(d) { return d[0]; })])
+ //           	.range([padding_x, w - padding_x * 2]);
+
+ //           	var yScale = d3.scale.linear()
+ //            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
+	// 			 d3.max(dataset, function(d) { return d[1]; })])
+ //            .range([h - padding_y, padding_y]);
+
+ //            svg.selectAll("circle")
+	// 		.data(dataset)
+	// 		.enter()
+	// 		.append("circle")
+	// 		.attr("cx", function(d) {
+	// 			return xScale(d[0]);
+	// 		})
+	// 		.attr("cy", function(d) {
+	// 		    return yScale(d[1]);
+	// 		})
+	// 		.attr("r", 2)
+	// 		.attr("fill", "#333")
+	// 		.append("title").text(function(d,i) {return $('body').data('names')[d[2]]+'\n'+d[0]+', '+d[1];});
+
+	// 		var xAxis = d3.svg.axis()
+ //            .scale(xScale)
+ //            .orient("bottom")
+ //            .ticks(5);
+
+ //            var yAxis = d3.svg.axis()
+ //            .scale(yScale)
+ //            .orient("left")
+ //            .ticks(5);
+
+	// 	  svg.append("g")
+ //    			.attr("class", "scatterplot_axis")
+	// 		.attr("transform", "translate(0," + (h - padding_y) + ")")
+ //   			.call(xAxis);
+
+	// 	  svg.append("g")
+	// 		.attr("class", "scatterplot_axis")
+	// 		.attr("transform", "translate(" + padding_x + ",0)")
+	// 		.call(yAxis);
+
+ //    		  svg.append("text")
+	// 	     .attr("class", "scatterplot_label")
+	// 	     .attr("text-anchor", "start")
+	// 	     .attr("x", w - 120)
+	// 	     .attr("y", h - 10)
+	// 	     .text($("body").data('map' + map_ids[i].toString() + '_title'));
+
+	//       svg.append("text")
+	// 	     .attr("class", "scatterplot_label")
+	// 	     .attr("text-anchor", "end")
+	// 	     .attr("y", 85)
+	// 	     .attr("transform", "rotate(-90)")
+	// 	     .text($("body").data('map' + map_ids[j].toString() + '_title'));
+
+	// 		counter += 1;
+	// 	}
+	// }
 }
 
 function datmax(arr) {
@@ -689,4 +867,12 @@ function datmin(arr) {
 		}
 	}
 	return res;
+}
+
+function cross(a) {
+	return function(d) {
+	var c = [];
+	for (var i = 0, n = a.length; i < n; i++) c.push({x: d, y: a[i]});
+		return c;
+	};
 }
