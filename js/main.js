@@ -750,7 +750,7 @@ function load_scatterplots() {
 			
 			if (!count) svg.selectAll("circle")
 				.style("fill", "#666");
-			});
+			}
 		}
 	
 	// var counter = 1;
