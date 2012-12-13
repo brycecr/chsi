@@ -595,8 +595,8 @@ function load_scatterplots() {
 		if (is_first_pass) {				// save county names
 			var k = 0;
 			for (key in data) {
-				transdata[k] = {};
-				transdata[k]["County Name"] = $('body').data('names')[key];
+				values[k] = {};
+				values[k]["County Name"] = $('body').data('names')[key];
 				k++;
 			}
 			is_first_pass = false;
