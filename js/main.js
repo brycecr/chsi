@@ -583,7 +583,7 @@ function load_scatterplots() {
 	var traits = [];
 	for (var i = 0; i < map_ids.length; i++) {
 		var map_id = map_ids[i];
-		traits.push($("body").data('map' + map_id + '_title');
+		traits.push($("body").data('map' + map_id + '_title'));
 	}
 
 	values = [];		// array of objects, each object is a data point
