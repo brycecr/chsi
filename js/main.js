@@ -592,7 +592,6 @@ function load_scatterplots() {
 		var map_id = map_ids[i];
 		data = $("body").data('map' + map_id + '_data');
 		attr_id = $("body").data('map' + map_id + '_title');
-		console.log(attr_id);
 
 		if (is_first_pass) {				// populate with objects
 			var k = 0;
@@ -615,7 +614,6 @@ function load_scatterplots() {
 	}
 
 	var scatterplot_obj = {'traits': traits, 'values': values};
-	console.log(scatterplot_obj);
 
 	$("#scatterplots_container").html('');
 	var size = 150; var padding = 20;
@@ -639,7 +637,8 @@ function load_scatterplots() {
 	var svg = d3.select("#scatterplots_container")
 	.append("svg:svg")
 	.attr("width", size * scatterplot_obj.traits.length)
-	.attr("height", size * scatterplot_obj.traits.length);
+	.attr("height", size * scatterplot_obj.traits.length)
+	.attr("cursor", "crosshair");
 
 	// one col per trait
 	var column = svg.selectAll("g")
@@ -745,7 +744,7 @@ function load_scatterplots() {
 		.style("fill", function(d) {
 			return mins <= d.y[v.x] && maxs >= d.y[v.x]
 				&& mint <= d.y[v.y] && maxt >= d.y[v.y]
-				? (count++, color("#333"))
+				? (count++, color("#222222"))
 				: "#ccc";
 			});
 		}
