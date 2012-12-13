@@ -448,7 +448,6 @@ function load_parcoords() {
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	var is_first_pass = true;
-	var temp_obj = {'County Name': 'temp'};	// append to beginning of transdata (hack to fix edge cases)
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == false) {
 			continue;
@@ -479,11 +478,7 @@ function load_parcoords() {
 				transdata[i][attr_id] = data[key];
 			}
 		}
-
-		temp_obj[attr_id] = 0;
 	}
-	
-	transdata.unshift(temp_obj);
 
 	// update color of parcoords
 	function change_color(dimension) { 
@@ -543,7 +538,6 @@ function load_parcoords() {
 
 		$("#grid").html('');
 		var grid = d3.divgrid();
-		transdata.shift();				// removes first placeholder object
 		d3.select('#grid')
 			.datum(transdata)
 			.call(grid)
@@ -563,7 +557,6 @@ function load_parcoords() {
 	} else {
 		$("#grid").html('');
 		var grid = d3.divgrid();
-		transdata.shift();
 		d3.select('#grid')
 			.datum(transdata)
 			.call(grid);
