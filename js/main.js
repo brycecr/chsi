@@ -616,6 +616,9 @@ function load_scatterplots() {
 	var scatterplot_obj = {'traits': traits, 'values': values};
 
 	$("#scatterplots_container").html('');
+	$("#scatterplots_container").animate({
+    	height: (size+padding)*num_maps + 'px'
+  	}, 100 );
 	var size = 200; var padding = 50;
 
 	// position scales
@@ -644,7 +647,7 @@ function load_scatterplots() {
 			if (counter == 0) {
 				return padding/2;
 			} else {
-				return (size+padding)*counter + padding/2;
+				return (size+padding)*counter;
 			}
 		})
 		.attr("y", 20)
