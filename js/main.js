@@ -448,6 +448,7 @@ function load_parcoords() {
 	var transdata = [];						// array of objects, each object contains set of associated key/val pairs
 
 	var is_first_pass = true;
+	var temp_obj = {'County Name': 'temp'};	// append to beginning of transdata (hack to fix edge cases)
 	for (var map_id in $("body").data('map_ids_present')) {
 		if ($("body").data('map_ids_present')[map_id] == false) {
 			continue;
@@ -478,7 +479,11 @@ function load_parcoords() {
 				transdata[i][attr_id] = data[key];
 			}
 		}
+
+		temp_obj[attr_id] = 0;
 	}
+	
+	transdata.unshift(temp_obj);
 
 	// update color of parcoords
 	function change_color(dimension) { 
@@ -774,89 +779,6 @@ function load_scatterplots() {
 			if (!count) svg.selectAll("circle")
 				.style("fill", "#666");
 		}
-	
-	// var counter = 1;
- //    var dataset = [];
-	// for (var i = 0; i < num_maps-1; i++) {
-	// 	var data1 = $("body").data('map' + map_ids[i].toString() + '_data');
-	// 	for (var j = i+1; j < num_maps; j++) {
-	// 		dataset = [];
-	// 		var data2 = $("body").data('map' + map_ids[j].toString() + '_data');
-	// 		for (key in data1) {
-	// 			if (key in data2) {
-	// 				dataset.push([data1[key], data2[key], key]);
-	// 			}
-	// 		}
-
-	// 		$("#scatterplots_container").append('<div class="scatterplot" id="scatterplot' + counter.toString() + '"></div>');
-	// 		var w = 400; var h = 350; var padding_x = 70; var padding_y = 30; 
-	// 		var svg = d3.select("#scatterplot" + counter.toString())
- //            .append("svg")
- //            .attr("width", w)
- //            .attr("height", h);
-
- //            var xScale = d3.scale.linear()
- //            .domain([d3.min(dataset, 
-	// 			function(d) { if (d[0]>=0) return d[0]; }), 
-	// 			d3.max(dataset, function(d) { return d[0]; })])
- //           	.range([padding_x, w - padding_x * 2]);
-
- //           	var yScale = d3.scale.linear()
- //            .domain([d3.min(dataset, function(d) { if (d[1]>=0) return d[1]; }), 
-	// 			 d3.max(dataset, function(d) { return d[1]; })])
- //            .range([h - padding_y, padding_y]);
-
- //            svg.selectAll("circle")
-	// 		.data(dataset)
-	// 		.enter()
-	// 		.append("circle")
-	// 		.attr("cx", function(d) {
-	// 			return xScale(d[0]);
-	// 		})
-	// 		.attr("cy", function(d) {
-	// 		    return yScale(d[1]);
-	// 		})
-	// 		.attr("r", 2)
-	// 		.attr("fill", "#333")
-	// 		.append("title").text(function(d,i) {return $('body').data('names')[d[2]]+'\n'+d[0]+', '+d[1];});
-
-	// 		var xAxis = d3.svg.axis()
- //            .scale(xScale)
- //            .orient("bottom")
- //            .ticks(5);
-
- //            var yAxis = d3.svg.axis()
- //            .scale(yScale)
- //            .orient("left")
- //            .ticks(5);
-
-	// 	  svg.append("g")
- //    			.attr("class", "scatterplot_axis")
-	// 		.attr("transform", "translate(0," + (h - padding_y) + ")")
- //   			.call(xAxis);
-
-	// 	  svg.append("g")
-	// 		.attr("class", "scatterplot_axis")
-	// 		.attr("transform", "translate(" + padding_x + ",0)")
-	// 		.call(yAxis);
-
- //    		  svg.append("text")
-	// 	     .attr("class", "scatterplot_label")
-	// 	     .attr("text-anchor", "start")
-	// 	     .attr("x", w - 120)
-	// 	     .attr("y", h - 10)
-	// 	     .text($("body").data('map' + map_ids[i].toString() + '_title'));
-
-	//       svg.append("text")
-	// 	     .attr("class", "scatterplot_label")
-	// 	     .attr("text-anchor", "end")
-	// 	     .attr("y", 85)
-	// 	     .attr("transform", "rotate(-90)")
-	// 	     .text($("body").data('map' + map_ids[j].toString() + '_title'));
-
-	// 		counter += 1;
-	// 	}
-	// }
 }
 
 function datmax(arr) {
