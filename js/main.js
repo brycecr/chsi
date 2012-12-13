@@ -531,7 +531,7 @@ function load_parcoords() {
 
 		var zcolorscale = d3.scale.linear()
 			.domain([-2,-0.5,0.5,2])
-			.range(colorbrewer.Reds[4])
+			.range(colorbrewer.RdYlGn[5].reverse())
 			.clamp(true)
 			.interpolate(d3.interpolateLab);
 
