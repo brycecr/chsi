@@ -470,7 +470,8 @@ function load_parcoords() {
 		for (key in data) {
 			i += 1;
 			if (data[key] < 0) {
-				transdata[i][attr_id] = '';
+				continue;
+				//transdata[i][attr_id] = '';
 			} else if (transdata[i] instanceof Object == true) {
 				transdata[i][attr_id] = data[key];
 			} else {
